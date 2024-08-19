@@ -28,42 +28,35 @@ import "react-toastify/dist/ReactToastify.css";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
-      <Route index={true} path='/' element={<Home />} />
-      <Route path='/search/:keyword' element={<Home />} />
-      <Route path='/page/:pageNumber' element={<Home />} />
-      <Route
-        path='/search/:keyword/page/:pageNumber'
-        element={<Home />}
-      />
-      <Route path="/category/:category" element={<CategoryPage />} />
+      <Route index element={<Home />} />
+      <Route path="/category/:category/search/:keyword/page/:pageNumber" element={<CategoryPage />} />
+      <Route path="/category/:category/search/:keyword" element={<CategoryPage />} />
       <Route path="/category/:category/page/:pageNumber" element={<CategoryPage />} />
+      <Route path="/category/:category" element={<CategoryPage />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/login' element={<Login />} />
       <Route path="/forget-password" element={<ForgetPasswordForm />} />
       <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route path='/posts/:postId' element={<SinglePostPage />} />
-      {/* Registered users */}
-      <Route path='' element={<PrivateRoute />}>
-        <Route path="/profile/:id" element={<Profile/>} />
+      <Route element={<PrivateRoute />}>
+        <Route path='/profile/:id' element={<Profile />} />
         <Route path='/create' element={<NewPost />} />
-        <Route path='/posts/userPosts/:postId/edit' element={<EditPost/>} />
+        <Route path='/posts/userPosts/:postId/edit' element={<EditPost />} />
         <Route path='/posts/userPosts/:userId' element={<UserPosts />} />
+        <Route path='/posts/userPosts/:userId/page/:pageNumber' element={<UserPosts />} />
+        <Route path='/posts/userPosts/:userId/search/:keyword/page/:pageNumber'element={<UserPosts />}/>
       </Route>
     </Route>
   )
 );
 
-  const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(
-    <React.StrictMode>
-      <HelmetProvider>
-        <Provider store={store}>
-            <RouterProvider router={router} />
-        </Provider>
-      </HelmetProvider>
-    </React.StrictMode>
-  );
-  
-
-
-
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <HelmetProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </HelmetProvider>
+  </React.StrictMode>
+);

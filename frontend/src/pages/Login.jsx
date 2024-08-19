@@ -155,7 +155,7 @@ label {
 
 .loginInput:focus {
   outline: none;
-  border-color: var(--clr-red);
+  border-color: var(--clr-brown);
   box-shadow: var(--dark-shadow);
 }
 

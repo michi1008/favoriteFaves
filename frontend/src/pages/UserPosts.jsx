@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -10,19 +10,31 @@ import Spinner from "../components/Spinner";
 import trash from "../assets/trash.png";
 import edit from "../assets/edit.png";
 import { toast } from "react-toastify";
+import UserPostsPaginate from "../components/UserPostsPaginate";
+import CategoryFilter from "../components/CategoryFilter";
+import SearchBox from "../components/SearchBox";
 
 const UserPosts = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const userId = userInfo._id;
+  const userId = userInfo?._id;
 
-  const [deletePost, { isLoading: isDeleting, error: deleteError }] =
-    useDeletePostMutation();
+  const { pageNumber, keyword } = useParams();
+
+  const [category, setCategory] = useState("");
+
+  const [deletePost, { isLoading: isDeleting, error: deleteError }] = useDeletePostMutation();
+
   const {
     data: postsData,
     isLoading: isPostsLoading,
     error: postsError,
     refetch,
-  } = useGetPostsByUserQuery(userId);
+  } = useGetPostsByUserQuery({
+    userId,
+    keyword: keyword || "",
+    pageNumber: pageNumber || 1,
+    category: category || "",
+  });
 
   const navigate = useNavigate();
 
@@ -30,9 +42,9 @@ const UserPosts = () => {
     if (!userInfo) {
       navigate("/login");
     } else {
-      refetch(); // Refetch posts when user info changes
+      refetch(); // Refetch posts when user info or query parameters change
     }
-  }, [userId, userInfo, navigate, refetch]);
+  }, [userId, userInfo, category, keyword, pageNumber, navigate, refetch]);
 
   const handleDeletePost = async (id) => {
     if (window.confirm("Are you sure")) {
@@ -43,6 +55,10 @@ const UserPosts = () => {
         toast.error(err?.data?.message || err.error);
       }
     }
+  };
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
   };
 
   if (isPostsLoading || isDeleting) {
@@ -100,9 +116,15 @@ const UserPosts = () => {
         <div>{userInfo && userInfo.userName}'s posts</div>
         <div className="underline"></div>
       </div>
+
+      <div className="filter">
+      <SearchBox />
+      <CategoryFilter onChange={handleCategoryChange} />
+      </div>
+
       <div className="posts">
-        {postsData?.length > 0 ? (
-          postsData.map((post) => (
+        {postsData?.userPosts.length > 0 ? (
+          postsData.userPosts.map((post) => (
             <div className="post" key={post._id}>
               <div className="postTitle">
                 <h5>{post.title}</h5>
@@ -131,6 +153,13 @@ const UserPosts = () => {
           <h3>You don't have any posts...🥲</h3>
         )}
       </div>
+
+      <UserPostsPaginate
+        pages={postsData.pages}
+        page={postsData.page}
+        keyword={keyword || ""}
+        category={category || ""}
+      />
     </Wrapper>
   );
 };
@@ -141,6 +170,14 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
   padding: 1rem;
+
+  .filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8rem;
+  }
 
   .posts {
     display: flex;

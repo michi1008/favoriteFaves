@@ -18,8 +18,9 @@ export const postsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     getPostsByUser: builder.query({
-      query: (userId) => ({
+      query: ({ userId, keyword, pageNumber, category }) => ({
         url: `${POSTS_URL}/userPosts/${userId}`, 
+        params: { keyword, pageNumber, category },
       }),
       keepUnusedDataFor: 5,
       providesTags: ["UserPosts"], 

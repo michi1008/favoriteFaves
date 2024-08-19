@@ -38,7 +38,6 @@ const ResetPassword = () => {
     <Wrapper>
         <form onSubmit={handleSubmit}>
       <h3 className="resetPassword">Reset Password</h3>
-      <p>Token: {token}</p>
       <input
         type="password"
         className="resetPasswordForm"
@@ -76,6 +75,12 @@ color: var(--clr-primary-4);
 .resetPasswordForm {
     width: 60%;
     margin: 1rem 0;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--clr-brown);
+  box-shadow: var(--dark-shadow);
 }
 `
 

@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Post from "../components/Post";
 import Spinner from "../components/Spinner";
-import Paginate from "../components/Paginate";
-import Filter from "../components/Filter";
+import HomePaginate from "../components/HomePaginate";
+import HomeSearch from "../components/HomeSearch";
 import { useGetPostsQuery } from "../slices/postsApiSlice";
 
 const CategoryPage = () => {
-  const { category, pageNumber, keyword } = useParams();
+  const { category, keyword = "", pageNumber = "1" } = useParams();
+  const navigate = useNavigate();
 
-  // Mapping category values to display names
+
   const categoryDisplayNames = {
     book: "Book",
     movie: "Movie",
@@ -20,21 +21,21 @@ const CategoryPage = () => {
   };
 
   const displayName = categoryDisplayNames[category] || category;
-  // Initialize filters state
-  const [filters, setFilters] = useState({
-    sortBy: "", // You can set a default sortBy value here if needed
-  });
 
-  // Destructure sortBy from filters after filters have been initialized
-  const { sortBy } = filters;
+  const submitHandler = (newKeyword) => {
+    if (newKeyword) {
+      navigate(`/category/${category}/search/${newKeyword.trim()}`);
+    } else {
+      navigate(`/category/${category}`);
+    }
+  };
 
-  // Now use sortBy safely in the useGetPostsQuery hook
   const { data, isLoading, error } = useGetPostsQuery({
     keyword,
     pageNumber,
     category,
-    sortBy,
   });
+
 
   if (isLoading) {
     return <Spinner />;
@@ -44,31 +45,35 @@ const CategoryPage = () => {
     return <div className="error">{error?.data?.message || error.error}</div>;
   }
 
-  const handleFilterChange = (newFilters) => {
-    setFilters({
-      ...filters,
-      ...newFilters,
-    });
-  };
+ 
 
   return (
     <Wrapper>
       <div className="categoryTitle">
         <h1>{displayName} Posts</h1>
       </div>
+      <div className="categoryBtnContainer">
+      <div className="homeBackBtn">
+        <Link to="/">
+          <button>Go back</button>
+        </Link>
+      </div>
+      <HomeSearch 
+        keyword={keyword}
+        category={category}
+        onSubmit={submitHandler} />    
+      </div>
+      <div className="underline"></div>
       <div className="postsContainer">
         {data.posts.map((post) => (
           <Post key={post._id} post={post} category={category} />
         ))}
-      </div>
-      <div className="underline"></div>
-      <Filter onChange={handleFilterChange} />
-      <Paginate
+      </div>     
+      <HomePaginate
         pages={data.pages}
         page={data.page}
-        keyword={keyword ? keyword : ""}
-        sortBy={sortBy ? sortBy : ""}
-        category={category ? category : ""}
+        keyword={keyword ? keyword: ""}
+        category={category}
       />
     </Wrapper>
   );
@@ -100,6 +105,14 @@ const Wrapper = styled.section`
     background-color: var(--clr-primary-4);
     height: 0.3rem;
     width: 65%;
+  }
+  
+  .categoryBtnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15rem;
   }
 `;
 

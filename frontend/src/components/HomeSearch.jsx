@@ -1,31 +1,21 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const SearchBox = ({ currentPage}) => {
-  const { userInfo } = useSelector((state) => state.auth);
-  const userId = userInfo?._id;
+const HomeSearch = ({ category, keyword: initialKeyword, onSubmit}) => {
   const navigate = useNavigate();
-  const { keyword: urlKeyword } = useParams();
-  const [keyword, setKeyword] = useState(urlKeyword || "");
+  const [keyword, setKeyword] = useState(initialKeyword);
 
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword) {
-      navigate(`/posts/userPosts/${userId}/search/${keyword.trim()}/page/${currentPage}`);
-      setKeyword("");
-    } else {
-      navigate(`/posts/userPosts/${userId}/page/${currentPage}`);
-    }
+    onSubmit(keyword);
   };
 
   const clearSearch = () => {
     setKeyword("");
-    navigate(`/posts/userPosts/${userId}/page/${currentPage}`);
+    navigate(`/category/${category}/`);
   };
-
   return (
     <Wrapper>
       <form onSubmit={submitHandler}>
@@ -45,13 +35,13 @@ const SearchBox = ({ currentPage}) => {
   );
 };
 
+
+
 const Wrapper = styled.section`
-  form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
   .searchInput::placeholder {
     color: var(--clr-white);
@@ -76,11 +66,10 @@ const Wrapper = styled.section`
     transition: width 0.4s ease-in-out;
     margin-left: 1rem;
     padding: 0.8rem;
-    align-text: center;
+    text-align: center;
     font-weight: 700;
   }
-
-  .clearButton {
+      .clearButton {
     background-color: var(--clr-red);
     color:var(--clr-white);
     width: 9rem;
@@ -99,12 +88,6 @@ const Wrapper = styled.section`
     color: var(--clr-white);
   }
 
-  @media (max-width: 800px) {
-    .searchInput {
-      width: 8rem;
-      margin: 1rem 0;
-    }
-  }
 `;
 
-export default SearchBox;
+export default HomeSearch;

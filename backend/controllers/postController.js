@@ -45,6 +45,7 @@ export const createPost = asyncHandler(async (req, res) => {
 // @access  Public
 export const getPosts = asyncHandler(async (req, res) => {
   const { keyword, pageNumber, category, sortBy } = req.query;
+  console.log('Query Params:', req.query);
   const pageSize = process.env.PAGINATION_LIMIT;
   const page = Number(pageNumber) || 1;
 
@@ -60,7 +61,12 @@ export const getPosts = asyncHandler(async (req, res) => {
 
   let sort = {};
   if (sortBy) {
-    sort = sortBy === "nameAZ" ? { title: 1 } : { title: -1 };
+    if (sortBy === "nameAZ") {
+      sort = { title: 1 }; // Sort by name in ascending order
+    } else if (sortBy === "nameZA") {
+      sort = { title: -1 };
+      // Sort by name in descending order
+    }
   }
 
   const count = await Post.countDocuments(query);
@@ -89,11 +95,31 @@ export const getPostById = asyncHandler(async (req, res) => {
 
 export const getPostsByUser = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  const { keyword, pageNumber, category } = req.query;
+  const pageSize = process.env.PAGINATION_LIMIT;
+  const page = Number(pageNumber) || 1;
+
+  const query = { user: id };
+
+  if (keyword) {
+    query.title = { $regex: keyword, $options: "i" };
+  }
+
+  if (category) {
+    query.category = category;
+  }
+
+  const count = await Post.countDocuments(query);
   if (!req.params.id) {
     return res.status(404).json({ message: "User doesn't exist" });
   }
-  const userPosts = await Post.find({ user: req.params.id });
-  res.status(200).json(userPosts);
+  const userPosts = await Post.find( query )
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+    .populate("user", "userName")
+    .exec();
+
+  res.status(200).json({ userPosts, page, pages: Math.ceil(count / pageSize) });
 });
 
 // @desc    Delete a post

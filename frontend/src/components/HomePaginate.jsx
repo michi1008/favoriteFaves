@@ -2,25 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Paginate = ({
+const HomePaginate = ({
   pages,
   page,
   keyword = "",
-  sortBy = "",
   category = "",
 }) => {
   return (
     <Wrapper>
       <div className="pagination-container">
-        {[...Array(pages).keys()].map((x) => (
+      {[...Array(pages).keys()].map((x) => (
           <Link
             key={x + 1}
             to={
-              keyword
-                ? `/search/${keyword}/page/${
-                    x + 1
-                  }?sortBy=${sortBy}&category=${category}`
-                : `/category/${category}/page/${x + 1}?sortBy=${sortBy}`
+                keyword
+                ? `/category/${category}/search/${keyword}/page/${x + 1}`
+                : `/category/${category}/page/${x + 1}`
             }
             className={x + 1 === page ? "active" : ""}
           >
@@ -31,7 +28,6 @@ const Paginate = ({
     </Wrapper>
   );
 };
-
 const Wrapper = styled.section`
   .pagination-container {
     display: flex;
@@ -59,4 +55,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default Paginate;
+export default HomePaginate;
