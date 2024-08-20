@@ -53,7 +53,7 @@ const CategoryPage = () => {
         <h1>{displayName} Posts</h1>
       </div>
       <div className="categoryBtnContainer">
-      <div className="homeBackBtn">
+      <div className="backBtn">
         <Link to="/">
           <button>Go back</button>
         </Link>
@@ -82,37 +82,72 @@ const CategoryPage = () => {
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 2rem;
   margin-bottom: 3rem;
+  padding: 1rem;
+  bacground: #f9f9f9;
 
-  .postsContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
 
-  .categoryTitle h1 {
+
+  .categoryTitle  {
+    text-align: center;
+    h1 {
     color: var(--clr-primary-4);
+    font-size: 2rem;
+    font-weight: 700;
+  }
+ 
+
+  .butttonContainer {
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
   }
 
-  .underline {
-    background-color: var(--clr-primary-4);
-    height: 0.3rem;
-    width: 65%;
+  .backBtn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--clr-primary-4);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: var(--clr-primary-3);
+  }
   }
   
+  .underline {
+  background-color: var(--clr-primary-4);
+  height: 0.3rem;
+  width: 50%;
+  margin: 1rem 0;
+  }
+
+  .postsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  }
   .categoryBtnContainer {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 15rem;
+  }
+
+  .error {
+  color: var(--clr-red);
+  font-size: 1.2rem;
   }
 `;
 
