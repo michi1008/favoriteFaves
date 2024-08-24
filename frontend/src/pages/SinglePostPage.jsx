@@ -418,13 +418,55 @@ const Wrapper = styled.section`
     color: var(--clr-primary-red);
   }
 
-  @media screen and (max-width: 800px) {
-    flex-direction: column;
+@media (max-width: 768px) {
+    .singlePost {
+      padding: 1rem;
+    }
 
-    .image {
-      width: 100%;
-      height: 25rem;
-      border-radius: 0.1rem;
+    .title h3 {
+      font-size: 1.5rem;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+    }
+
+    .info {
+      font-size: 0.9rem;
+    }
+
+    .commentInput {
+      font-size: 0.9rem;
+    }
+
+    .commentSubmit {
+      font-size: 0.9rem;
+    }
+
+    .commentContainer {
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .title h3 {
+      font-size: 1.2rem;
+    }
+
+    .desc {
+      font-size: 0.8rem;
+    }
+
+    .info {
+      font-size: 0.8rem;
+    }
+
+    .commentInput {
+      font-size: 0.8rem;
+    }
+
+    .commentSubmit {
+      font-size: 0.8rem;
     }
   }
 `;

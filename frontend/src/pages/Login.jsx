@@ -93,146 +93,155 @@ const Login = () => {
 };
 
 const Wrapper = styled.section`
-  display: flex;
+display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: rows;
+  flex-direction: row;
   padding: 2rem;
   background: linear-gradient(135deg, var(--clr-primary-1), var(--clr-primary-1));
   min-height: 100vh;
-
-
-.loginImg {
-  display: flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  margin-right: 2rem;
-  min-width: 300px;
-}
-
-.loginImg img {
-  width: 80%;
-  height: 35rem;
-  border-radius: 8px;
-}
-
-.loginForm {
-  display: flex;
-  flex: 2;
-  flex-direction: column;
-  padding: 2rem;
-  max-width: 600px; 
-  min-height: 100%; 
-}
-
-.loginTitle {
-  font-size: 2.5rem;
-  color: var(--clr-primary-4);
-  margin-bottom: 1rem;
-}
-
-label {
-  margin: 1rem 0 0.5rem;
-  color: var(--clr-primary-4);
-  font-size: 1.1rem;
-  align-self: flex-start;
-}
-
-.loginInput {
-  width: 100%;
-  padding: 0.8rem;
-  margin-bottom: 1rem;
-  background-color: var(--clr-primary-1);
-  border-radius: 5px;
-  font-size: 1rem;
-  box-shadow: var(--dark-shadow);
-}
-
-.loginInput::placeholder {
-  color: var(--clr-primary-4);
-}
-
-.loginInput:focus {
-  outline: none;
-  border-color: var(--clr-brown);
-  box-shadow: var(--dark-shadow);
-}
-
-.btnContainer {
-  display: flex;
-  flex-direction; 
-  justify-content: space-between;
-  
-}
-
-.loginBtn,
-.loginSignupBtn {
-  width: 48%;
-  padding: 0.8rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  color: var(--clr-white);
-  box-shadow: var(--dark-shadow);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.loginBtn {
-  background-color: var(--clr-primary-3);
-}
-
-.loginBtn:hover {
-  background-color: var(--clr-primary-1);
-  color: var(--clr-primary-3);
-  box-shadow: var(--dark-shadow);
-}
-
-.loginSignBtn {
-  background-color: var(--clr-primary-4);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.loginSignupBtn:hover {
-  background-color: var(--clr-primary-1);
-  box-shadow: var(--dark-shadow);
-  color: var(--clr-primary-4);
-}
-
-.forgetPassword {
-  margin: 2rem 0;
-}
-
-.forgotPasswordLink {
-  color: var(--clr-primary-4);
-  font-size: 1.2rem;
-}
-
-@media screen and (max-width: 800px) {
-  flex-direction: column;
+  box-sizing: border-box;
 
   .loginImg {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+    min-width: 300px;
+  }
+
+  .loginImg img {
     width: 100%;
-    margin-bottom: 1rem;
+    height: auto;
+    max-height: 35rem;
+    border-radius: 8px;
+    object-fit: cover;
   }
 
   .loginForm {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 600px;
     width: 100%;
-    padding: 1.5rem;
+    box-sizing: border-box;
+  }
+
+  .loginTitle {
+    font-size: 2.5rem;
+    color: var(--clr-primary-4);
+    margin-bottom: 1rem;
+  }
+
+  label {
+    margin: 1rem 0 0.5rem;
+    color: var(--clr-primary-4);
+    font-size: 1.1rem;
+    align-self: flex-start;
+  }
+
+  .loginInput {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background-color: var(--clr-primary-1);
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: var(--dark-shadow);
+  }
+
+  .loginInput::placeholder {
+    color: var(--clr-primary-4);
+  }
+
+  .loginInput:focus {
+    outline: none;
+    border-color: var(--clr-brown);
+    box-shadow: var(--dark-shadow);
   }
 
   .btnContainer {
-    flex-direction: column;
-    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 
   .loginBtn,
   .loginSignupBtn {
-    width: 100%;
-    margin-bottom: 1rem;
+    width: 48%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: var(--clr-white);
+    box-shadow: var(--dark-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
-}
+
+  .loginBtn {
+    background-color: var(--clr-primary-3);
+  }
+
+  .loginBtn:hover {
+    background-color: var(--clr-primary-1);
+    color: var(--clr-primary-3);
+    box-shadow: var(--dark-shadow);
+  }
+
+  .loginSignupBtn {
+    background-color: var(--clr-primary-4);
+  }
+
+  .loginSignupBtn:hover {
+    background-color: var(--clr-primary-1);
+    box-shadow: var(--dark-shadow);
+    color: var(--clr-primary-4);
+  }
+
+  .forgetPassword {
+    margin: 2rem 0;
+  }
+
+  .forgotPasswordLink {
+    color: var(--clr-primary-4);
+    font-size: 1.2rem;
+  }
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+
+    .loginImg {
+      width: 100%;
+      margin-bottom: 1rem;
+      height: 10rem;
+    }
+
+    .loginImg img {
+    width: 100%;
+    max-height: 15rem;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+    .loginForm {
+      width: 100%;
+      padding: 1.5rem;
+    }
+
+    .btnContainer {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loginBtn,
+    .loginSignupBtn {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  }
 `;
 
 export default Login;
