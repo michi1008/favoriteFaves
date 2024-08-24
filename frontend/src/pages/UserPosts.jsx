@@ -195,67 +195,68 @@ const Wrapper = styled.section`
 
   .filter {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8rem;
+    gap: 1rem; /* Adjust gap for smaller screens */
   }
 
   .posts {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Align items at the start */
+    gap: 1rem; /* Add gap between posts */
   }
 
   .userPostsTitle {
     text-align: center;
-    font-size: 3rem;
-    margin-bottom: 2rem;
+    font-size: 2.5rem; /* Adjusted font size */
+    margin-bottom: 1.5rem;
     color: var(--clr-primary-4);
     font-weight: 700;
     padding: 1rem;
   }
 
   .underline {
-    width: 60%;
-    height: 0.4rem;
+    width: 50%; /* Adjust width for responsiveness */
+    height: 0.3rem; /* Adjust height */
     background: var(--clr-primary-4);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto; /* Center underline */
     margin-top: 0.5rem;
   }
 
   .post {
-    width: 20rem;
-    height: 28rem;
-    margin: 2rem 1.2rem 2rem 1.2rem;
+    width: 100%; /* Adjust width to fit smaller screens */
+    max-width: 20rem;
+    height: auto; /* Adjust height to fit content */
+    margin: 1rem; /* Adjust margin */
     background-color: var(--clr-primary-1);
     padding: 1rem;
     border: 2px solid var(--clr-primary-1);
     border-radius: 5px;
     box-shadow: var(--dark-shadow);
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
   }
 
   .postTitle {
     color: var(--clr-primary-4);
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Adjusted font size */
   }
 
   .image {
     width: 100%;
-    height: 15rem;
+    height: auto; /* Adjust height for responsive images */
     object-fit: cover;
     border-radius: 0.2rem;
     box-shadow: var(--dark-shadow);
   }
 
   .desc {
-    font-size: 0.8rem;
+    font-size: 0.9rem; /* Adjusted font size */
     color: var(--clr-brown);
     font-style: italic;
-    line-height: 1.2rem;
-    margin-top: 1rem;
+    line-height: 1.4rem;
+    margin-top: 0.5rem; /* Adjusted margin */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -270,15 +271,39 @@ const Wrapper = styled.section`
 
   .icon {
     width: 1.5rem;
-    height: 1.2rem;
+    height: 1.5rem; /* Adjusted icon size */
   }
 
-  @media screen and (max-width: 800px) {
+  /* Additional breakpoints */
+  @media screen and (max-width: 1200px) {
     .userPostsTitle {
       font-size: 2rem;
     }
     .underline {
-      height: 0.3rem;
+      width: 60%;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .userPostsTitle {
+      font-size: 1.5rem;
+    }
+    .underline {
+      width: 80%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .userPostsTitle {
+      font-size: 1.2rem;
+    }
+    .filter {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .post {
+      width: 100%;
+      max-width: 90%;
     }
   }
 `;

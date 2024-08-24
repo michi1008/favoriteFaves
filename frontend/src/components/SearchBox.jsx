@@ -104,6 +104,7 @@ const Wrapper = styled.section`
       width: 8rem;
       margin: 1rem 0;
     }
+
   }
 `;
 
