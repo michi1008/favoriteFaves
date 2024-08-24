@@ -419,6 +419,7 @@ const Wrapper = styled.section`
   }
 
 @media (max-width: 768px) {
+    padding: 0 2rem;
     .singlePost {
       padding: 2rem;
     }
@@ -426,6 +427,16 @@ const Wrapper = styled.section`
     .title h3 {
       font-size: 1.5rem;
     }
+
+    .image {
+    width: 100%;
+    height: auto;
+    max-width: 25rem;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: var(--dark-shadow);
+  }
+
 
     .desc {
       font-size: 0.9rem;
