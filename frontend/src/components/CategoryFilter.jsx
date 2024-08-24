@@ -48,48 +48,67 @@ const CategoryFilter = ({ onChange }) => {
 };
 
 const Wrapper = styled.section`
-  display: flex;
+    display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
+  gap: 1rem; 
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem; 
+  }
 
   .categorySelect {
     padding: 0.5rem;
-    background-color: var(--clr-primary-3);
+    background-color: var(--clr-primary-4);
     border: none;
     border-radius: 5px;
     color: var(--clr-white);
-    font-size: 1.2rem;
-    height: 3rem;
-    font-weight: 700;
+    font-size: 1rem;
+    height: 2.5rem;
+    width: 100%; 
+    min-width: 12rem;
+    max-width: 22rem; 
   }
 
-  /* filter-clear-botton */
-    .clearButton {
+  .clearButton {
     background-color: var(--clr-red);
-    color:var(--clr-white);
-    width: 9rem;
-    height: 3rem;
+    color: var(--clr-white);
+    width: 100%;
+    min-widht: 6rem; 
+    max-width: 9rem; 
+    height: 2.5rem;
     box-sizing: border-box;
     border: 2px solid var(--clr-red);
     border-radius: 5px;
-    font-size: 1.2rem;
-    align-text: center;
-    margin-left: 1rem;
+    font-size: 1rem; 
+    margin-left: 0.5rem; 
   }
 
   .clearButton:hover {
-    background-color: var(--clr-brown);
-    border: 2px solid var(--clr-brown);
+    background-color: var(--clr-white);
+    border: 2px solid var(--clr-white);
+    color: var(--clr-red);
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 800px) {
     flex-direction: column;
-    gap: 3rem;
-    .filter {
+    gap: 1rem; 
+    
+    form {
       flex-direction: column;
-      gap: 3rem;
+      gap: 1rem; 
+    }
+
+    .categorySelect {
+      max-width: 100%; 
+    }
+
+    .clearButton {
+      max-width: 100%; 
+      margin-left: 0; 
     }
   }
 `;
