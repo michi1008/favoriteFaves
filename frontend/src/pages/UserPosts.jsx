@@ -152,7 +152,7 @@ const UserPosts = () => {
                 <h5>{post.title}</h5>
               </div>
               <div className="desc">
-                <p>{post.desc}</p>
+                <p>{post.description}</p>
               </div>
               <div className="imageContainer">
                 <img className="image" src={post.image} alt={post.title} />
@@ -229,6 +229,7 @@ const Wrapper = styled.section`
     width: 100%; 
     max-width: 20rem;
     height: auto; 
+    min-height: 30rem;
     margin: 1rem; 
     background-color: var(--clr-primary-1);
     padding: 1rem;
@@ -246,9 +247,11 @@ const Wrapper = styled.section`
   .image {
     width: 100%;
     height: auto; 
+    max-height: 15rem;
     object-fit: cover;
     border-radius: 0.2rem;
     box-shadow: var(--dark-shadow);
+    margin: 0.5rem 0;
   }
 
   .desc {

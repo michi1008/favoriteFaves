@@ -420,7 +420,7 @@ const Wrapper = styled.section`
 
 @media (max-width: 768px) {
     .singlePost {
-      padding: 1rem;
+      padding: 2rem;
     }
 
     .title h3 {
@@ -433,6 +433,10 @@ const Wrapper = styled.section`
 
     .info {
       font-size: 0.9rem;
+    }
+
+    .infoContainer p {
+      font-size: 0.8rem;
     }
 
     .commentInput {
@@ -449,15 +453,29 @@ const Wrapper = styled.section`
   }
 
   @media (max-width: 480px) {
+    
     .title h3 {
       font-size: 1.2rem;
     }
 
+    .image {
+    width: 80%;
+    height: auto;
+    max-width: 30rem;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: var(--dark-shadow);
+  }
+
     .desc {
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
 
     .info {
+      font-size: 1rem;
+    }
+
+    .infocContainer p {
       font-size: 0.8rem;
     }
 
