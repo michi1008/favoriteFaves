@@ -264,6 +264,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
 
   .singlePost {
     display: flex;
@@ -272,6 +273,8 @@ const Wrapper = styled.section`
     align-items: center;
     padding: 3rem;
     gap: 2rem;
+    paddding: 2rem;
+    width: 100%;
   }
 
   .image {
@@ -419,25 +422,19 @@ const Wrapper = styled.section`
   }
 
 @media (max-width: 768px) {
-    padding: 0 2rem;
+    padding: 0 1rem;
     .singlePost {
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .title h3 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
     }
 
     .image {
-    width: 100%;
-    height: auto;
     max-width: 25rem;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: var(--dark-shadow);
+
   }
-
-
     .desc {
       font-size: 0.9rem;
     }
@@ -470,12 +467,7 @@ const Wrapper = styled.section`
     }
 
     .image {
-    width: 80%;
-    height: auto;
-    max-width: 30rem;
-    object-fit: cover;
-    border-radius: 15px;
-    box-shadow: var(--dark-shadow);
+    max-width: 20rem;
   }
 
     .desc {
