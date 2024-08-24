@@ -7,7 +7,7 @@ import {
 } from "../slices/postsApiSlice";
 import { useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import reply from "../assets/reply.png";
 
 const SinglePostPage = () => {
@@ -68,7 +68,7 @@ const SinglePostPage = () => {
       }).unwrap();
 
       refetch();
-      
+
       setComment("");
       setReplyingTo(null);
       toast.success("Your reply was added successfully");
@@ -76,7 +76,7 @@ const SinglePostPage = () => {
       console.log(err);
       toast.error(err?.data?.message || err.error);
     }
-};
+  };
 
   const handleReplyClick = (commentId) => {
     setReplyingTo(commentId);
@@ -86,41 +86,61 @@ const SinglePostPage = () => {
     return <Spinner />;
   }
 
-
   const renderCategoryContent = () => {
     switch (post.category) {
-      case 'book':
+      case "book":
         return (
           <div className="info">
             <p>Author: {post.author}</p>
             <p>Genre:{post.genre}</p>
           </div>
         );
-      case 'movie':
+      case "movie":
         return (
           <div className="info">
-            <p><span>director: </span>{post.director}</p>
-            <p><span>Genre: </span>{post.genre}</p>
+            <p>
+              <span>director: </span>
+              {post.director}
+            </p>
+            <p>
+              <span>Genre: </span>
+              {post.genre}
+            </p>
           </div>
         );
-      case 'tv_show':
+      case "tv_show":
         return (
           <div className="info">
-            <p><span>Network: </span>{post.network}</p>
-            <p><span>Genre: </span>{post.genre}</p>
+            <p>
+              <span>Network: </span>
+              {post.network}
+            </p>
+            <p>
+              <span>Genre: </span>
+              {post.genre}
+            </p>
           </div>
         );
-      case 'restaurant':
+      case "restaurant":
         return (
           <div className="info">
-            <p><span>Address: </span>{post.address}</p>
-            <p><span>Cuisine: </span>{post.cuisine}</p>
+            <p>
+              <span>Address: </span>
+              {post.address}
+            </p>
+            <p>
+              <span>Cuisine: </span>
+              {post.cuisine}
+            </p>
           </div>
         );
-      case 'place':
+      case "place":
         return (
           <div className="info">
-            <p><span>Location: </span>{post.location}</p>
+            <p>
+              <span>Location: </span>
+              {post.location}
+            </p>
           </div>
         );
       default:
@@ -130,100 +150,111 @@ const SinglePostPage = () => {
 
   return (
     <Wrapper>
-          <div className="singlePost">
-          <div className="title">
-            <h3>{post?.title}</h3>
-          </div>
-          <div className="image">
-            <img className="image" src={post?.image} />
-          </div>
-          <div className="desc">
-            <h4>{post?.description}</h4>
-          </div>
-          {renderCategoryContent()}
-          <div className="infoContainer">
-              <div>
-                <p>
-                  Created at :{" "}
-                  <span>
-                    {new Date(post.createdAt).toLocaleString("en-US", options)}
-                  </span>
-                </p>
-                <p>
-                  Created by :{" "}
-                  <span>
-                    {post.user && post.user.userName
-                      ? post.user.userName
-                      : "Unknown"}
-                  </span>
-                </p>
-              </div>
+      <div className="singlePost">
+        <div className="title">
+          <h3>{post?.title}</h3>
         </div>
+        <div className="image">
+          <img className="image" src={post?.image} />
         </div>
+        <div className="desc">
+          <h4>{post?.description}</h4>
+        </div>
+        {renderCategoryContent()}
+        <div className="infoContainer">
+          <div>
+            <p>
+              Created at :{" "}
+              <span>
+                {new Date(post.createdAt).toLocaleString("en-US", options)}
+              </span>
+            </p>
+            <p>
+              Created by :{" "}
+              <span>
+                {post.user && post.user.userName
+                  ? post.user.userName
+                  : "Unknown"}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
 
-
-        <div className="commentContainer">
-    <h3>Comments</h3>
-    {postCommentsWithReplies.map((postComment) => (
-      <ul key={postComment._id}>
-        <p className={`comment ${replyingTo === postComment._id ? "reply" : ""}`}>
-          "{postComment.comment}" by <span>{postComment.userName}</span>
-        </p>
-        {replyingTo === postComment._id && (
-          <form onSubmit={() => submitReply(postComment._id)}>
-            <textarea
-              className="commentInput"
-              placeholder="Reply to this comment..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            />
-            <button className="replyBtn" type="submit">
-              Submit
-            </button>
-          </form>
-        )}
-        {postComment.replies.length > 0 &&
-          postComment.replies.map((reply) => (
-            <ul key={reply._id}>
-              <p className={`comment reply`}>
-                "{reply.comment}" by <span>{reply.userName}</span>
-              </p>
-            </ul>
-          ))}
-        {userInfo && (
-          <button
-            className="replyBtn"
-            onClick={() => handleReplyClick(postComment._id)}
-          >
-            Reply
-          </button>
-        )}
-      </ul>
-    ))}
-  </div>
-          <div className="createCommentContainer">
-            {userInfo ? (
-              <form onSubmit={submitHandler}>
-                <label>
-                  <h4 className="addCommentText">Add your Comment</h4>
-                </label>
+      <div className="commentContainer">
+        <h3>Comments</h3>
+        {postCommentsWithReplies.map((postComment) => (
+          <ul key={postComment._id}>
+            <p
+              className={`comment ${
+                replyingTo === postComment._id ? "reply" : ""
+              }`}
+            >
+              "{postComment.comment}" by <span>{postComment.userName}</span>
+            </p>
+            {replyingTo === postComment._id && (
+              <form onSubmit={() => submitReply(postComment._id)}>
                 <textarea
                   className="commentInput"
-                  placeholder="Enter your comment..."
-                  id="comment"
-                  name="comment"
+                  placeholder="Reply to this comment..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 />
-
-                <button className="commentSubmit" type="submit">Submit</button>
+                <button className="replyBtn" type="submit">
+                  Submit
+                </button>
               </form>
-            ) : (
-              <div className="commentAskLogin">
-                <p>Please <Link to="/login">Login</Link> to comment</p>
-              </div>
             )}
-          </div>    
+            {postComment.replies.length > 0 &&
+              postComment.replies.map((reply) => (
+                <ul key={reply._id}>
+                  <p className={`comment reply`}>
+                    "{reply.comment}" by <span>{reply.userName}</span>
+                  </p>
+                </ul>
+              ))}
+            {userInfo && (
+              <button
+                className="replyBtn"
+                onClick={() => handleReplyClick(postComment._id)}
+              >
+                Reply
+              </button>
+            )}
+          </ul>
+        ))}
+        <div className="createCommentContainer">
+          {userInfo ? (
+            <form onSubmit={submitHandler}>
+              <label>
+                <h4 className="addCommentText">Add your Comment</h4>
+              </label>
+              <textarea
+                className="commentInput"
+                placeholder="Enter your comment..."
+                id="comment"
+                name="comment"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              />
+
+              <button className="commentSubmit" type="submit">
+                Submit
+              </button>
+            </form>
+          ) : (
+            <div className="commentAskLogin">
+              <p>
+                Please{" "}
+                <Link to="/login">
+                  <span>Login</span>
+                </Link>{" "}
+                to comment
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </Wrapper>
   );
 };
@@ -244,10 +275,11 @@ const Wrapper = styled.section`
   }
 
   .image {
-    width: 25rem;
-    height: 20rem;
+    width: 100%;
+    height: auto;
+    max-width: 38rem;
     object-fit: cover;
-    border-radius: 0.1rem;
+    border-radius: 15px;
     box-shadow: var(--dark-shadow);
   }
 
@@ -265,7 +297,7 @@ const Wrapper = styled.section`
   }
 
   .info span {
-  color: var(--clr-brown)
+    color: var(--clr-brown);
   }
 
   .title h3 {
@@ -284,12 +316,10 @@ const Wrapper = styled.section`
     font-weight: 700;
   }
 
-  .infoContainer p span{
+  .infoContainer p span {
     color: var(--clr-primary-3);
   }
 
-
- 
   // comments
 
   .commentContainer {
@@ -298,7 +328,9 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    flex; 1;
+    background-color: var(--clr-primary-1);
+    border-radius: 5px;
+    box-shadow: var(--dark-shadow);
   }
 
   .commentContainer h3 {
@@ -310,13 +342,13 @@ const Wrapper = styled.section`
     font-size: 1rem;
   }
 
-  .addCommentText{
+  .addCommentText {
     color: var(--clr-primary-3);
   }
 
   .createCommentContainer {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     padding: 1rem;
   }
@@ -354,19 +386,36 @@ const Wrapper = styled.section`
     font-size: 0.8rem;
   }
 
+  .replyBtn:hover {
+    background-color: var(--clr-brown);
+  }
+
   .comment.reply {
     margin-left: 2rem;
     margin-top: 1rem;
   }
 
   .commentSubmit {
-    background-color: var(--clr-brown);
+    background-color: var(--clr-primary-3);
     border-radius: 5px;
   }
 
-  .commentAskLogin p{
+  .commentSubmit:hover {
+    background-color: var(--clr-white);
+    color: var(--clr-primary-3);
+  }
+
+  .commentAskLogin p {
     font-size: 1.2rem;
-    color: var(--clr-brown);
+    color: var(--clr-primary-3);
+  }
+
+  .commentAskLogin span {
+    font-weight: 700;
+  }
+
+  .commentAskLogin span:hover {
+    color: var(--clr-primary-red);
   }
 
   @media screen and (max-width: 800px) {
@@ -374,15 +423,8 @@ const Wrapper = styled.section`
 
     .image {
       width: 100%;
-      height: 10rem;
+      height: 25rem;
       border-radius: 0.1rem;
-    }
-
-    .postTop {
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem;
     }
   }
 `;

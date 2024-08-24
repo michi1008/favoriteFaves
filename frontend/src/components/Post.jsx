@@ -1,111 +1,227 @@
-import React from "react"
-import styled from "styled-components"
-import { Link } from "react-router-dom"
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
 
-
 const Post = ({ post, category }) => {
-    switch (category) {
-        case 'book':
-          return (
-            <Wrapper>
-                <div className="post">
-                <div className="title"><h4>{post.title}</h4></div>
-                <div className="desc"><p>{post.description}</p></div>
-                <div className="info"><p>{post.author}</p></div>
-                <div className="info"><p>{post.genre}</p></div>
-                <div className="imageContainer"><img className="image" src={post.image} /></div>
-                <div className="userContainer">
-                <div className="user"><p>Created by: {post.user ? post.user.userName : "Unknown"}</p></div> 
-                <Link to={`/posts/${post._id}`} className="link">
-                    <div className="link-icon"><FaExternalLinkSquareAlt /></div>
-                </Link>
+  switch (category) {
+    case "book":
+      return (
+        <Wrapper>
+          <div className="post">
+            <div className="title">
+              <h4>{post.title}</h4>
+            </div>
+            <div className="desc">
+              <p>{post.description}</p>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Author: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.author}</p>
+              </div>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Genre: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.genre}</p>
+              </div>
+            </div>
+            <div className="imageContainer">
+              <img className="image" src={post.image} />
+            </div>
+            <div className="userContainer">
+              <div className="user">
+                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+              </div>
+              <Link to={`/posts/${post._id}`} className="link">
+                <div className="link-icon">
+                  <FaExternalLinkSquareAlt />
                 </div>
+              </Link>
+            </div>
+          </div>
+        </Wrapper>
+      );
+    case "movie":
+      return (
+        <Wrapper>
+          <div className="post">
+            <div className="title">
+              <h4>{post.title}</h4>
+            </div>
+            <div className="desc">
+              <p>{post.description}</p>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Director: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.director}</p>
+              </div>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Genre: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.genre}</p>
+              </div>
+            </div>
+            <div className="imageContainer">
+              <img className="image" src={post.image} />
+            </div>
+            <div className="userContainer">
+              <div className="user">
+                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+              </div>
+              <Link to={`/posts/${post._id}`} className="link">
+                <div className="link-icon">
+                  <FaExternalLinkSquareAlt />
                 </div>
-            </Wrapper>
-            );
-        case 'movie':
-            return (
-            <Wrapper>
-                <div className="post">
-                <div className="title"><h4>{post.title}</h4></div>
-                <div className="desc"><p>{post.description}</p></div>
-                <div className="info"><p>{post.director}</p></div>
-                <div className="info"><p>{post.genre}</p></div>
-                <div className="imageContainer"><img className="image" src={post.image} /></div>
-                <div className="userContainer">
-                <div className="user"><p>Created by: {post.user ? post.user.userName : "Unknown"}</p></div> 
-                <Link to={`/posts/${post._id}`} className="link">
-                    <div className="link-icon"><FaExternalLinkSquareAlt /></div>
-                </Link>
+              </Link>
+            </div>
+          </div>
+        </Wrapper>
+      );
+    case "tv_show":
+      return (
+        <Wrapper>
+          <div className="post">
+            <div className="title">
+              <h4>{post.title}</h4>
+            </div>
+            <div className="desc">
+              <p>{post.description}</p>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Network:</p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.network}</p>
+              </div>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Genre: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.genre}</p>
+              </div>
+            </div>
+            <div className="imageContainer">
+              <img className="image" src={post.image} />
+            </div>
+            <div className="userContainer">
+              <div className="user">
+                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+              </div>
+              <Link to={`/posts/${post._id}`} className="link">
+                <div className="link-icon">
+                  <FaExternalLinkSquareAlt />
                 </div>
+              </Link>
+            </div>
+          </div>
+        </Wrapper>
+      );
+    case "restaurant":
+      return (
+        <Wrapper>
+          <div className="post">
+            <div className="title">
+              <h4>{post.title}</h4>
+            </div>
+            <div className="desc">
+              <p>{post.description}</p>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Address: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.address}</p>
+              </div>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Cuisine: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.cuisine}</p>
+              </div>
+            </div>
+            <div className="imageContainer">
+              <img className="image" src={post.image} />
+            </div>
+            <div className="userContainer">
+              <div className="user">
+                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+              </div>
+              <Link to={`/posts/${post._id}`} className="link">
+                <div className="link-icon">
+                  <FaExternalLinkSquareAlt />
                 </div>
-            </Wrapper>
-            );
-        case 'tv_show':
-            return (
-            <Wrapper>
-                <div className="post">
-                <div className="title"><h4>{post.title}</h4></div>
-                <div className="desc"><p>{post.description}</p></div>
-                <div className="info"><p>{post.network}</p></div>
-                <div className="info"><p>{post.genre}</p></div>
-                <div className="imageContainer"><img className="image" src={post.image} /></div>
-                <div className="userContainer">
-                <div className="user"><p>Created by: {post.user ? post.user.userName : "Unknown"}</p></div> 
-                <Link to={`/posts/${post._id}`} className="link">
-                    <div className="link-icon"><FaExternalLinkSquareAlt /></div>
-                </Link>
+              </Link>
+            </div>
+          </div>
+        </Wrapper>
+      );
+    case "place":
+      return (
+        <Wrapper>
+          <div className="post">
+            <div className="title">
+              <h4>{post.title}</h4>
+            </div>
+            <div className="desc">
+              <p>{post.description}</p>
+            </div>
+            <div className="info">
+              <div className="infoTitle">
+                <p>Location: </p>
+              </div>
+              <div className="infoCentent">
+                <p>{post.location}</p>
+              </div>
+            </div>
+            <div className="imageContainer">
+              <img className="image" src={post.image} />
+            </div>
+            <div className="userContainer">
+              <div className="user">
+                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+              </div>
+              <Link to={`/posts/${post._id}`} className="link">
+                <div className="link-icon">
+                  <FaExternalLinkSquareAlt />
                 </div>
-                </div>
-            </Wrapper>
-            );
-        case 'restaurant':
-            return (
-            <Wrapper>
-                <div className="post">
-                <div className="title"><h4>{post.title}</h4></div>
-                <div className="desc"><p>{post.description}</p></div>
-                <div className="info"><p>{post.address}</p></div>
-                <div className="info"><p>{post.cuisine}</p></div>
-                <div className="imageContainer"><img className="image" src={post.image} /></div>
-                <div className="userContainer">
-                <div className="user"><p>Created by: {post.user ? post.user.userName : "Unknown"}</p></div> 
-                <Link to={`/posts/${post._id}`} className="link">
-                    <div className="link-icon"><FaExternalLinkSquareAlt /></div>
-                </Link>
-                </div>
-                </div>
-            </Wrapper>
-            );
-        case 'place':
-            return (
-            <Wrapper>
-                <div className="post">
-                <div className="title"><h4>{post.title}</h4></div>
-                <div className="desc"><p>{post.desc}</p></div>
-                <div className="info"><p>{post.address}</p></div>
-                <div className="imageContainer"><img className="image" src={post.image} /></div>
-                <div className="userContainer">
-                <div className="user"><p>Created by: {post.user ? post.user.userName : "Unknown"}</p></div>
-                <Link to={`/posts/${post._id}`} className="link">
-                    <div className="link-icon"><FaExternalLinkSquareAlt /></div>
-                </Link> 
-                </div>
-                </div>
-            </Wrapper>
-            );
-        
-}
-}
+              </Link>
+            </div>
+          </div>
+        </Wrapper>
+      );
+  }
+};
 const Wrapper = styled.section`
+
 .post {
-  width: 22rem;
-  height: 30rem;
-  background-color: var(--clr-primary-2);
+  max-width: 25rem;
+  height: 35rem;
+  background-color: var(--clr-primary-1);
   padding: 2rem;
   border-radius: 5px;
   box-shadow: var(--dark-shadow);
+  width: 100%;
+  display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .title {
@@ -138,6 +254,16 @@ display: -webkit-box;
 .info {
 color: var(--clr-primary-3);
 font-size; 1rem;
+display: flex;
+flex-diretion: row;
+align-items: center;
+justify-content: flex-start;
+gap: 0.5rem;
+}
+
+.infoTitle {
+  color: var(--clr-primary-4);
+  font-weight: 700;
 }
 
 .userContainer {
@@ -179,12 +305,12 @@ font-size; 1rem;
   margin-top: 1rem;
   }
   
-  .recipeLink {
+  .link {
     font-size: 1.2rem;
     font-weight: 700;
     cursor: pointer;
   }
 }
 
-`
-export default Post
+`;
+export default Post;

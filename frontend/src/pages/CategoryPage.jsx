@@ -52,19 +52,18 @@ const CategoryPage = () => {
       <div className="categoryTitle">
         <h1>{displayName} Posts</h1>
       </div>
-      <div className="categoryBtnContainer">
       <div className="backBtn">
         <Link to="/">
           <button>Go back</button>
         </Link>
       </div>
+      <div className="categoryBtnContainer">
       <HomeSearch 
         keyword={keyword}
         category={category}
         onSubmit={submitHandler} />    
       </div>
-      <div className="underline"></div>
-      <div className="postsContainer">
+      <div className="categoryPosts" style={{ display: 'flex', flexDirection: 'row', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
         {data.posts.map((post) => (
           <Post key={post._id} post={post} category={category} />
         ))}
@@ -86,9 +85,6 @@ const Wrapper = styled.section`
   gap: 2rem;
   margin-bottom: 3rem;
   padding: 1rem;
-  bacground: #f9f9f9;
-
-
 
   .categoryTitle  {
     text-align: center;
@@ -97,14 +93,14 @@ const Wrapper = styled.section`
     font-size: 2rem;
     font-weight: 700;
   }
- 
-
-  .butttonContainer {
-    display: flex;
-  flex-direction: row;
-  justify-content: center;
+  
+  .categoryBtnContainer {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
   }
 
   .backBtn {
@@ -120,30 +116,7 @@ const Wrapper = styled.section`
   &:hover {
     background: var(--clr-primary-3);
   }
-  }
   
-  .underline {
-  background-color: var(--clr-primary-4);
-  height: 0.3rem;
-  width: 50%;
-  margin: 1rem 0;
-  }
-
-  .postsContainer {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-
-  }
-  .categoryBtnContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 15rem;
-  }
 
   .error {
   color: var(--clr-red);

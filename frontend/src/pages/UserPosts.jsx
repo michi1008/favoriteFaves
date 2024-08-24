@@ -22,7 +22,8 @@ const UserPosts = () => {
 
   const [category, setCategory] = useState("");
 
-  const [deletePost, { isLoading: isDeleting, error: deleteError }] = useDeletePostMutation();
+  const [deletePost, { isLoading: isDeleting, error: deleteError }] =
+    useDeletePostMutation();
 
   const {
     data: postsData,
@@ -71,38 +72,59 @@ const UserPosts = () => {
 
   const renderCategoryContent = (post) => {
     switch (post.category) {
-      case 'book':
+      case "book":
         return (
           <div className="info">
             <p>Author: {post.author}</p>
             <p>Genre: {post.genre}</p>
           </div>
         );
-      case 'movie':
+      case "movie":
         return (
           <div className="info">
-            <p><span>Director: </span>{post.director}</p>
-            <p><span>Genre: </span>{post.genre}</p>
+            <p>
+              <span>Director: </span>
+              {post.director}
+            </p>
+            <p>
+              <span>Genre: </span>
+              {post.genre}
+            </p>
           </div>
         );
-      case 'tv_show':
+      case "tv_show":
         return (
           <div className="info">
-            <p><span>Network: </span>{post.network}</p>
-            <p><span>Genre: </span>{post.genre}</p>
+            <p>
+              <span>Network: </span>
+              {post.network}
+            </p>
+            <p>
+              <span>Genre: </span>
+              {post.genre}
+            </p>
           </div>
         );
-      case 'restaurant':
+      case "restaurant":
         return (
           <div className="info">
-            <p><span>Address: </span>{post.address}</p>
-            <p><span>Cuisine: </span>{post.cuisine}</p>
+            <p>
+              <span>Address: </span>
+              {post.address}
+            </p>
+            <p>
+              <span>Cuisine: </span>
+              {post.cuisine}
+            </p>
           </div>
         );
-      case 'place':
+      case "place":
         return (
           <div className="info">
-            <p><span>Location: </span>{post.location}</p>
+            <p>
+              <span>Location: </span>
+              {post.location}
+            </p>
           </div>
         );
       default:
@@ -118,8 +140,8 @@ const UserPosts = () => {
       </div>
 
       <div className="filter">
-      <SearchBox />
-      <CategoryFilter onChange={handleCategoryChange} />
+        <SearchBox />
+        <CategoryFilter onChange={handleCategoryChange} />
       </div>
 
       <div className="posts">
@@ -172,11 +194,11 @@ const Wrapper = styled.section`
   padding: 1rem;
 
   .filter {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 8rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8rem;
   }
 
   .posts {
@@ -208,9 +230,9 @@ const Wrapper = styled.section`
     width: 20rem;
     height: 28rem;
     margin: 2rem 1.2rem 2rem 1.2rem;
-    background-color: var(--clr-primary-2);
+    background-color: var(--clr-primary-1);
     padding: 1rem;
-    border: 2px solid var(--clr-primary-2);
+    border: 2px solid var(--clr-primary-1);
     border-radius: 5px;
     box-shadow: var(--dark-shadow);
   }

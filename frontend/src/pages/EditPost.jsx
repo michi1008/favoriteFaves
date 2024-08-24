@@ -309,6 +309,7 @@ const Wrapper = styled.section`
   align-items: center;
   min-height: calc(100vh - 7rem);
   overflow: auto;
+  padding: 1rem; /* Added padding for better spacing */
 
   .titleContainer {
     color: var(--clr-primary-4);
@@ -317,16 +318,6 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     margin: 2rem;
-  }
-
-  .writeImg {
-    width: 30vw;
-    height: 25vh;
-    border-radius: 0.3rem;
-    object-fit: cover;
-    margin: 2rem;
-    box-shadow: var(--light-shadow);
-    margin: 0 auto;
   }
 
   .writeForm {
@@ -339,9 +330,11 @@ const Wrapper = styled.section`
         rgba(255, 255, 255, 0.2),
         rgba(255, 255, 255, 0.2)
       ),
-      url(https://images.unsplash.com/photo-1644356217222-8bd41b00104f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzgzfHxhYnN0cmFjdHxlbnwwfHwwfHx8MA%3D%3D);
+      url(https://images.unsplash.com/photo-1634655511368-6cd7213719f4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D);
     padding: 2rem;
     border-radius: var(--radius);
+    max-width: 600px; /* Added max-width */
+    width: 100%; /* Ensure it takes full width on smaller screens */
   }
 
   .topContainer {
@@ -349,6 +342,7 @@ const Wrapper = styled.section`
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem;
+    width: 100%; /* Ensure full width */
   }
 
   .topContainer label {
@@ -357,38 +351,42 @@ const Wrapper = styled.section`
   }
 
   .writeTitle {
-    width: 15rem;
+    width: 100%; /* Full width */
+    max-width: 100%; /* Avoid overflow */
     height: 3rem;
     margin-bottom: 2rem;
     border: 2px solid var(--clr-primary-1);
+    padding: 0.5rem;
   }
 
   .writeDesc {
     border: 2px solid var(--clr-primary-1);
-  width: 22rem;
-  height: 10rem; 
-  margin-bottom: 2rem;
-  resize: none; 
-  padding: 0.5rem; 
-  font-size: 1rem; 
-  background-color: var(--clr-primary-1);
-  color: var(--clr-primary-4);
-}
-  .writeDesc:focus {
-  outline: 2px solid var(--clr-brown);
-  }
-
-  input {
+    width: 100%; /* Full width */
+    max-width: 100%; /* Avoid overflow */
+    height: 10rem;
+    margin-bottom: 2rem;
+    resize: none;
+    padding: 0.5rem;
+    font-size: 1rem;
     background-color: var(--clr-primary-1);
     color: var(--clr-primary-4);
-    font-size: 1.2rem;
   }
-
-  input:focus {
+  
+  .writeDesc:focus {
     outline: 2px solid var(--clr-brown);
   }
 
-  // category
+  input, select {
+    background-color: var(--clr-primary-1);
+    color: var(--clr-primary-4);
+    font-size: 1.2rem;
+    width: 100%; /* Full width */
+    max-width: 100%; /* Avoid overflow */
+  }
+
+  input:focus, select:focus {
+    outline: 2px solid var(--clr-brown);
+  }
 
   .category {
     padding: 0.5rem;
@@ -401,29 +399,27 @@ const Wrapper = styled.section`
     margin-bottom: 1rem;
   }
 
-  .category:focus {
-    outline: 2px solid var(--clr-brown);
-  }
-
-  .selection {
-    margin-bottom: 1rem;
-  }
-
-  //image
-
   .imageContainer {
     display: flex;
+    flex-direction: column; /* Stack vertically on smaller screens */
     align-items: center;
-    justify-content: center;
-    flex-direction: row;
     margin: 2rem auto;
+    width: 100%;
   }
 
   .imageUpload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    border: 2px dashed var(--clr-primary-2);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    background-color: var(--clr-primary-white);
+    transition: border-color 0.3s;
+    width: 100%;
+    max-width: 300px; /* Limit width on larger screens */
+  }
+
+  .imageUpload:hover {
+    border-color: var(--clr-primary-4);
   }
 
   .imageText p {
@@ -438,39 +434,43 @@ const Wrapper = styled.section`
   }
 
   .no_image {
-    width: 8rem;
-    height: 8rem;
+    width: 100%;
+    max-width: 150px; /* Limit image size */
+    height: auto; /* Maintain aspect ratio */
+    background-color: var(--clr-white);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    box-shadow: var(--light-shadow);
   }
 
   img {
-    width: 8rem;
-    height: 8rem;
-    object-fit: cover;
+    width: 100%; /* Full width */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 0.2rem;
   }
 
   .chooseBtn {
     background: var(--clr-brown);
     color: var(--clr-white);
-    width: 16rem;
+    width: 100%;
+    max-width: 200px; /* Limit button width */
     display: inline-block;
-    padding: 1.2rem, 1.2rem;
+    padding: 1.2rem;
     border: 1px solid var(--clr-primary-brown);
     text-align: center;
     font-size: 1rem;
+    margin-top: 1rem; /* Added margin */
   }
 
   .buttonContainer {
     align-self: flex-end;
     padding-bottom: 2rem;
+    width: 100%; /* Full width */
+    max-width: 300px; /* Limit width */
   }
-
-  // selection 
-  .selection:focus {
-  outline: 2px solid var(--clr-brown); 
-}
-
-
-  // Submit Button 
 
   .submitButton {
     color: var(--clr-primary-4);
@@ -479,96 +479,49 @@ const Wrapper = styled.section`
     border-radius: 0.3rem;
     cursor: pointer;
     font-size: 1.2rem;
-    width: 7rem;
+    width: 100%;
+    max-width: 150px; /* Limit button width */
     text-align: center;
+    margin-top: 1rem; /* Added margin */
   }
 
   @media screen and (max-width: 800px) {
-    flex-direction: column;
-
-    .writeImg {
-      width: 50vw;
-      height: 25vh;
+    .writeForm {
+      padding: 1rem;
     }
 
-    .mainTitle {
-      font-size: 1.5rem;
+    .writeTitle, .writeDesc, .category {
+      width: 100%; /* Full width */
     }
 
-    .titleContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 2rem 0;
+    .imageUpload {
+      max-width: 100%; /* Full width on small screens */
     }
 
-    .topContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 2rem;
-    }
-
-    .topContainer label {
-      font-size: 1rem;
-    }
-
-    .writeTitle {
-      width: 20rem;
-    }
-
-    .writeDesc {
-      width: 25rem;
-    }
-
-    .category {
-      font-size: 1.2rem;
-    }
-  
-    .submitButton {
-      padding: 0.5rem;
-      border-radius: 0.3rem;
-      font-size: 0.8rem;
-      width: 5rem;
-      margin-botton: 2rem;
-    }
-
-    .imageContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      margin-buttom: 3rem;
-      margin-right: 2rem;
-    }
-
-    .imageText {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      text-align: start;
-    }
-
-    .image {
-      margin-bottom: 2rem;
-      margin-left: 2rem;
+    .no_image {
+      max-width: 100%; /* Full width */
+      height: auto; /* Maintain aspect ratio */
     }
 
     .chooseBtn {
-      width: 14rem;
-      font-size: 0.8rem;
+      max-width: 100%; /* Full width */
     }
 
-    img {
-      width: 8rem;
-      height: 8rem;
-      object-fit: cover;
+    .submitButton {
+      width: 100%; /* Full width */
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+
+    .writeTitle, .writeDesc {
+      font-size: 1rem; /* Smaller font size */
     }
 
-    .buttonContainer {
-      align-self: flex-end;
-      padding: 2rem;
+    .category, .chooseBtn, .submitButton {
+      font-size: 0.9rem; /* Smaller font size */
     }
   }
 `;
+  
 export default EditPost;

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Resizer from "react-image-file-resizer";
-import {
-  useCreatePostMutation,
-} from "../slices/postsApiSlice";
+import { useCreatePostMutation } from "../slices/postsApiSlice";
 import Spinner from "../components/Spinner";
 
 const NewPost = () => {
@@ -84,7 +82,7 @@ const NewPost = () => {
 
   const renderCategoryFields = () => {
     switch (category) {
-      case 'book':
+      case "book":
         return (
           <>
             <label htmlFor="author">Author</label>
@@ -104,7 +102,7 @@ const NewPost = () => {
             />
           </>
         );
-      case 'movie':
+      case "movie":
         return (
           <>
             <label htmlFor="director">Director</label>
@@ -124,7 +122,7 @@ const NewPost = () => {
             />
           </>
         );
-      case 'tv_show':
+      case "tv_show":
         return (
           <>
             <label htmlFor="network">Network</label>
@@ -144,7 +142,7 @@ const NewPost = () => {
             />
           </>
         );
-      case 'restaurant':
+      case "restaurant":
         return (
           <>
             <label htmlFor="address">Address</label>
@@ -164,7 +162,7 @@ const NewPost = () => {
             />
           </>
         );
-      case 'place':
+      case "place":
         return (
           <>
             <label htmlFor="location">Location</label>
@@ -251,7 +249,9 @@ const NewPost = () => {
           </div>
           <div className="image">
             <div className="no_image">
-              {!image && <img src="https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjk0fHxpbWFnZSUyMHBsYWNlaG9sZGVyfGVufDB8fDB8fHww" />}
+              {!image && (
+                <img src="https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjk0fHxpbWFnZSUyMHBsYWNlaG9sZGVyfGVufDB8fDB8fHww" />
+              )}
               {image && <img src={image} className="uploaded_image" />}
             </div>
           </div>
@@ -334,17 +334,17 @@ const Wrapper = styled.section`
 
   .writeDesc {
     border: 2px solid var(--clr-primary-1);
-  width: 22rem;
-  height: 10rem; 
-  margin-bottom: 2rem;
-  resize: none; 
-  padding: 0.5rem; 
-  font-size: 1rem; 
-  background-color: var(--clr-primary-1);
-  color: var(--clr-primary-4);
-}
+    width: 22rem;
+    height: 10rem;
+    margin-bottom: 2rem;
+    resize: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: var(--clr-primary-1);
+    color: var(--clr-primary-4);
+  }
   .writeDesc:focus {
-  outline: 2px solid var(--clr-brown);
+    outline: 2px solid var(--clr-brown);
   }
 
   input {
@@ -389,11 +389,17 @@ const Wrapper = styled.section`
   }
 
   .imageUpload {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  border: 2px dashed var(--clr-primary-2);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  background-color: var(--clr-primary-white);
+  transition: border-color 0.3s;  
   }
+
+  .imageUpload:hover {
+  border-color: var(--clr-primary-4);
+}
 
   .imageText p {
     color: var(--clr-white);
@@ -407,14 +413,23 @@ const Wrapper = styled.section`
   }
 
   .no_image {
-    width: 8rem;
-    height: 8rem;
+    width: 9rem;
+    height: 9rem;
+    margin: 1rem;
+    background-color: var(--clr-white);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    box-shadow: var(--light-shadow);
   }
 
   img {
     width: 8rem;
     height: 8rem;
     object-fit: cover;
+    border-radius: 0.2rem;
   }
 
   .chooseBtn {
@@ -433,24 +448,26 @@ const Wrapper = styled.section`
     padding-bottom: 2rem;
   }
 
-  // selection 
+  // selection
   .selection:focus {
-  outline: 2px solid var(--clr-brown); 
-}
+    outline: 2px solid var(--clr-brown);
+  }
 
-
-  // Submit Button 
+  // Submit Button
 
   .submitButton {
-    color: var(--clr-primary-4);
-    background-color: var(--clr-white);
-    border: none;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    width: 7rem;
-    text-align: center;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--clr-primary-4);
+  color: var(--clr-white);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
   }
+
+  .submitButton:hover {
+  background-color: var(--clr-primary-5);
+  transform: scale(1.05);
+}
 
   @media screen and (max-width: 800px) {
     flex-direction: column;
@@ -494,7 +511,7 @@ const Wrapper = styled.section`
     .category {
       font-size: 1.2rem;
     }
-  
+
     .submitButton {
       padding: 0.5rem;
       border-radius: 0.3rem;
@@ -537,6 +554,44 @@ const Wrapper = styled.section`
     .buttonContainer {
       align-self: flex-end;
       padding: 2rem;
+    }
+  }
+
+    @media screen and (max-width: 800px) {
+    .writeForm {
+      padding: 1rem;
+    }
+
+    .writeTitle, .writeDesc, .category {
+      width: 100%;
+    }
+
+    .imageUpload {
+      max-width: 100%; 
+    }
+
+    .no_image {
+      max-width: 100%; 
+      height: auto; 
+    }
+
+    .chooseBtn {
+      max-width: 100%;
+    }
+
+    .submitButton {
+      width: 100%; 
+    }
+  }
+
+   @media screen and (max-width: 480px) {
+
+    .writeTitle, .writeDesc {
+      font-size: 1rem; /* Smaller font size */
+    }
+
+    .category, .chooseBtn, .submitButton {
+      font-size: 0.9rem; /* Smaller font size */
     }
   }
 `;
