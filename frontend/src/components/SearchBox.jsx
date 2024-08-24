@@ -68,7 +68,7 @@ const Wrapper = styled.section`
   .searchInput {
     width: 100%; 
     max-width: 12rem; 
-    height: 3rem;
+    height: 2.5rem;
     box-sizing: border-box;
     border: 2px solid var(--clr-brown);
     border-radius: 5px;
@@ -84,7 +84,7 @@ const Wrapper = styled.section`
     color: var(--clr-white);
     width: 100%; 
     max-width: 9rem;
-    height: 3rem;
+    height: 2.5rem;
     box-sizing: border-box;
     border: 2px solid var(--clr-red);
     border-radius: 5px;

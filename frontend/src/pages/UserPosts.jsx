@@ -197,20 +197,20 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem; /* Adjust gap for smaller screens */
+    gap: 1rem; 
   }
 
   .posts {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start; /* Align items at the start */
-    gap: 1rem; /* Add gap between posts */
+    align-items: flex-start; 
+    gap: 1rem; 
   }
 
   .userPostsTitle {
     text-align: center;
-    font-size: 2.5rem; /* Adjusted font size */
+    font-size: 2.5rem; 
     margin-bottom: 1.5rem;
     color: var(--clr-primary-4);
     font-weight: 700;
@@ -218,45 +218,45 @@ const Wrapper = styled.section`
   }
 
   .underline {
-    width: 50%; /* Adjust width for responsiveness */
+    width: 50%; 
     height: 0.3rem; /* Adjust height */
     background: var(--clr-primary-4);
-    margin: 0 auto; /* Center underline */
+    margin: 0 auto; 
     margin-top: 0.5rem;
   }
 
   .post {
-    width: 100%; /* Adjust width to fit smaller screens */
+    width: 100%; 
     max-width: 20rem;
-    height: auto; /* Adjust height to fit content */
-    margin: 1rem; /* Adjust margin */
+    height: auto; 
+    margin: 1rem; 
     background-color: var(--clr-primary-1);
     padding: 1rem;
     border: 2px solid var(--clr-primary-1);
     border-radius: 5px;
     box-shadow: var(--dark-shadow);
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    box-sizing: border-box; 
   }
 
   .postTitle {
     color: var(--clr-primary-4);
-    font-size: 1.2rem; /* Adjusted font size */
+    font-size: 1.2rem; 
   }
 
   .image {
     width: 100%;
-    height: auto; /* Adjust height for responsive images */
+    height: auto; 
     object-fit: cover;
     border-radius: 0.2rem;
     box-shadow: var(--dark-shadow);
   }
 
   .desc {
-    font-size: 0.9rem; /* Adjusted font size */
+    font-size: 0.9rem; 
     color: var(--clr-brown);
     font-style: italic;
     line-height: 1.4rem;
-    margin-top: 0.5rem; /* Adjusted margin */
+    margin-top: 0.5rem; 
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -271,7 +271,7 @@ const Wrapper = styled.section`
 
   .icon {
     width: 1.5rem;
-    height: 1.5rem; /* Adjusted icon size */
+    height: 1.5rem; 
   }
 
   /* Additional breakpoints */

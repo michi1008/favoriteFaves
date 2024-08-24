@@ -48,7 +48,7 @@ const CategoryFilter = ({ onChange }) => {
 };
 
 const Wrapper = styled.section`
-    display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -57,6 +57,7 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem; 
   }
 
@@ -95,20 +96,23 @@ const Wrapper = styled.section`
 
   @media (max-width: 800px) {
     flex-direction: column;
+    
     gap: 1rem; 
     
     form {
-      flex-direction: column;
+      flex-direction: row;
       gap: 1rem; 
     }
 
     .categorySelect {
       max-width: 100%; 
+      margin-top: 1rem;
     }
 
     .clearButton {
       max-width: 100%; 
       margin-left: 0; 
+      margin-top: 1rem;
     }
   }
 `;
