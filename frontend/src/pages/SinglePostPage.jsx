@@ -264,7 +264,7 @@ const Wrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 0 1rem;
 
   .singlePost {
     display: flex;
@@ -292,6 +292,8 @@ const Wrapper = styled.section`
     font-style: Italic;
     margin-top: 1rem;
     width: 30rem;
+    text-align: center;
+    width: 100%;
   }
 
   .info {
@@ -422,7 +424,6 @@ const Wrapper = styled.section`
   }
 
 @media (max-width: 768px) {
-    padding: 0 1rem;
     .singlePost {
       padding: 1rem;
     }
