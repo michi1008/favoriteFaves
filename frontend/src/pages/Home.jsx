@@ -82,8 +82,8 @@ const Wrapper = styled.section`
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
+    padding-bottom: 2rem;
   }
-
 
   .homeContent {
     max-width: 1200px;
@@ -97,12 +97,6 @@ const Wrapper = styled.section`
     text-align: center;
     padding: 3rem 0;
   }
-
-  .categoryList {
-    padding-bottom: 2rem;
-  }
-
-
 
   .categoryCard {
     display: flex;
@@ -147,6 +141,15 @@ const Wrapper = styled.section`
     &:hover {
       background-color: var(--clr-primary-4);
     }
+  }
+
+  @media screen and (max-width: 800px) {
+    .homeContent {
+      background-color: var(--clr-primary-1);
+    }
+    .homeContentTitle {
+    color: var(--clr-secondary-2);
+  }
   }
 `;
 

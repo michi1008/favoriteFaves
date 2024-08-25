@@ -1,27 +1,26 @@
+:root {
+  --clr-primary-1: #f2edf1;
+  --clr-primary-2: #ef93ee;
+  --clr-primary-3: #40054e;
+  --clr-primary-4: #78066f;
+  --clr-red: #e32182;
+  --clr-red2: #d52a55;
+  --clr-white: #fff;
+  --clr-black: #000;
+  --clr-brown: #58393e;
+  --clr-brown2: #9b5555;
+  --clr-secondary-1: #0cd6ed;
+  --clr-secondary-2: #f59bd1;
+  --clr-secondary-3: #f2389b;
+  --clr-secondary-4: #be10e1;
 
-:root{
---clr-primary-1: #f2edf1;
---clr-primary-2: #ef93ee;
---clr-primary-3: #40054e;
---clr-primary-4: #78066f;
---clr-red: #e32182;
---clr-red2: #d52a55;
---clr-white: #fff;
---clr-black: #000;
---clr-brown: #58393e;
---clr-brown2:#9b5555;
---clr-secondary-1:#0cd6ed;
---clr-secondary-2:#f59bd1;
---clr-secondary-3:#f2389b;
---clr-secondary-4:#be10e1;
-
---light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
---dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
---max-width: 1170px;
---fixed-width: 620px;
---transition: all 0.3s linear;
---spacing: 0.1rem;
---radius: 8px;
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  --max-width: 1170px;
+  --fixed-width: 620px;
+  --transition: all 0.3s linear;
+  --spacing: 0.1rem;
+  --radius: 8px;
 }
 
 *,
@@ -32,7 +31,7 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-  
+
 html {
   min-height: calc(100vh - 5rem);
 }
@@ -84,7 +83,7 @@ p {
   margin-bottom: 0.875rem;
 }
 
-link{
+link {
   text-decoration: none !important;
 }
 
@@ -93,7 +92,7 @@ a:hover {
   color: var(--clr-primary-3);
 }
 
-a{
+a {
   text-decoration: none !important;
   color: var(--clr-dark);
 }
@@ -124,7 +123,6 @@ a{
     line-height: 1;
   }
 }
-
 
 @keyframes spinner {
   to {
@@ -170,23 +168,26 @@ button {
   padding: 1rem 2rem;
   border: none;
   border-radius: 3rem;
-  background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--clr-primary-4),
+    var(--clr-primary-3)
+  );
+  color: var(--clr-white);
   font-size: 1.2rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-
-  &:hover {
-    background-color: linear-gradient(135deg, var(--clr-primary-3), var(--clr-primary-2));
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-
 }
-  
+
+button:hover {
+  background: linear-gradient(
+    135deg,
+    var(--clr-secondary-3),
+    var(--clr-secondary-4)
+  );
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+

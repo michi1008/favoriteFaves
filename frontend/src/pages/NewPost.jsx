@@ -223,7 +223,7 @@ const NewPost = () => {
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
-            <option value="">Select a Category</option>
+            <option value="">Select a category</option>
             <option value="book">Book</option>
             <option value="movie">Movie</option>
             <option value="tv_show">TV Show</option>
@@ -329,11 +329,12 @@ const Wrapper = styled.section`
     width: 15rem;
     height: 3rem;
     margin-bottom: 2rem;
-    border: 2px solid var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
   }
 
   .writeDesc {
-    border: 2px solid var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
+    border-radius: 1rem;
     width: 22rem;
     height: 10rem;
     margin-bottom: 2rem;
@@ -362,17 +363,20 @@ const Wrapper = styled.section`
   .category {
     padding: 0.5rem;
     background-color: var(--clr-primary-1);
-    border: 2px solid var(--clr-primary-1);
-    border-radius: 0.5rem;
-    color: var(--clr-brown);
+    border: 2px solid var(--clr-primary-4);
+    border-radius: 1rem;
+    color: var(--clr-);
     font-size: 1.2rem;
     height: 3rem;
     margin-bottom: 1rem;
   }
 
+
+
   .category:focus {
-    outline: 2px solid var(--clr-brown);
+    outline: 2px solid var(--clr-primary-3);
   }
+
 
   .selection {
     margin-bottom: 1rem;
@@ -389,11 +393,11 @@ const Wrapper = styled.section`
   }
 
   .imageUpload {
-  border: 2px dashed var(--clr-primary-2);
+  border: 2px dashed var(--clr-white);
   padding: 1.5rem;
   border-radius: 0.5rem;
   text-align: center;
-  background-color: var(--clr-primary-white);
+  background-color: var(--clr-primary-3);
   transition: border-color 0.3s;  
   }
 
@@ -557,6 +561,9 @@ const Wrapper = styled.section`
       max-width: 100%; 
       height: auto; 
     }
+
+    .imageContainer { 
+      flex-direction: column;
 
     .chooseBtn {
       max-width: 100%;

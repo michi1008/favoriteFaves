@@ -168,37 +168,21 @@ display: flex;
     justify-content: space-between;
   }
 
-  .loginBtn,
-  .loginSignupBtn {
-    width: 48%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    color: var(--clr-white);
-    box-shadow: var(--dark-shadow);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .loginBtn {
-    background-color: var(--clr-primary-3);
-  }
-
-  .loginBtn:hover {
-    background-color: var(--clr-primary-1);
-    color: var(--clr-primary-3);
-    box-shadow: var(--dark-shadow);
-  }
-
-  .loginSignupBtn {
-    background-color: var(--clr-primary-4);
+    .loginSignupBtn {
+    background: linear-gradient(
+      135deg,
+      var(--clr-secondary-4),
+      var(--clr-secondary-3)
+    );
   }
 
   .loginSignupBtn:hover {
-    background-color: var(--clr-primary-1);
-    box-shadow: var(--dark-shadow);
-    color: var(--clr-primary-4);
+    background: linear-gradient(
+      135deg,
+      var(--clr-primary-4),
+      var(--clr-primary-3)
+    );
+    color: var(--clr-white);
   }
 
   .forgetPassword {
