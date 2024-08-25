@@ -14,13 +14,15 @@ const Header = () => {
       <div className="headerContent">
         <div className="content">
           <img src={img1} alt="positive energy abstract" />
+          <h2>Share Your Favorites Without the Fuss</h2>
           <h4>
             No need to worry about data collection or advertisements—just enjoy
-            sharing your top picks with family and friends.{" "}
+            sharing your top picks with family and friends.
           </h4>
         </div>
         <div className="content">
           <img src={img2} alt="memory abstract" />
+          <h2>Capture the Joy of What You Love</h2>
           <h4>
             As time goes on, our memories naturally begin to fade. Even the
             books, movies, TV shows, restaurants, and places you once loved may
@@ -31,6 +33,7 @@ const Header = () => {
         </div>
         <div className="content">
           <img src={img3} alt="how to abstract" />
+          <h2>Get Started: Sign Up and Start Sharing Your Top Picks in Minutes</h2>
           <h4>
             Sign up by creating an account with your username and email address.
             After registering, you'll find a 'Create' option in the header,
@@ -65,17 +68,17 @@ const Wrapper = styled.section`
   }
 
   .headerTitle h1 {
-    animation: slideInLeft 1.5s ease-in-out forwards; /* Apply the animation */
-    opacity: 0; /* Start with the text hidden */
+    animation: slideInLeft 1.5s ease-in-out forwards; 
+    opacity: 0; 
   }
 
   @keyframes slideInLeft {
     0% {
-      transform: translateX(-100%); /* Start off-screen */
+      transform: translateX(-100%); 
       opacity: 0;
     }
     100% {
-      transform: translateX(0); /* End at the normal position */
+      transform: translateX(0); 
       opacity: 1;
     }
   }
@@ -85,10 +88,12 @@ const Wrapper = styled.section`
     flex-wrap: wrap;
     align-items: flex-start; 
     justify-content: center;
-    color: var(--clr-primary-4);
+    color: var(--clr-brown);
     margin: 2rem 0;
     gap: 2rem;
     max-width: 100%;
+    padding: 2rem;
+    border-radius: 1rem;
   }
 
   .headerContent img {
@@ -96,7 +101,7 @@ const Wrapper = styled.section`
     max-width: 350px;
     height: auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
+    border-radius: 1rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -118,8 +123,14 @@ const Wrapper = styled.section`
     font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.6;
-    color: rgba(0, 0, 0, 0.75);
+    color: var(--clr-primary-3);
     margin-top: 1rem;
+  }
+
+  .content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    padding-top: 2rem;
   }
 
   @media screen and (max-width: 800px) {

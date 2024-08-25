@@ -196,7 +196,7 @@ const Post = ({ post, category }) => {
             </div>
             <div className="userContainer">
               <div className="user">
-                <p>Created by: {post.user ? post.user.userName : "Unknown"}</p>
+                <p>Created by: <span>{post.user ? post.user.userName : "Unknown"}</span></p>
               </div>
               <Link to={`/posts/${post._id}`} className="link">
                 <div className="link-icon">
@@ -216,7 +216,7 @@ const Wrapper = styled.section`
   height: 35rem;
   background-color: var(--clr-primary-1);
   padding: 2rem;
-  border-radius: 5px;
+  border-radius: 1rem;
   box-shadow: var(--dark-shadow);
   width: 100%;
   display: flex;
@@ -224,9 +224,10 @@ const Wrapper = styled.section`
     justify-content: space-between;
 }
 
-.title {
-  color: var(--clr-primary-4);
-  font-size: 1.2rem;
+.title h4 {
+  color: var(--clr-red2);
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .image {
@@ -253,7 +254,7 @@ display: -webkit-box;
 
 .info {
 color: var(--clr-primary-3);
-font-size; 1rem;
+font-size: 1.2rem;
 display: flex;
 flex-diretion: row;
 align-items: center;
@@ -274,7 +275,14 @@ gap: 0.5rem;
 }
 
 .user p {
-  color: var(--clr-primary-4);
+  color: var(--clr-brown);
+  font-size: 1.2rem;
+}
+
+.user span {
+  color: var(--clr-secondary-3);
+  font-size: 1.4rem;
+  font-weight: 700;
 }
 
 .link-icon {

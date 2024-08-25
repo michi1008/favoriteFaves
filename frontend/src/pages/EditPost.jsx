@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Resizer from "react-image-file-resizer";
 import {
   useGetPostByIdQuery,
-  useUpdatePostMutation
+  useUpdatePostMutation,
 } from "../slices/postsApiSlice";
 import Spinner from "../components/Spinner";
 
@@ -15,16 +15,15 @@ const EditPost = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const userId = userInfo._id;
   const { data: post, isLoading, refetch, error } = useGetPostByIdQuery(postId);
-  console.log(post)
+  console.log(post);
   const [title, setTitle] = useState("");
-    const [image, setImage] = useState("");
-    const [description, setDescription] = useState("");
-    const [category, setCategory] = useState("");
-    const [extraFields, setExtraFields] = useState({});
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [extraFields, setExtraFields] = useState({});
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const [updatePost, { isLoading: loadingUpdate }] = useUpdatePostMutation();
 
@@ -60,62 +59,60 @@ const EditPost = () => {
   const handleEdit = async (e) => {
     e.preventDefault();
     try {
-        if (!title || !description || !category) {
-      toast.error("Please fill all the fields");
-      return;
-    }
+      if (!title || !description || !category) {
+        toast.error("Please fill all the fields");
+        return;
+      }
 
-    await updatePost({
-        postId, 
+      await updatePost({
+        postId,
         data: {
-            title,
-            image,
-            description,
-            category,
-            author: extraFields.author,
-            genre: extraFields.genre,
-            director: extraFields.director,
-            network: extraFields.network,
-            address: extraFields.address,
-            cuisine: extraFields.cuisine,
-            location: extraFields.location
+          title,
+          image,
+          description,
+          category,
+          author: extraFields.author,
+          genre: extraFields.genre,
+          director: extraFields.director,
+          network: extraFields.network,
+          address: extraFields.address,
+          cuisine: extraFields.cuisine,
+          location: extraFields.location,
         },
-    }).unwrap();
-    
-    toast.success("Post updated");
+      }).unwrap();
 
-    refetch()
-    navigate(`/posts/userPosts/${userId}`);
+      toast.success("Post updated");
+
+      refetch();
+      navigate(`/posts/userPosts/${userId}`);
     } catch (err) {
-    console.error(err);
-    toast.error(err?.data?.message || err.message);
-}
-    
+      console.error(err);
+      toast.error(err?.data?.message || err.message);
+    }
   };
 
   useEffect(() => {
     if (post) {
-        setTitle(post.title || "");
-        setImage(post.image || "");
-        setDescription(post.description || "");
-        setCategory(post.category || "");
-       
+      setTitle(post.title || "");
+      setImage(post.image || "");
+      setDescription(post.description || "");
+      setCategory(post.category || "");
 
-        setExtraFields({
-            author: post.author || "",
-            genre: post.genre || "",
-            director: post.director || "",
-            network: post.network || "",
-            address: post.address || "",
-            cuisine: post.cuisine || "",
-            location: post.location || "",
-          });
+      setExtraFields({
+        author: post.author || "",
+        genre: post.genre || "",
+        director: post.director || "",
+        network: post.network || "",
+        address: post.address || "",
+        cuisine: post.cuisine || "",
+        location: post.location || "",
+      });
     }
-}, [post]);
+  }, [post]);
 
   const renderCategoryFields = () => {
     switch (category) {
-      case 'book':
+      case "book":
         return (
           <>
             <label htmlFor="author">Author</label>
@@ -135,7 +132,7 @@ const EditPost = () => {
             />
           </>
         );
-      case 'movie':
+      case "movie":
         return (
           <>
             <label htmlFor="director">Director</label>
@@ -155,7 +152,7 @@ const EditPost = () => {
             />
           </>
         );
-      case 'tv_show':
+      case "tv_show":
         return (
           <>
             <label htmlFor="network">Network</label>
@@ -175,7 +172,7 @@ const EditPost = () => {
             />
           </>
         );
-      case 'restaurant':
+      case "restaurant":
         return (
           <>
             <label htmlFor="address">Address</label>
@@ -195,7 +192,7 @@ const EditPost = () => {
             />
           </>
         );
-      case 'place':
+      case "place":
         return (
           <>
             <label htmlFor="location">Location</label>
@@ -282,7 +279,9 @@ const EditPost = () => {
           </div>
           <div className="image">
             <div className="no_image">
-              {!image && <img src="https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjk0fHxpbWFnZSUyMHBsYWNlaG9sZGVyfGVufDB8fDB8fHww" />}
+              {!image && (
+                <img src="https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjk0fHxpbWFnZSUyMHBsYWNlaG9sZGVyfGVufDB8fDB8fHww" />
+              )}
               {image && <img src={image} className="uploaded_image" />}
             </div>
           </div>
@@ -309,7 +308,7 @@ const Wrapper = styled.section`
   align-items: center;
   min-height: calc(100vh - 7rem);
   overflow: auto;
-  padding: 1rem; /* Added padding for better spacing */
+  padding: 1rem; 
 
   .titleContainer {
     color: var(--clr-primary-4);
@@ -333,8 +332,8 @@ const Wrapper = styled.section`
       url(https://images.unsplash.com/photo-1634655511368-6cd7213719f4?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D);
     padding: 2rem;
     border-radius: var(--radius);
-    max-width: 600px; /* Added max-width */
-    width: 100%; /* Ensure it takes full width on smaller screens */
+    max-width: 600px; 
+    width: 100%; 
   }
 
   .topContainer {
@@ -342,25 +341,25 @@ const Wrapper = styled.section`
     flex-direction: column;
     justify-content: flex-start;
     padding: 2rem;
-    width: 100%; /* Ensure full width */
+    width: 100%; 
   }
 
   .topContainer label {
     font-size: 1.5rem;
-    color: var(--clr-white);
+    color: var(--clr-primary-4);
   }
 
   .writeTitle {
-    width: 100%; /* Full width */
-    max-width: 100%; /* Avoid overflow */
+    width: 100%; 
+    max-width: 100%;
     height: 3rem;
     margin-bottom: 2rem;
-    border: 2px solid var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
     padding: 0.5rem;
   }
 
   .writeDesc {
-    border: 2px solid var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
     width: 100%; /* Full width */
     max-width: 100%; /* Avoid overflow */
     height: 10rem;
@@ -378,20 +377,21 @@ const Wrapper = styled.section`
 
   input, select {
     background-color: var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
     color: var(--clr-primary-4);
     font-size: 1.2rem;
-    width: 100%; /* Full width */
-    max-width: 100%; /* Avoid overflow */
+    width: 100%;
+    max-width: 100%; 
   }
 
   input:focus, select:focus {
-    outline: 2px solid var(--clr-brown);
+    outline: 2px solid var(--clr-primary-4);
   }
 
   .category {
     padding: 0.5rem;
     background-color: var(--clr-primary-1);
-    border: 2px solid var(--clr-primary-1);
+    border: 2px solid var(--clr-primary-4);
     border-radius: 0.5rem;
     color: var(--clr-brown);
     font-size: 1.2rem;
@@ -401,21 +401,21 @@ const Wrapper = styled.section`
 
   .imageContainer {
     display: flex;
-    flex-direction: column; /* Stack vertically on smaller screens */
+    flex-direction: row; 
     align-items: center;
     margin: 2rem auto;
     width: 100%;
   }
 
   .imageUpload {
-    border: 2px dashed var(--clr-primary-2);
+    border: 2px dashed var(--clr-primary-4);
     padding: 1.5rem;
     border-radius: 0.5rem;
     text-align: center;
     background-color: var(--clr-primary-white);
     transition: border-color 0.3s;
     width: 100%;
-    max-width: 300px; /* Limit width on larger screens */
+    max-width: 300px; 
   }
 
   .imageUpload:hover {
@@ -435,8 +435,8 @@ const Wrapper = styled.section`
 
   .no_image {
     width: 100%;
-    max-width: 150px; /* Limit image size */
-    height: auto; /* Maintain aspect ratio */
+    max-width: 150px; 
+    height: auto; 
     background-color: var(--clr-white);
     padding: 1rem;
     display: flex;
@@ -453,37 +453,24 @@ const Wrapper = styled.section`
   }
 
   .chooseBtn {
-    background: var(--clr-brown);
+    background: var(--clr-primary-4);
     color: var(--clr-white);
     width: 100%;
-    max-width: 200px; /* Limit button width */
+    max-width: 200px; 
     display: inline-block;
     padding: 1.2rem;
-    border: 1px solid var(--clr-primary-brown);
+    border: none
     text-align: center;
     font-size: 1rem;
-    margin-top: 1rem; /* Added margin */
   }
 
   .buttonContainer {
-    align-self: flex-end;
     padding-bottom: 2rem;
-    width: 100%; /* Full width */
-    max-width: 300px; /* Limit width */
+    width: 100%;
+    max-width: 300px; 
   }
 
-  .submitButton {
-    color: var(--clr-primary-4);
-    background-color: var(--clr-white);
-    border: none;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    font-size: 1.2rem;
-    width: 100%;
-    max-width: 150px; /* Limit button width */
-    text-align: center;
-    margin-top: 1rem; /* Added margin */
-  }
+
 
   @media screen and (max-width: 800px) {
     .writeForm {
@@ -523,5 +510,5 @@ const Wrapper = styled.section`
     }
   }
 `;
-  
+
 export default EditPost;

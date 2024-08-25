@@ -52,9 +52,9 @@ const CategoryPage = () => {
       <div className="categoryTitle">
         <h1>{displayName} Posts</h1>
       </div>
-      <div className="backBtn">
+      <div>
         <Link to="/">
-          <button>Go back</button>
+          <button className="backBtn">Go back</button>
         </Link>
       </div>
       <div className="categoryBtnContainer">
@@ -86,11 +86,12 @@ const Wrapper = styled.section`
   margin-bottom: 3rem;
   padding: 1rem;
 
+
   .categoryTitle  {
     text-align: center;
     h1 {
     color: var(--clr-primary-4);
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
   }
   
@@ -102,21 +103,6 @@ const Wrapper = styled.section`
   margin-bottom: 3rem;
   padding: 1rem;
   }
-
-  .backBtn {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 5px;
-  background: var(--clr-primary-4);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: var(--clr-primary-3);
-  }
-  
 
   .error {
   color: var(--clr-red);

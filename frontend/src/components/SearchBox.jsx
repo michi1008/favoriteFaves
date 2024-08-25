@@ -3,18 +3,19 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const SearchBox = ({ currentPage}) => {
+const SearchBox = ({ currentPage }) => {
   const { userInfo } = useSelector((state) => state.auth);
   const userId = userInfo?._id;
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
   const [keyword, setKeyword] = useState(urlKeyword || "");
 
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword) {
-      navigate(`/posts/userPosts/${userId}/search/${keyword.trim()}/page/${currentPage}`);
+      navigate(
+        `/posts/userPosts/${userId}/search/${keyword.trim()}/page/${currentPage}`
+      );
       setKeyword("");
     } else {
       navigate(`/posts/userPosts/${userId}/page/${currentPage}`);
@@ -37,7 +38,7 @@ const SearchBox = ({ currentPage}) => {
           placeholder="SEARCH"
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <button type="button" onClick={clearSearch} className="clearButton">
+        <button type="button" onClick={clearSearch} className="clearBtn">
           Clear
         </button>
       </form>
@@ -51,7 +52,7 @@ const Wrapper = styled.section`
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; 
+    gap: 1rem; 
   }
 
   .searchInput::placeholder {
@@ -66,37 +67,24 @@ const Wrapper = styled.section`
   }
 
   .searchInput {
-    width: 100%; 
-    max-width: 12rem; 
-    height: 2.5rem;
+    width: 9rem;
+    height: 3.2rem;
     box-sizing: border-box;
-    border: 2px solid var(--clr-brown);
-    border-radius: 5px;
-    font-size: 1rem; 
+    border: none;
+    border-radius: 3rem;
+    font-size: 1.2rem;
     color: var(--clr-white);
     background-color: var(--clr-brown);
     transition: width 0.4s ease-in-out;
-    padding: 0.8rem;
+    text-align: center;
+    font-weight: 500;
   }
 
-  .clearButton {
-    background-color: var(--clr-red);
-    color: var(--clr-white);
-    width: 100%; 
-    max-width: 9rem;
-    height: 2.5rem;
-    box-sizing: border-box;
-    border: 2px solid var(--clr-red);
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-left: 0.5rem; 
+  .clearBtn {
+  background: linear-gradient(135deg, var(--clr-red), var(--clr-red2));
   }
 
-  .clearButton:hover {
-    background-color: var(--clr-primary-3);
-    border: 2px solid var(--clr-primary-3);
-    color: var(--clr-white);
-  }
+}
 
   @media (max-width: 800px) {
     .searchInput {
@@ -114,7 +102,7 @@ const Wrapper = styled.section`
       font-size: 0.9rem; 
     }
 
-    .clearButton {
+    .clearBtn {
       font-size: 0.9rem; 
     }
   }

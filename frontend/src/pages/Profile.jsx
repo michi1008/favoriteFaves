@@ -115,16 +115,11 @@ const Wrapper = styled.section`
     margin: 3rem;
   }
 
-  .profileImg,
-  .profile {
-    flex: 1;
-  }
-
   .profileImg {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 300px;
+    min-width: 20rem;
   }
 
   .profileImg img {

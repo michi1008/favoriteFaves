@@ -75,8 +75,14 @@ const UserPosts = () => {
       case "book":
         return (
           <div className="info">
-            <p>Author: {post.author}</p>
-            <p>Genre: {post.genre}</p>
+            <p>
+              <span>Author:</span>
+              {post.author}
+            </p>
+            <p>
+              <span>Genre:</span>
+              {post.genre}
+            </p>
           </div>
         );
       case "movie":
@@ -195,58 +201,66 @@ const Wrapper = styled.section`
 
   .filter {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 1rem; 
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 3rem;
   }
 
   .posts {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: flex-start; 
-    gap: 1rem; 
+    align-items: flex-start;
+    gap: 1rem;
   }
 
   .userPostsTitle {
     text-align: center;
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    color: var(--clr-primary-4);
+    color: var(--clr-secondary-4);
     font-weight: 700;
     padding: 1rem;
   }
 
   .underline {
-    width: 50%; 
-    height: 0.3rem; /* Adjust height */
-    background: var(--clr-primary-4);
-    margin: 0 auto; 
+    width: 100%;
+    height: 0.3rem;
+    background: linear-gradient(
+      90deg,
+      var(--clr-secondary-1),
+      var(--clr-secondary-2),
+      var(--clr-secondary-3),
+      var(--clr-secondary-4)
+    );
+    margin: 0 auto;
     margin-top: 0.5rem;
   }
 
   .post {
-    width: 100%; 
+    width: 100%;
     max-width: 20rem;
-    height: auto; 
+    height: auto;
     min-height: 30rem;
-    margin: 1rem; 
+    margin: 1rem;
     background-color: var(--clr-primary-1);
     padding: 1rem;
     border: 2px solid var(--clr-primary-1);
     border-radius: 5px;
     box-shadow: var(--dark-shadow);
-    box-sizing: border-box; 
+    box-sizing: border-box;
   }
 
   .postTitle {
     color: var(--clr-primary-4);
-    font-size: 1.2rem; 
+    font-size: 2rem;
   }
 
   .image {
     width: 100%;
-    height: auto; 
+    height: auto;
     max-height: 15rem;
     object-fit: cover;
     border-radius: 0.2rem;
@@ -255,16 +269,26 @@ const Wrapper = styled.section`
   }
 
   .desc {
-    font-size: 0.9rem; 
+    font-size: 1rem;
     color: var(--clr-brown);
     font-style: italic;
     line-height: 1.4rem;
-    margin-top: 0.5rem; 
+    margin: 0.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+  }
+
+  .info p {
+    color: var(--clr-secondary-3);
+    font-size: 1rem;
+    font-weight: 700
+  }
+
+  .info span {
+    color: var(--clr-primary-2): 
   }
 
   .iconContainer {
@@ -274,10 +298,10 @@ const Wrapper = styled.section`
 
   .icon {
     width: 1.5rem;
-    height: 1.5rem; 
+    height: 1.5rem;
   }
 
-  /* Additional breakpoints */
+
   @media screen and (max-width: 1200px) {
     .userPostsTitle {
       font-size: 2rem;

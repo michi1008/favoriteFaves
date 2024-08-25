@@ -258,7 +258,7 @@ const NewPost = () => {
         </div>
         <div className="buttonContainer">
           <button
-            className="btn submitButton"
+            className="submitButton"
             type="submit"
             disabled={!title || !desc || !image || !category}
             onSubmit={handlePublish}
@@ -444,7 +444,6 @@ const Wrapper = styled.section`
   }
 
   .buttonContainer {
-    align-self: flex-end;
     padding-bottom: 2rem;
   }
 
@@ -453,21 +452,6 @@ const Wrapper = styled.section`
     outline: 2px solid var(--clr-brown);
   }
 
-  // Submit Button
-
-  .submitButton {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--clr-primary-4);
-  color: var(--clr-white);
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-  }
-
-  .submitButton:hover {
-  background-color: var(--clr-primary-5);
-  transform: scale(1.05);
-}
 
   @media screen and (max-width: 800px) {
     flex-direction: column;
@@ -552,7 +536,6 @@ const Wrapper = styled.section`
     }
 
     .buttonContainer {
-      align-self: flex-end;
       padding: 2rem;
     }
   }

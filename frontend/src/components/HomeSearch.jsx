@@ -24,13 +24,14 @@ const HomeSearch = ({ category, keyword: initialKeyword, onSubmit}) => {
           type="text"
           name="q"
           value={keyword}
-          placeholder="SEARCH"
+          placeholder="Search"
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <button type="button" onClick={clearSearch} className="clearButton">
+       
+      </form>
+      <button type="button" onClick={clearSearch} className="clearBtn">
           Clear
         </button>
-      </form>
     </Wrapper>
   );
 };
@@ -42,6 +43,7 @@ const Wrapper = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
 
   .searchInput::placeholder {
     color: var(--clr-white);
@@ -56,37 +58,24 @@ const Wrapper = styled.section`
 
   .searchInput {
     width: 9rem;
-    height: 3rem;
+    height: 3.2rem;
     box-sizing: border-box;
-    border: 2px solid var(--clr-brown);
-    border-radius: 5px;
+    border: none;
+    border-radius: 3rem;
     font-size: 1.2rem;
     color: var(--clr-white);
     background-color: var(--clr-brown);
     transition: width 0.4s ease-in-out;
-    margin-left: 1rem;
-    padding: 0.8rem;
+    margin-right: 2rem;
     text-align: center;
-    font-weight: 700;
-  }
-      .clearButton {
-    background-color: var(--clr-red);
-    color:var(--clr-white);
-    width: 9rem;
-    height: 3rem;
-    box-sizing: border-box;
-    border: 2px solid var(--clr-red);
-    border-radius: 5px;
-    font-size: 1.2rem;
-    align-text: center;
-    margin-left: 1rem;
+    font-weight: 500;
+    
   }
 
-  .clearButton:hover {
-    background-color: var(--clr-primary-3);
-    border:2px solid var(--clr-primary-3);
-    color: var(--clr-white);
+  .clearBtn {
+  background: linear-gradient(135deg, var(--clr-red), var(--clr-red2));
   }
+
 
 `;
 

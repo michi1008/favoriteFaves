@@ -91,8 +91,12 @@ const SinglePostPage = () => {
       case "book":
         return (
           <div className="info">
-            <p>Author: {post.author}</p>
-            <p>Genre:{post.genre}</p>
+            <p>
+              <span>Author: </span>{post.author}
+            </p>
+            <p>
+              <span>Genre: </span>{post.genre}
+              </p>
           </div>
         );
       case "movie":
@@ -280,7 +284,7 @@ const Wrapper = styled.section`
   .image {
     width: 100%;
     height: auto;
-    max-width: 38rem;
+    max-width: 30rem;
     object-fit: cover;
     border-radius: 15px;
     box-shadow: var(--dark-shadow);
@@ -293,20 +297,20 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     width: 30rem;
     text-align: center;
-    width: 100%;
+    width: 90%;
   }
 
-  .info {
+  .info p {
     color: var(--clr-primary-3);
     font-size: 1.5rem;
   }
 
-  .info span {
-    color: var(--clr-brown);
-  }
-
+  .info p span {
+    color: var(--clr-red);
+    font-weight: 700;
+}
   .title h3 {
-    color: var(--clr-primary-4);
+    color: var(--clr-secondary-3);
     font-size: 3rem;
     font-weight: 700;
     margin-top: 1rem;
@@ -316,13 +320,13 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    color: var(--clr-brown);
+    color: var(--clr-secondary-4);
     font-size: 1.2rem;
     font-weight: 700;
   }
 
   .infoContainer p span {
-    color: var(--clr-primary-3);
+    color: var(--clr-red2);
   }
 
   // comments
@@ -348,7 +352,7 @@ const Wrapper = styled.section`
   }
 
   .addCommentText {
-    color: var(--clr-primary-3);
+    color: var(--clr-red2);
   }
 
   .createCommentContainer {
@@ -362,7 +366,7 @@ const Wrapper = styled.section`
     background-color: var(--clr-primary-4);
     color: var(--clr-white);
     border: 1px solid var(--clr-primary-4);
-    border-radius: 10px;
+    border-radius: 3rem;
     padding: 1rem;
     height: 10rem;
     width: 100%;
@@ -402,7 +406,7 @@ const Wrapper = styled.section`
 
   .commentSubmit {
     background-color: var(--clr-primary-3);
-    border-radius: 5px;
+    border-radius: 3rem;
   }
 
   .commentSubmit:hover {

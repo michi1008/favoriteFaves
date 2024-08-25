@@ -31,7 +31,6 @@ const Navbar = () => {
       <nav>
         <div className="title">
           <h3>Favorite Faves</h3>
-          <div className="underlineTitle"></div>
         </div>
         <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? (
@@ -105,13 +104,11 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: var(--clr-primary-4);
-  }
-
-  .underlineTitle {
-    background-color: var(--clr-primary-4);
-    height: 0.3rem;
-    width: 65%;
+    background: linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 2rem;
+    font-weight: bold;
   }
 
   .navName {
@@ -125,7 +122,7 @@ const Wrapper = styled.section`
 
   .navName a {
     text-decoration: none;
-    color: var(--clr-primary-4);
+    color: var(--clr-secondary-3);
     font-size: 1.2rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
@@ -139,13 +136,13 @@ const Wrapper = styled.section`
     transform: translateX(-50%);
     height: 0.2rem;
     width: 0%;
-    background-color: var(--clr-primary-4);
+    -webkit-background-clip: text;
     transition: width 0.3s ease-in-out;
   }
 
   .navName:hover .underline {
     width: 100%;
-    background-color: var(--clr-red);
+    background:linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
   }
 
   nav ul {
@@ -175,7 +172,7 @@ const Wrapper = styled.section`
   }
 
   nav ul li a:hover {
-    color: var(--clr-red);
+    color: var(--clr-secondary-4);
   }
 
   .navUser h4 {
@@ -185,6 +182,7 @@ const Wrapper = styled.section`
     margin: 0 0.5rem;
     line-height: 0;
     margin-bottom: 0;
+    color: var(--clr-secondary-4);
   }
 
   nav .menu {
@@ -196,12 +194,13 @@ const Wrapper = styled.section`
   }
 
   nav .navUser h4 span {
-    color: var(--clr-red);
+    color: var(--clr-secondary-4);
   }
 
   .logout {
     cursor: pointer;
     font-size: 2rem;
+    color: var(--clr-secondary-4);
   }
 
   .logout:hover {

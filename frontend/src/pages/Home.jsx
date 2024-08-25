@@ -84,16 +84,25 @@ const Wrapper = styled.section`
     gap: 2rem;
   }
 
+
   .homeContent {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 1rem auto;
+    background-color: var(--clr-secondary-2);
+    border-radius: 1.2rem;
   }
 
   .homeContentTitle {
-    color: var(--clr-primary-4);
+    color: var(--clr-white);
     text-align: center;
-    margin-bottom: 3rem;
+    padding: 3rem 0;
   }
+
+  .categoryList {
+    padding-bottom: 2rem;
+  }
+
+
 
   .categoryCard {
     display: flex;
@@ -128,10 +137,10 @@ const Wrapper = styled.section`
   .categoryBtn {
     padding: 0.5rem 1rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 3rem;
     background-color: var(--clr-primary-4);
     color: var(--clr-white);
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: background-color 0.3s;
     margin-bottom: 2rem;

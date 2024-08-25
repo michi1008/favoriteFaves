@@ -33,13 +33,13 @@ const CategoryFilter = ({ onChange }) => {
           onChange={handleCategoryChange}
         >
           <option value="">Select a Category</option>
-          <option value="book">Book</option>
-          <option value="movie">Movie</option>
-          <option value="tv_show">TV Show</option>
-          <option value="restaurant">Restaurant</option>
-          <option value="place">Place</option>
+          <option value="book">Books</option>
+          <option value="movie">Movies</option>
+          <option value="tv_show">TV Shows</option>
+          <option value="restaurant">Restaurants</option>
+          <option value="place">Places</option>
         </select>
-        <button className="clearButton" onClick={clearCategory}>
+        <button className="clearBtn" onClick={clearCategory}>
           Clear
         </button>
       </form>
@@ -52,66 +52,55 @@ const Wrapper = styled.section`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem; 
+
   form {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem; 
+    gap: 1rem;
   }
 
   .categorySelect {
     padding: 0.5rem;
     background-color: var(--clr-primary-4);
     border: none;
-    border-radius: 5px;
+    border-radius: 3rem;
     color: var(--clr-white);
-    font-size: 1rem;
-    height: 2.5rem;
-    width: 100%; 
-    min-width: 12rem;
-    max-width: 22rem; 
-  }
-
-  .clearButton {
-    background-color: var(--clr-red);
-    color: var(--clr-white);
+    font-size: 1.2rem;
+    height: 3.2rem;
     width: 100%;
-    min-widht: 6rem; 
-    max-width: 9rem; 
-    height: 2.5rem;
-    box-sizing: border-box;
-    border: 2px solid var(--clr-red);
-    border-radius: 5px;
-    font-size: 1rem; 
-    margin-left: 0.5rem; 
+    min-width: 12rem;
+    max-width: 22rem;
+    outline: none;
   }
 
-  .clearButton:hover {
-    background-color: var(--clr-white);
-    border: 2px solid var(--clr-white);
-    color: var(--clr-red);
+  .categorySelect:hover {
+    transform: scale(1.05);
+  }
+
+  .clearBtn {
+    background: linear-gradient(135deg, var(--clr-red), var(--clr-red2));
   }
 
   @media (max-width: 800px) {
     flex-direction: column;
-    
-    gap: 1rem; 
-    
+
+    gap: 1rem;
+
     form {
       flex-direction: row;
-      gap: 1rem; 
+      gap: 1rem;
     }
 
     .categorySelect {
-      max-width: 100%; 
+      max-width: 100%;
       margin-top: 1rem;
     }
 
     .clearButton {
-      max-width: 100%; 
-      margin-left: 0; 
+      max-width: 100%;
+      margin-left: 0;
       margin-top: 1rem;
     }
   }
