@@ -265,7 +265,7 @@ const SinglePostPage = () => {
 
 const Wrapper = styled.section`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 0 1rem;
@@ -292,12 +292,15 @@ const Wrapper = styled.section`
 
   .desc {
     font-size: 1rem;
-    color: var(--clr-primary-4);
+    color: var(--clr-white);
     font-style: Italic;
     margin-top: 1rem;
     width: 30rem;
     text-align: center;
     width: 90%;
+    background-color: var(--clr-primary-3);
+    border-radius:3rem;
+    padding: 2rem;
   }
 
   .info p {
@@ -340,6 +343,7 @@ const Wrapper = styled.section`
     background-color: var(--clr-primary-1);
     border-radius: 5px;
     box-shadow: var(--dark-shadow);
+    margin-right: 2rem;
   }
 
   .commentContainer h3 {
@@ -363,10 +367,10 @@ const Wrapper = styled.section`
   }
 
   textarea {
-    background-color: var(--clr-primary-4);
+    background-color: var(--clr-primary-2);
     color: var(--clr-white);
-    border: 1px solid var(--clr-primary-4);
-    border-radius: 3rem;
+    border: none;
+    border-radius: 1.5rem;
     padding: 1rem;
     height: 10rem;
     width: 100%;
@@ -379,7 +383,7 @@ const Wrapper = styled.section`
   }
 
   textarea:focus {
-    outline: 2px solid var(--clr-brown);
+    outline: 2px solid var(--clr-primary-4);
   }
 
   span {
@@ -388,16 +392,16 @@ const Wrapper = styled.section`
   }
 
   .replyBtn {
-    border-radius: 5px;
-    background-color: var(--clr-primary-4);
-    width: 5rem;
-    height: 2rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(
+    135deg,
+    var(--clr-secondary-2),
+    var(--clr-secondary-3)
+  );
   }
 
-  .replyBtn:hover {
-    background-color: var(--clr-brown);
-  }
 
   .comment.reply {
     margin-left: 2rem;
@@ -405,13 +409,9 @@ const Wrapper = styled.section`
   }
 
   .commentSubmit {
-    background-color: var(--clr-primary-3);
-    border-radius: 3rem;
-  }
-
-  .commentSubmit:hover {
-    background-color: var(--clr-white);
-    color: var(--clr-primary-3);
+    font-size: 1.2rem;
+    padding: 1rem 2rem;
+    margin-top: 2rem;
   }
 
   .commentAskLogin p {
@@ -428,6 +428,7 @@ const Wrapper = styled.section`
   }
 
 @media (max-width: 768px) {
+  flex-direction: column;
     .singlePost {
       padding: 1rem;
     }
