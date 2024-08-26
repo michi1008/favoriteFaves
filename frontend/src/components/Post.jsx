@@ -212,8 +212,8 @@ const Post = ({ post, category }) => {
 const Wrapper = styled.section`
 
 .post {
-  max-width: 25rem;
-  height: 35rem;
+  max-width: 28rem;
+  height: 38rem;
   background-color: var(--clr-primary-1);
   padding: 2rem;
   border-radius: 1rem;

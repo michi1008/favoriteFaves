@@ -22,8 +22,10 @@ const ForgetPasswordForm = () => {
 
   return (
     <Wrapper>
+      <div className="forgetPassword">
+      <h3 >Forget Password</h3>
+      </div>
       <form onSubmit={handleSubmit}>
-      <h3 className="forgetPassword">Forget Password</h3>
       <input
         type="email"
         className="forgetPasswordForm"
@@ -31,10 +33,12 @@ const ForgetPasswordForm = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-      />
-      <button type="submit">Submit</button>
-      {message && <p className="message">👉 {message}</p>}
+      />    
     </form>
+    <div>
+    <button type="submit">Submit</button>
+    </div>
+    {message && <p className="message">👉 {message}</p>}
     </Wrapper>
     
   );
@@ -43,6 +47,7 @@ const ForgetPasswordForm = () => {
 
 const Wrapper = styled.section`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
