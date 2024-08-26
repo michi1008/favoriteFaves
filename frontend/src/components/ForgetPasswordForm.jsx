@@ -23,8 +23,9 @@ const ForgetPasswordForm = () => {
   return (
     <Wrapper>
       <div className="forgetPassword">
-      <h3 >Forget Password</h3>
+        <h3 >Forget Password</h3>
       </div>
+      <div className="form">
       <form onSubmit={handleSubmit}>
       <input
         type="email"
@@ -35,8 +36,9 @@ const ForgetPasswordForm = () => {
         required
       />    
     </form>
+      </div>
     <div>
-    <button type="submit">Submit</button>
+      <button type="submit">Submit</button>
     </div>
     {message && <p className="message">👉 {message}</p>}
     </Wrapper>
@@ -48,10 +50,11 @@ const ForgetPasswordForm = () => {
 const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 2rem;
   min-height: calc(100vh-5rem);
+
 
   h3 {
     color: var(--clr-primary-4);
@@ -67,7 +70,7 @@ const Wrapper = styled.section`
   
   .forgetPasswordForm:focus {
   outline: none;
-  border-color: var(--clr-brown);
+  border-color: var(--clr-primary-4);
   box-shadow: var(--dark-shadow);
 }
   

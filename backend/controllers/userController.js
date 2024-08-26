@@ -2,8 +2,8 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import nodemailer from 'nodemailer';
-import bcrypt from 'bcryptjs'; 
+import nodemailer from "nodemailer";
+import bcrypt from "bcryptjs";
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -38,7 +38,6 @@ export const authUser = asyncHandler(async (req, res) => {
 
   res.status(401).json({ message: "Invalid email or password" });
 });
-
 
 // @desc    Register a new user
 // @route   POST /api/users
@@ -111,7 +110,6 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     user.userName = req.body.userName || user.userName;
     user.email = req.body.email || user.email;
 
-
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(req.body.password, salt);
@@ -174,13 +172,10 @@ export const getUserById = asyncHandler(async (req, res) => {
 
 // Function to log environment variables for debugging
 const logEnvVariables = () => {
- 
-    console.log('Email:', process.env.EMAIL);
-    console.log('App Password:', process.env.PASSWORD_APP_EMAIL);
-    console.log('JWT Secret:', process.env.JWT_SECRET);
-
+  console.log("Email:", process.env.EMAIL);
+  console.log("App Password:", process.env.PASSWORD_APP_EMAIL);
+  console.log("JWT Secret:", process.env.JWT_SECRET);
 };
-
 
 export const forgetPassword = asyncHandler(async (req, res) => {
   try {
@@ -194,7 +189,9 @@ export const forgetPassword = asyncHandler(async (req, res) => {
     }
 
     // Generate a unique JWT token for the user that contains the user's id
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '10m' });
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "10m",
+    });
 
     // Send the token to the user's email
     const transporter = nodemailer.createTransport({
@@ -207,8 +204,8 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       tls: {
         rejectUnauthorized: false,
       },
-  logger: true,
-  debug: true,
+      logger: true,
+      debug: true,
     });
 
     // Email configuration
@@ -223,16 +220,28 @@ export const forgetPassword = asyncHandler(async (req, res) => {
         <p>If you didn't request a password reset, please ignore this email.</p>`,
     };
 
+    // Email configuration
+    /* const mailOptions = {
+          from: process.env.EMAIL,
+          to: req.body.email,
+          subject: "Reset Password",
+          html: `<h1>Reset Your Password</h1>
+            <p>Click on the following link to reset your password:</p>
+            <a href="http://localhost:3000/reset-password/${token}">http://localhost:3000//reset-password/${token}</a>
+            <p>The link will expire in 10 minutes.</p>
+            <p>If you didn't request a password reset, please ignore this email.</p>`,
+        }; */
+
     // Send the email
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.error('Error sending email:', err);
+        console.error("Error sending email:", err);
         return res.status(500).send({ message: err.message });
       }
       res.status(200).send({ message: "Email sent" });
     });
   } catch (err) {
-    console.error('Error in forgetPassword:', err);
+    console.error("Error in forgetPassword:", err);
     res.status(500).send({ message: err.message });
   }
 });
@@ -244,7 +253,7 @@ export const resetPassword = asyncHandler(async (req, res) => {
 
     // Find the user with the id from the token
     const user = await User.findById(decodedToken.userId);
- 
+
     if (!user) {
       return res.status(401).send({ message: "No user found" });
     }
@@ -253,19 +262,16 @@ export const resetPassword = asyncHandler(async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     req.body.newPassword = await bcrypt.hash(req.body.newPassword, salt);
 
-    
     const updatedUser = await User.findByIdAndUpdate(
       decodedToken.userId,
       { password: req.body.newPassword },
       { new: true }
     );
-    
+
     if (!updatedUser) {
       return res.status(401).send({ message: "Failed to update password" });
     }
-    
-   
-   
+
     // Send success response
     res.status(200).send({ message: "Password updated" });
   } catch (err) {
