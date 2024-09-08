@@ -8,11 +8,9 @@ import {
 import { useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
-import reply from "../assets/reply.png";
 
 const SinglePostPage = () => {
   const { postId } = useParams();
-
   const [comment, setComment] = useState("");
   const [replyingTo, setReplyingTo] = useState(null);
 
@@ -60,15 +58,13 @@ const SinglePostPage = () => {
 
   const submitReply = async (parentCommentId) => {
     try {
-      const newReply = await createComment({
+      await createComment({
         postId,
         comment,
         user: userInfo._id,
         parentCommentId,
       }).unwrap();
-
       refetch();
-
       setComment("");
       setReplyingTo(null);
       toast.success("Your reply was added successfully");
@@ -80,6 +76,7 @@ const SinglePostPage = () => {
 
   const handleReplyClick = (commentId) => {
     setReplyingTo(commentId);
+    setComment("");
   };
 
   if (isLoading) {
@@ -92,18 +89,20 @@ const SinglePostPage = () => {
         return (
           <div className="info">
             <p>
-              <span>Author: </span>{post.author}
+              <span>Author: </span>
+              {post.author}
             </p>
             <p>
-              <span>Genre: </span>{post.genre}
-              </p>
+              <span>Genre: </span>
+              {post.genre}
+            </p>
           </div>
         );
       case "movie":
         return (
           <div className="info">
             <p>
-              <span>director: </span>
+              <span>Director: </span>
               {post.director}
             </p>
             <p>
@@ -162,6 +161,7 @@ const SinglePostPage = () => {
           <img className="image" src={post?.image} />
         </div>
         <div className="desc">
+          <h3>Description</h3>
           <h4>{post?.description}</h4>
         </div>
         {renderCategoryContent()}
@@ -265,227 +265,198 @@ const SinglePostPage = () => {
 
 const Wrapper = styled.section`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 0 1rem;
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  border-radius: 12px;
+  background-color: var(--clr-primary-2); 
 
   .singlePost {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 3rem;
-    gap: 2rem;
-    paddding: 2rem;
     width: 100%;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--clr-primary-1);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .image {
     width: 100%;
-    height: auto;
     max-width: 30rem;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: var(--dark-shadow);
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .title h3 {
+    color: var(--clr-primary-4);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
   }
 
   .desc {
     font-size: 1rem;
-    color: var(--clr-white);
-    font-style: Italic;
-    margin-top: 1rem;
-    width: 30rem;
-    text-align: center;
-    width: 90%;
-    background-color: var(--clr-primary-3);
-    border-radius:3rem;
-    padding: 2rem;
-  }
-
-  .info p {
     color: var(--clr-primary-3);
-    font-size: 1.5rem;
-  }
-
-  .info p span {
-    color: var(--clr-red);
-    font-weight: 700;
-}
-  .title h3 {
-    color: var(--clr-secondary-3);
-    font-size: 3rem;
-    font-weight: 700;
-    margin-top: 1rem;
+    background: var(--clr-primary-2);
+    border-radius: 8px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 30rem;
+    text-align: center;
   }
 
   .infoContainer {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 1rem;
     color: var(--clr-secondary-4);
-    font-size: 1.2rem;
+  }
+
+  .info p {
+    font-size: 1.1rem;
+    color: var(--clr-brown);
+  }
+
+  .info p span {
+    color: var(--clr-primary-3);
     font-weight: 700;
   }
 
-  .infoContainer p span {
-    color: var(--clr-red2);
-  }
-
-  // comments
-
   .commentContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    background-color: var(--clr-primary-1);
-    border-radius: 5px;
-    box-shadow: var(--dark-shadow);
-    margin-right: 2rem;
+    width: 100%;
+    max-width: 30rem;
+    margin-top: 2rem;
+    background-color: var(--clr-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
   }
 
   .commentContainer h3 {
-    color: var(--clr-primary-3);
+    color: var(--clr-secondary-3);
+    margin-bottom: 1rem;
   }
 
   .comment {
-    color: var(--clr-primary-4);
+    color: #666;
     font-size: 1rem;
+    background-color: var(--clr-primary-1); 
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   }
 
-  .addCommentText {
-    color: var(--clr-red2);
+  .comment.reply {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
   }
 
   .createCommentContainer {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding: 1rem;
   }
 
   textarea {
-    background-color: var(--clr-primary-2);
-    color: var(--clr-white);
-    border: none;
-    border-radius: 1.5rem;
+    background-color: var(--clr-white);
+    color: var(--clr-brown);
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 1rem;
-    height: 10rem;
+    height: 5rem;
     width: 100%;
+    margin-bottom: 1rem;
     font-size: 1rem;
-  }
-
-  textarea::placeholder {
-    color: var(--clr-white);
-    padding: 1rem;
   }
 
   textarea:focus {
-    outline: 2px solid var(--clr-primary-4);
+    outline: none;
+    border-color: #ff4b5c;
+    box-shadow: 0 0 0 2px rgba(255, 75, 92, 0.3);
   }
 
-  span {
-    font-weight: 700;
-    color: var(--clr-red);
-  }
-
-  .replyBtn {
-    font-size: 1rem;
-    padding: 0.5rem 1.5rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(
-    135deg,
-    var(--clr-secondary-2),
-    var(--clr-secondary-3)
-  );
-  }
-
-
-  .comment.reply {
-    margin-left: 2rem;
-    margin-top: 1rem;
-  }
-
+  .replyBtn,
   .commentSubmit {
-    font-size: 1.2rem;
-    padding: 1rem 2rem;
-    margin-top: 2rem;
+    background: #ff4b5c;
+    color: white;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .replyBtn:hover,
+  .commentSubmit:hover {
+    background: #e03a4a; /* Darker shade for hover effect */
   }
 
   .commentAskLogin p {
     font-size: 1.2rem;
-    color: var(--clr-primary-3);
+    color: #333;
+    text-align: center;
   }
 
   .commentAskLogin span {
     font-weight: 700;
+    color: #ff4b5c;
   }
 
   .commentAskLogin span:hover {
-    color: var(--clr-primary-red);
+    color: #e03a4a;
   }
 
-@media (max-width: 768px) {
-  flex-direction: column;
-    .singlePost {
+  @media (max-width: 768px) {
+    padding: 1rem;
+    .singlePost,
+    .commentContainer {
       padding: 1rem;
     }
 
     .title h3 {
-      font-size: 1.8rem;
+      font-size: 2rem;
     }
 
-    .image {
-    max-width: 25rem;
-
-  }
     .desc {
       font-size: 0.9rem;
     }
 
-    .info {
+    .infoContainer {
       font-size: 0.9rem;
-    }
-
-    .infoContainer p {
-      font-size: 0.8rem;
     }
 
     .commentInput {
       font-size: 0.9rem;
     }
-
-    .commentSubmit {
-      font-size: 0.9rem;
-    }
-
-    .commentContainer {
-      padding: 0.5rem;
-    }
   }
 
   @media (max-width: 480px) {
-    
     .title h3 {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
 
     .image {
-    max-width: 20rem;
-  }
+      max-width: 20rem;
+    }
 
     .desc {
-      font-size: 1rem;
+      font-size: 0.9rem;
     }
 
-    .info {
-      font-size: 1rem;
-    }
-
-    .infocContainer p {
-      font-size: 0.8rem;
+    .info p {
+      font-size: 0.9rem;
     }
 
     .commentInput {
