@@ -13,6 +13,15 @@ const Header = () => {
 
       <div className="headerContent">
         <div className="content">
+            <img src={img3} alt="how to abstract" />
+            <h2>Get Started: Sign Up and Start Sharing Your Top Picks in Minutes</h2>
+            <h4>
+              Sign up by creating an account with your username and email address.
+              After registering, you'll find a 'Create' option in the header,
+              ready for you to start adding your top picks.
+            </h4>
+          </div>
+        <div className="content">
           <img src={img1} alt="positive energy abstract" />
           <h2>Share Your Favorites Without the Fuss</h2>
           <h4>
@@ -31,15 +40,6 @@ const Header = () => {
             and excitement alive forever.
           </h4>
         </div>
-        <div className="content">
-          <img src={img3} alt="how to abstract" />
-          <h2>Get Started: Sign Up and Start Sharing Your Top Picks in Minutes</h2>
-          <h4>
-            Sign up by creating an account with your username and email address.
-            After registering, you'll find a 'Create' option in the header,
-            ready for you to start adding your top picks.
-          </h4>
-        </div>
       </div>
     </Wrapper>
   );
@@ -55,21 +55,15 @@ const Wrapper = styled.section`
   margin: 3rem 0;
   gap: 2rem;
 
-  .headerTitle {
-    background-image: url(https://images.unsplash.com/photo-1572414451217-ed2e028748e2?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTg0fHxhYnN0cmFjdHxlbnwwfHwwfHx8MA%3D%3D);
-    background-size: cover;
-    background-position: center;
-    height: 35vh;
-    padding: 3rem 4rem;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
   .headerTitle h1 {
     animation: slideInLeft 1.5s ease-in-out forwards; 
     opacity: 0; 
+    background: linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
+    -webkit-background-clip: text;
+    color: transparent;
+    font-family: "Open Sans", sans-serif !important;
+    font-weight: 700;
+    font-style: italic;
   }
 
   @keyframes slideInLeft {

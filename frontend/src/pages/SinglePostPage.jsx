@@ -271,7 +271,7 @@ const Wrapper = styled.section`
   max-width: 900px;
   margin: auto;
   border-radius: 12px;
-  background-color: var(--clr-primary-2); 
+  background-color: var(--clr-primary-4); 
 
   .singlePost {
     display: flex;

@@ -18,11 +18,11 @@ const placeImg =
   "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D";
 
 const categories = [
-  { name: "Book", value: "book", image: bookImg },
-  { name: "Movie", value: "movie", image: movieImg },
-  { name: "TV Show", value: "tv_show", image: tvShowImg },
-  { name: "Restaurant", value: "restaurant", image: restaurantImg },
-  { name: "Place", value: "place", image: placeImg },
+  { name: "Books", value: "book", image: bookImg },
+  { name: "Movies", value: "movie", image: movieImg },
+  { name: "TV Shows", value: "tv_show", image: tvShowImg },
+  { name: "Restaurants", value: "restaurant", image: restaurantImg },
+  { name: "Places", value: "place", image: placeImg },
 ];
 
 const Home = () => {

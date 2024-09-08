@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { FaSquareXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -18,13 +19,19 @@ const Footer = () => {
             <a href="https://www.instagram.com/michyrabbit/?next=%2F&hl=en">
               <FaInstagramSquare className="social-icon" />
             </a>
-            <a href="mailto:michytaguchi@gmail.com">
-              <MdEmail className="social-icon" />
+            <a href="https://x.com/michidev1008">
+              <FaSquareXTwitter className="social-icon" />
             </a>
           </div>
         </div>
         <div className="copyright">
           <p className="copyright">Michiko Taguchi &copy; {currentYear}</p>
+        </div>
+        <div className="contact">
+          <p>Contact me</p>
+          <a href="mailto:michytaguchi@gmail.com">
+            <MdEmail className="social-icon" />
+          </a>
         </div>
       </footer>
     </Wrapper>
@@ -90,6 +97,13 @@ const Wrapper = styled.section`
   .copyright {
     color: #fff;
     font-style: italic;
+  }
+  
+  .contact {
+    text-align: center;
+  }
+  .contact p {
+  color: #fff;
   }
 `;
 export default Footer;
