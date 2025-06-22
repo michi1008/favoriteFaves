@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import { useForgetPasswordMutation } from '../slices/apiSlice';
-import { setCredentials } from '../slices/authSlice';
 
 const ForgetPasswordForm = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const dispatch = useDispatch();
-  const [forgetPassword] = useForgetPasswordMutation();
+  const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,28 +22,30 @@ const ForgetPasswordForm = () => {
   return (
     <Wrapper>
       <div className="forgetPassword">
-        <h3 >Forget Password</h3>
+        <h3>Forget Password</h3>
       </div>
       <div className="form">
-      <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        className="forgetPasswordForm"
-        placeholder="Enter your email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />    
-    </form>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            className="forgetPasswordForm"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <div>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Sending...' : 'Submit'}
+            </button>
+          </div>
+        </form>
       </div>
-    <div>
-      <button type="submit">Submit</button>
-    </div>
-    {message && <p className="message">👉 {message}</p>}
+      {message && <p className="message">👉 {message}</p>}
     </Wrapper>
-    
   );
 };
+
 
 
 const Wrapper = styled.section`
@@ -53,7 +54,7 @@ const Wrapper = styled.section`
   justify-content: flex-start;
   align-items: center;
   padding: 2rem;
-  min-height: calc(100vh-5rem);
+  min-height: calc(100vh - 5rem);
 
 
   h3 {
