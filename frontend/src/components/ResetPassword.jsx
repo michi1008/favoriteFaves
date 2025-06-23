@@ -37,7 +37,7 @@ const ResetPassword = () => {
   return (
     <Wrapper>
       <div className="resetPasswordtitle">
-        <h3 >Reset Password</h3>
+        <h3>Reset Password</h3>
       </div>
       <div className="form">
         <form onSubmit={handleSubmit}>
@@ -57,11 +57,10 @@ const ResetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? "Resetting..." : "Reset Password"}
+          </button>
         </form>
-      </div>
-      <div>
-        {" "}
-        <button type="submit">Reset Password</button>
       </div>
     </Wrapper>
   );
@@ -73,7 +72,7 @@ const Wrapper = styled.section`
   align-items: center;
   flex-direction: column;
   padding: 2rem;
-  min-height: calc(100vh-5rem);
+  min-height: calc(100vh - 5rem);
 
 h3{
 color: var(--clr-primary-4);
