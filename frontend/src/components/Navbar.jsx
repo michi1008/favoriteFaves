@@ -95,8 +95,13 @@ const Wrapper = styled.section`
     position: sticky;
     top: 0;
     height: 6rem;
-    padding: 2rem;
+    padding: 0 2rem;
     z-index: 200;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
   }
 
   nav .title {
@@ -104,11 +109,12 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
+    background: linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2), var(--clr-secondary-3), var(--clr-secondary-4));
     -webkit-background-clip: text;
     color: transparent;
     font-size: 2rem;
     font-weight: bold;
+    letter-spacing: -0.02em;
   }
 
   .navName {
@@ -117,32 +123,39 @@ const Wrapper = styled.section`
     align-items: center;
     flex-direction: column;
     position: relative;
-    margin: 0 0.5rem;
+    margin: 0 0.25rem;
   }
 
   .navName a {
     text-decoration: none;
-    color: var(--clr-secondary-3);
-    font-size: 1.2rem;
-    padding: 0.5rem;
+    color: var(--clr-primary-4);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
     border-radius: 0.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .navName a:hover,
+  .navName a.active {
+    color: var(--clr-secondary-3);
   }
 
   .navName .underline {
     content: '';
     position: absolute;
-    bottom: -0.5rem;
+    bottom: -0.4rem;
     left: 50%;
     transform: translateX(-50%);
-    height: 0.2rem;
+    height: 0.18rem;
     width: 0%;
-    -webkit-background-clip: text;
-    transition: width 0.3s ease-in-out;
+    border-radius: 1rem;
+    transition: width 0.25s ease-in-out;
   }
 
   .navName:hover .underline {
-    width: 100%;
-    background:linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
+    width: 80%;
+    background: linear-gradient(90deg, var(--clr-secondary-2), var(--clr-secondary-3), var(--clr-secondary-4));
   }
 
   nav ul {
@@ -150,6 +163,7 @@ const Wrapper = styled.section`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 0.25rem;
   }
 
   nav ul li {
@@ -164,25 +178,21 @@ const Wrapper = styled.section`
     display: block;
     text-decoration: none;
     color: var(--clr-primary-4);
-    font-size: 1.2rem;
-    padding: 0.5rem;
-    margin: 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.4rem 0.6rem;
     border-radius: 0.5rem;
     position: relative;
+    transition: color 0.2s ease;
   }
 
   nav ul li a:hover {
     color: var(--clr-secondary-4);
   }
 
-  .navUser h4 {
-    margin-top: 0.3rem;
-    font-size: 1.2rem;
+  .navUser a {
+    color: var(--clr-secondary-3);
     font-weight: 600;
-    margin: 0 0.5rem;
-    line-height: 0;
-    margin-bottom: 0;
-    color: var(--clr-secondary-4);
   }
 
   nav .menu {
@@ -191,16 +201,19 @@ const Wrapper = styled.section`
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-  }
-
-  nav .navUser h4 span {
-    color: var(--clr-secondary-4);
+    color: var(--clr-primary-4);
+    cursor: pointer;
   }
 
   .logout {
     cursor: pointer;
-    font-size: 2rem;
-    color: var(--clr-secondary-4);
+    font-size: 1.8rem;
+    color: var(--clr-primary-3);
+    display: flex;
+    align-items: center;
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    transition: color 0.2s ease;
   }
 
   .logout:hover {
@@ -210,13 +223,14 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1120px) {
     nav .menu {
       display: block;
-      cursor: pointer;
     }
 
     nav {
       flex-direction: column;
-      height: 10rem;
+      height: auto;
+      padding: 1rem 2rem;
       width: 100%;
+      gap: 0.5rem;
     }
 
     nav ul {
@@ -229,15 +243,18 @@ const Wrapper = styled.section`
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: var(--clr-primary-2);
-      width: 60%;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 0.75rem;
+      width: 70%;
       padding: 1rem;
+      gap: 0.25rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
 
     nav ul li {
       width: 100%;
       text-align: center;
-      font-size: 1.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -245,25 +262,18 @@ const Wrapper = styled.section`
     }
 
     nav ul li a {
-      margin: 0 0.5rem;
+      font-size: 1.1rem;
+      padding: 0.6rem 1rem;
+      width: 100%;
+      text-align: center;
     }
 
     .navName:hover .underline {
-      width: 20%;
-      background-color: var(--clr-primary-4);
-    }
-
-    nav .title h4 {
-      font-size: 2rem;
-    }
-
-    .navUser h4 {
-      font-size: 0.8rem;
-      padding: 1rem;
+      width: 30%;
     }
 
     .icon {
-      margin-top: 0.5rem;
+      margin-top: 0.25rem;
     }
   }
 `;

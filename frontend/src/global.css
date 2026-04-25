@@ -64,6 +64,7 @@ h2,
 h3,
 h4,
 h5 {
+  font-family: "Poppins", sans-serif;
   letter-spacing: var(--spacing);
   line-height: 1.25;
   margin-bottom: 0.75rem;
@@ -140,12 +141,13 @@ input {
 }
 
 input::placeholder {
-  color: var(--clr-red);
+  color: #9ca3af;
   opacity: 1;
 }
 
 input:focus {
-  border-color: var(--clr-brown);
+  border-color: var(--clr-primary-3);
+  outline: none;
   -webkit-box-shadow: none;
   box-shadow: none;
 }

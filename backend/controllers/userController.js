@@ -208,6 +208,8 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       debug: true,
     });
 
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+
     // Email configuration
     const mailOptions = {
       from: process.env.EMAIL,
@@ -215,22 +217,10 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       subject: "Reset Password",
       html: `<h1>Reset Your Password</h1>
         <p>Click on the following link to reset your password:</p>
-        <a href="https://favoritefaves.onrender.com/reset-password/${token}">https://favoritefaves.onrender.com/reset-password/${token}</a>
+        <a href="${clientUrl}/reset-password/${token}">${clientUrl}/reset-password/${token}</a>
         <p>The link will expire in 10 minutes.</p>
         <p>If you didn't request a password reset, please ignore this email.</p>`,
     };
-
-    // Email configuration
-    /* const mailOptions = {
-          from: process.env.EMAIL,
-          to: req.body.email,
-          subject: "Reset Password",
-          html: `<h1>Reset Your Password</h1>
-            <p>Click on the following link to reset your password:</p>
-            <a href="http://localhost:3000/reset-password/${token}">http://localhost:3000//reset-password/${token}</a>
-            <p>The link will expire in 10 minutes.</p>
-            <p>If you didn't request a password reset, please ignore this email.</p>`,
-        }; */
 
     // Send the email
     transporter.sendMail(mailOptions, (err, info) => {

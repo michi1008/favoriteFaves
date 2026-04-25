@@ -7,38 +7,42 @@ import img3 from "../assets/how_to.png";
 const Header = () => {
   return (
     <Wrapper>
-      <div className="headerTitle">
-        <h1>Discover and Share Your Top Picks</h1>
+      <div className="hero">
+        <div className="heroBubble heroBubble--1" />
+        <div className="heroBubble heroBubble--2" />
+        <div className="heroText">
+          <h1>Discover &amp; Share<br />Your Top Picks</h1>
+          <p className="heroSubtitle">
+            Capture the books, movies, restaurants, and places you love —
+            and share them with the people who matter most.
+          </p>
+        </div>
       </div>
 
-      <div className="headerContent">
-        <div className="content">
-            <img src={img3} alt="how to abstract" />
-            <h2>Get Started: Sign Up and Start Sharing Your Top Picks in Minutes</h2>
-            <h4>
-              Sign up by creating an account with your username and email address.
-              After registering, you'll find a 'Create' option in the header,
-              ready for you to start adding your top picks.
-            </h4>
-          </div>
-        <div className="content">
-          <img src={img1} alt="positive energy abstract" />
-          <h2>Share Your Favorites Without the Fuss</h2>
-          <h4>
-            No need to worry about data collection or advertisements—just enjoy
-            sharing your top picks with family and friends.
-          </h4>
+      <div className="features">
+        <div className="featureCard">
+          <img src={img3} alt="get started" />
+          <h3>Get Started in Minutes</h3>
+          <p>
+            Sign up with your email, then hit Create in the nav to start
+            adding your top picks right away.
+          </p>
         </div>
-        <div className="content">
-          <img src={img2} alt="memory abstract" />
-          <h2>Capture the Joy of What You Love</h2>
-          <h4>
-            As time goes on, our memories naturally begin to fade. Even the
-            books, movies, TV shows, restaurants, and places you once loved may
-            lose their spark as your recollection of them dims. With this app,
-            you can capture and preserve your favorite things, keeping the joy
-            and excitement alive forever.
-          </h4>
+        <div className="featureCard">
+          <img src={img1} alt="share" />
+          <h3>Share Without the Fuss</h3>
+          <p>
+            No ads, no data collection — just a clean space to share your
+            favorites with family and friends.
+          </p>
+        </div>
+        <div className="featureCard">
+          <img src={img2} alt="memory" />
+          <h3>Capture What You Love</h3>
+          <p>
+            Memories fade, but your favorites don't have to. Preserve the
+            joy forever in one place.
+          </p>
         </div>
       </div>
     </Wrapper>
@@ -46,103 +50,155 @@ const Header = () => {
 };
 
 const Wrapper = styled.section`
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--clr-white);
-  margin: 3rem 0;
-  gap: 2rem;
-
-  .headerTitle h1 {
-    animation: slideInLeft 1.5s ease-in-out forwards; 
-    opacity: 0; 
-    background: linear-gradient(90deg, var(--clr-secondary-1), var(--clr-secondary-2),var(--clr-secondary-3),var(--clr-secondary-4));
-    -webkit-background-clip: text;
-    color: transparent;
-    font-family: "Open Sans", sans-serif !important;
-    font-weight: 700;
-    font-style: italic;
+  .hero {
+    background: linear-gradient(
+      135deg,
+      var(--clr-secondary-1) 0%,
+      var(--clr-secondary-2) 45%,
+      var(--clr-secondary-3) 100%
+    );
+    padding: 7rem 2rem 6rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: 1rem;
   }
 
-  @keyframes slideInLeft {
-    0% {
-      transform: translateX(-100%); 
+  .heroBubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+  }
+
+  .heroBubble--1 {
+    width: 560px;
+    height: 560px;
+    top: -200px;
+    right: -100px;
+  }
+
+  .heroBubble--2 {
+    width: 360px;
+    height: 360px;
+    bottom: -120px;
+    left: -60px;
+  }
+
+  .heroText {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .heroText h1 {
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 3.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.9s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from {
+      transform: translateY(28px);
       opacity: 0;
     }
-    100% {
-      transform: translateX(0); 
+    to {
+      transform: translateY(0);
       opacity: 1;
     }
   }
 
-  .headerContent {
+  .heroSubtitle {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.15rem;
+    line-height: 1.75;
+    max-width: 560px;
+    margin: 0 auto;
+    animation: fadeUp 0.9s 0.2s ease-out forwards;
+    opacity: 0;
+  }
+
+  .features {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start; 
-    justify-content: center;
-    color: var(--clr-brown);
-    margin: 2rem 0;
     gap: 2rem;
-    max-width: 100%;
-    padding: 2rem;
-    border-radius: 1rem;
+    justify-content: center;
+    padding: 3rem 2rem 4rem;
+    max-width: 1170px;
+    margin: 0 auto;
   }
 
-  .headerContent img {
+  .featureCard {
+    flex: 1;
+    min-width: 260px;
+    max-width: 340px;
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .featureCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.13);
+  }
+
+  .featureCard img {
     width: 100%;
-    max-width: 350px;
-    height: auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 200px;
+    object-fit: cover;
+    display: block;
   }
 
-  .headerContent img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; 
-    justify-content: flex-start;
-    max-width: 350px;
-    text-align: left; 
-  }
-
-  .content h4 {
-    font-size: 1.1rem;
-    font-weight: 500;
-    line-height: 1.6;
-    color: var(--clr-primary-3);
-    margin-top: 1rem;
-  }
-
-  .content h2 {
-    font-size: 2rem;
+  .featureCard h3 {
+    color: var(--clr-primary-4);
+    font-family: "Poppins", sans-serif;
+    font-size: 1.15rem;
     font-weight: 700;
-    padding-top: 2rem;
+    margin: 1.25rem 1.5rem 0.5rem;
+  }
+
+  .featureCard p {
+    color: #6b7280;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin: 0 1.5rem 1.5rem;
   }
 
   @media screen and (max-width: 800px) {
-    .headerTitle {
-      padding: 2rem 3rem;
-      font-size: 1.5rem;
+    .hero {
+      padding: 5rem 1.5rem 4rem;
+      clip-path: polygon(0 0, 100% 0, 100% 94%, 0 100%);
     }
 
-    .headerContent {
+    .heroText h1 {
+      font-size: 2.2rem;
+    }
+
+    .heroSubtitle {
+      font-size: 1rem;
+    }
+
+    .features {
       flex-direction: column;
-      gap: 1.5rem;
+      align-items: center;
+      padding: 2.5rem 1.5rem 3rem;
     }
 
-    .headerContent img {
+    .featureCard {
       max-width: 100%;
     }
   }
-
 `;
 
 export default Header;

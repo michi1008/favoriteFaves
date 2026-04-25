@@ -9,9 +9,6 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const { token } = useParams();
-
-  console.log("Reset Password Token:", token);
-
   const navigate = useNavigate();
   const [resetPassword, { isLoading }] = useResetPasswordMutation();
 

@@ -86,12 +86,13 @@ const Wrapper = styled.section`
 
   .social-icon {
     font-size: 2rem;
-    color: #fff;
-    transition: color 0.3s ease; /* Smooth transition effect */
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.25s ease, transform 0.25s ease;
   }
 
   .social-icon:hover {
-    color: var(--clr-grey); /* Change to the desired hover color */
+    color: var(--clr-primary-2);
+    transform: scale(1.15);
   }
 
   .copyright {

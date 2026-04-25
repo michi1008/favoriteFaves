@@ -55,17 +55,17 @@ const Home = () => {
       ) : (
         <div className="homeContent">
           <div className="homeContentTitle">
-            <h2>Categories that you can expore! </h2>
+            <h2 className="sectionTitle">Categories to Explore</h2>
           </div>
           <div className="categoryList">
             {categories.map((cat) => (
-              <div key={cat.value} className="categoryCard">
+              <Link to={`/category/${cat.value}`} key={cat.value} className="categoryCard">
                 <img src={cat.image} alt={cat.name} className="categoryImage" />
-                <h2 className="categoryName">{cat.name}</h2>
-                <Link to={`/category/${cat.value}`}>
-                  <button className="categoryBtn">Explore</button>
-                </Link>
-              </div>
+                <div className="categoryOverlay">
+                  <h2 className="categoryName">{cat.name}</h2>
+                  <span className="categoryBtn">Explore →</span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -75,81 +75,110 @@ const Home = () => {
 };
 
 const Wrapper = styled.section`
-  padding: 2rem;
+  padding: 0 2rem 2rem;
   min-height: 100vh;
+
   .categoryList {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2rem;
-    padding-bottom: 2rem;
+    gap: 1.5rem;
+    padding-bottom: 3rem;
   }
 
   .homeContent {
     max-width: 1200px;
-    margin: 1rem auto;
-    background-color: var(--clr-secondary-2);
-    border-radius: 1.2rem;
+    margin: 0 auto;
   }
 
   .homeContentTitle {
-    color: var(--clr-white);
+    color: var(--clr-primary-4);
     text-align: center;
-    padding: 3rem 0;
+    padding: 3rem 0 2rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    position: relative;
+  }
+
+  .sectionTitle::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--clr-secondary-3), var(--clr-secondary-4));
+    border-radius: 2px;
+    margin: 0.6rem auto 0;
   }
 
   .categoryCard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20rem;
-    background: var(--clr-white);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    width: 19rem;
+    height: 16rem;
+    border-radius: 1.2rem;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
+    display: block;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transform: translateY(-7px) scale(1.02);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.28);
     }
   }
 
   .categoryImage {
     width: 100%;
-    height: 15rem;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.45s ease;
+  }
+
+  .categoryCard:hover .categoryImage {
+    transform: scale(1.09);
+  }
+
+  .categoryOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(15, 23, 50, 0.88));
+    padding: 2.5rem 1.5rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
   }
 
   .categoryName {
-    margin: 1rem 0;
-    color: var(--clr-black);
-    font-size: 1.5rem;
-    font-weight: 600;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
 
   .categoryBtn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 3rem;
-    background-color: var(--clr-primary-4);
-    color: var(--clr-white);
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 2rem;
-    &:hover {
-      background-color: var(--clr-primary-4);
-    }
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+  }
+
+  .categoryCard:hover .categoryBtn {
+    color: var(--clr-primary-2);
+    letter-spacing: 0.07em;
   }
 
   @media screen and (max-width: 800px) {
-    .homeContent {
-      background-color: var(--clr-primary-1);
+    padding: 0 1rem 2rem;
+
+    .categoryCard {
+      width: 100%;
+      height: 14rem;
     }
-    .homeContentTitle {
-    color: var(--clr-secondary-2);
-  }
   }
 `;
 
