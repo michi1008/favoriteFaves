@@ -9,6 +9,14 @@ import { useSelector } from "react-redux";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 
+const CATEGORY_LABELS = {
+  book: "📚 Book",
+  movie: "🎬 Movie",
+  tv_show: "📺 TV Show",
+  restaurant: "🍽️ Restaurant",
+  place: "📍 Place",
+};
+
 const SinglePostPage = () => {
   const { postId } = useParams();
   const [comment, setComment] = useState("");
@@ -21,55 +29,30 @@ const SinglePostPage = () => {
     day: "numeric",
   };
 
-  const { data: post, isLoading, error, refetch } = useGetPostByIdQuery(postId);
-
-  const [createComment, { isLoading: loadingComment }] =
-    useCreateCommentMutation();
-
+  const { data: post, isLoading, refetch } = useGetPostByIdQuery(postId);
+  const [createComment] = useCreateCommentMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     try {
-      await createComment({
-        postId,
-        comment,
-        user: userInfo._id,
-      }).unwrap();
+      await createComment({ postId, comment, user: userInfo._id }).unwrap();
       refetch();
-      toast.success("Your comment was added successfully");
+      setComment("");
+      toast.success("Comment added");
     } catch (err) {
-      console.log(err);
       toast.error(err?.data?.message || err.error);
     }
   };
 
-  if (!post) {
-    return <Spinner />;
-  }
-
-  // Ensure post.comments is an array before mapping over it
-  const postCommentsWithReplies = Array.isArray(post.comments)
-    ? post.comments.map((comment) => ({
-        ...comment,
-      }))
-    : [];
-
   const submitReply = async (parentCommentId) => {
     try {
-      await createComment({
-        postId,
-        comment,
-        user: userInfo._id,
-        parentCommentId,
-      }).unwrap();
+      await createComment({ postId, comment, user: userInfo._id, parentCommentId }).unwrap();
       refetch();
       setComment("");
       setReplyingTo(null);
-      toast.success("Your reply was added successfully");
+      toast.success("Reply added");
     } catch (err) {
-      console.log(err);
       toast.error(err?.data?.message || err.error);
     }
   };
@@ -79,73 +62,42 @@ const SinglePostPage = () => {
     setComment("");
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading || !post) return <Spinner />;
 
-  const renderCategoryContent = () => {
+  const postComments = Array.isArray(post.comments) ? post.comments : [];
+
+  const renderCategoryMeta = () => {
     switch (post.category) {
       case "book":
         return (
-          <div className="info">
-            <p>
-              <span>Author: </span>
-              {post.author}
-            </p>
-            <p>
-              <span>Genre: </span>
-              {post.genre}
-            </p>
-          </div>
+          <>
+            {post.author && <MetaItem label="Author" value={post.author} />}
+            {post.genre && <MetaItem label="Genre" value={post.genre} />}
+          </>
         );
       case "movie":
         return (
-          <div className="info">
-            <p>
-              <span>Director: </span>
-              {post.director}
-            </p>
-            <p>
-              <span>Genre: </span>
-              {post.genre}
-            </p>
-          </div>
+          <>
+            {post.director && <MetaItem label="Director" value={post.director} />}
+            {post.genre && <MetaItem label="Genre" value={post.genre} />}
+          </>
         );
       case "tv_show":
         return (
-          <div className="info">
-            <p>
-              <span>Network: </span>
-              {post.network}
-            </p>
-            <p>
-              <span>Genre: </span>
-              {post.genre}
-            </p>
-          </div>
+          <>
+            {post.network && <MetaItem label="Network" value={post.network} />}
+            {post.genre && <MetaItem label="Genre" value={post.genre} />}
+          </>
         );
       case "restaurant":
         return (
-          <div className="info">
-            <p>
-              <span>Address: </span>
-              {post.address}
-            </p>
-            <p>
-              <span>Cuisine: </span>
-              {post.cuisine}
-            </p>
-          </div>
+          <>
+            {post.address && <MetaItem label="Address" value={post.address} />}
+            {post.cuisine && <MetaItem label="Cuisine" value={post.cuisine} />}
+          </>
         );
       case "place":
-        return (
-          <div className="info">
-            <p>
-              <span>Location: </span>
-              {post.location}
-            </p>
-          </div>
-        );
+        return post.location && <MetaItem label="Location" value={post.location} />;
       default:
         return null;
     }
@@ -153,109 +105,102 @@ const SinglePostPage = () => {
 
   return (
     <Wrapper>
-      <div className="singlePost">
-        <div className="title">
-          <h3>{post?.title}</h3>
+      <div className="postCard">
+        {post.category && (
+          <span className="categoryBadge">
+            {CATEGORY_LABELS[post.category] || post.category}
+          </span>
+        )}
+
+        <h2 className="postTitle">{post.title}</h2>
+
+        <div className="postMeta">
+          <span>By {post.user?.userName || "Unknown"}</span>
+          <span className="dot">·</span>
+          <span>{new Date(post.createdAt).toLocaleString("en-US", options)}</span>
         </div>
-        <div className="image">
-          <img className="image" src={post?.image} />
-        </div>
-        <div className="desc">
-          <h3>Description</h3>
-          <h4>{post?.description}</h4>
-        </div>
-        {renderCategoryContent()}
-        <div className="infoContainer">
-          <div>
-            <p>
-              Created at :{" "}
-              <span>
-                {new Date(post.createdAt).toLocaleString("en-US", options)}
-              </span>
-            </p>
-            <p>
-              Created by :{" "}
-              <span>
-                {post.user && post.user.userName
-                  ? post.user.userName
-                  : "Unknown"}
-              </span>
-            </p>
-          </div>
-        </div>
+
+        {post.image && (
+          <img className="postImage" src={post.image} alt={post.title} />
+        )}
+
+        <p className="postDescription">{post.description}</p>
+
+        {renderCategoryMeta() && (
+          <div className="metaGrid">{renderCategoryMeta()}</div>
+        )}
       </div>
 
-      <div className="commentContainer">
-        <h3>Comments</h3>
-        {postCommentsWithReplies.map((postComment) => (
-          <ul key={postComment._id}>
-            <p
-              className={`comment ${
-                replyingTo === postComment._id ? "reply" : ""
-              }`}
-            >
-              "{postComment.comment}" by <span>{postComment.userName}</span>
-            </p>
-            {replyingTo === postComment._id && (
-              <form onSubmit={() => submitReply(postComment._id)}>
-                <textarea
-                  className="commentInput"
-                  placeholder="Reply to this comment..."
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-                <button className="replyBtn" type="submit">
-                  Submit
-                </button>
-              </form>
-            )}
-            {postComment.replies.length > 0 &&
-              postComment.replies.map((reply) => (
-                <ul key={reply._id}>
-                  <p className={`comment reply`}>
-                    "{reply.comment}" by <span>{reply.userName}</span>
-                  </p>
-                </ul>
-              ))}
-            {userInfo && (
-              <button
-                className="replyBtn"
-                onClick={() => handleReplyClick(postComment._id)}
-              >
-                Reply
-              </button>
-            )}
-          </ul>
-        ))}
-        <div className="createCommentContainer">
+      <div className="commentsCard">
+        <h3 className="commentsTitle">
+          Comments <span className="commentCount">{postComments.length}</span>
+        </h3>
+
+        {postComments.length === 0 && (
+          <p className="noComments">No comments yet. Be the first!</p>
+        )}
+
+        <div className="commentList">
+          {postComments.map((c) => (
+            <div className="commentThread" key={c._id}>
+              <div className="commentBubble">
+                <div className="commentHeader">
+                  <span className="commentAuthor">{c.userName}</span>
+                </div>
+                <p className="commentText">{c.comment}</p>
+
+                {userInfo && (
+                  <button
+                    className="replyToggle"
+                    onClick={() => handleReplyClick(replyingTo === c._id ? null : c._id)}
+                  >
+                    {replyingTo === c._id ? "Cancel" : "Reply"}
+                  </button>
+                )}
+              </div>
+
+              {c.replies?.length > 0 && (
+                <div className="replyList">
+                  {c.replies.map((reply) => (
+                    <div className="commentBubble reply" key={reply._id}>
+                      <div className="commentHeader">
+                        <span className="commentAuthor">{reply.userName}</span>
+                      </div>
+                      <p className="commentText">{reply.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {replyingTo === c._id && (
+                <form className="replyForm" onSubmit={(e) => { e.preventDefault(); submitReply(c._id); }}>
+                  <textarea
+                    placeholder="Write a reply..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <button type="submit" className="submitBtn">Post Reply</button>
+                </form>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div className="addComment">
           {userInfo ? (
             <form onSubmit={submitHandler}>
-              <label>
-                <h4 className="addCommentText">Add your Comment</h4>
-              </label>
+              <label className="addCommentLabel">Add a comment</label>
               <textarea
-                className="commentInput"
-                placeholder="Enter your comment..."
-                id="comment"
-                name="comment"
+                placeholder="Share your thoughts..."
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
-
-              <button className="commentSubmit" type="submit">
-                Submit
-              </button>
+              <button type="submit" className="submitBtn">Post Comment</button>
             </form>
           ) : (
-            <div className="commentAskLogin">
-              <p>
-                Please{" "}
-                <Link to="/login">
-                  <span>Login</span>
-                </Link>{" "}
-                to comment
-              </p>
-            </div>
+            <p className="loginPrompt">
+              <Link to="/login">Log in</Link> to leave a comment
+            </p>
           )}
         </div>
       </div>
@@ -263,208 +208,297 @@ const SinglePostPage = () => {
   );
 };
 
+const MetaItem = ({ label, value }) => (
+  <div className="metaItem">
+    <span className="metaLabel">{label}</span>
+    <span className="metaValue">{value}</span>
+  </div>
+);
+
 const Wrapper = styled.section`
+  max-width: 780px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-  border-radius: 12px;
-  background-color: var(--clr-primary-4); 
+  gap: 1.5rem;
 
-  .singlePost {
+  .postCard {
+    background: var(--clr-white);
+    border-radius: 1rem;
+    box-shadow: var(--dark-shadow);
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    gap: 2rem;
-    padding: 2rem;
-    background: var(--clr-primary-1);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
   }
 
-  .image {
-    width: 100%;
-    max-width: 30rem;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  .categoryBadge {
+    align-self: flex-start;
+    background: linear-gradient(135deg, var(--clr-secondary-2), var(--clr-secondary-3));
+    color: var(--clr-white);
+    padding: 0.3rem 0.9rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04rem;
   }
 
-  .title h3 {
+  .postTitle {
     color: var(--clr-primary-4);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
     text-align: center;
+    margin: 0;
   }
 
-  .desc {
-    font-size: 1rem;
+  .postMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
     color: var(--clr-primary-3);
-    background: var(--clr-primary-2);
-    border-radius: 8px;
-    padding: 1.5rem;
-    width: 100%;
-    max-width: 30rem;
-    text-align: center;
+    margin-bottom: 0.5rem;
+
+    .dot {
+      color: #d1d5db;
+    }
   }
 
-  .infoContainer {
+  .postImage {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    box-shadow: var(--light-shadow);
+  }
+
+  .postDescription {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--clr-black);
+    text-align: center;
+    max-width: 560px;
+    margin: 0;
+  }
+
+  .metaGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .metaItem {
+    background: var(--clr-primary-1);
+    border: 1px solid var(--clr-primary-2);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100px;
+  }
+
+  .metaLabel {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: var(--clr-primary-3);
+  }
+
+  .metaValue {
+    font-size: 0.95rem;
+    color: var(--clr-primary-4);
+    font-weight: 600;
+  }
+
+  .commentsCard {
+    background: var(--clr-white);
+    border-radius: 1rem;
+    box-shadow: var(--dark-shadow);
+    padding: 2rem;
+  }
+
+  .commentsTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--clr-primary-4);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .commentCount {
+    background: var(--clr-primary-2);
+    color: var(--clr-primary-4);
+    font-size: 0.8rem;
+    border-radius: 2rem;
+    padding: 0.1rem 0.6rem;
+  }
+
+  .noComments {
+    color: #9ca3af;
+    font-size: 0.95rem;
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .commentList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .commentThread {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    align-items: center;
-    font-size: 1rem;
-    color: var(--clr-secondary-4);
   }
 
-  .info p {
-    font-size: 1.1rem;
-    color: var(--clr-brown);
+  .commentBubble {
+    background: var(--clr-primary-1);
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+
+    &.reply {
+      margin-left: 1.5rem;
+      background: #f0f4ff;
+      border-left: 3px solid var(--clr-primary-3);
+    }
   }
 
-  .info p span {
-    color: var(--clr-primary-3);
+  .commentHeader {
+    margin-bottom: 0.25rem;
+  }
+
+  .commentAuthor {
+    font-size: 0.82rem;
     font-weight: 700;
+    color: var(--clr-primary-4);
   }
 
-  .commentContainer {
-    width: 100%;
-    max-width: 30rem;
-    margin-top: 2rem;
-    background-color: var(--clr-white);
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
+  .commentText {
+    font-size: 0.95rem;
+    color: var(--clr-black);
+    margin: 0 0 0.5rem;
+    line-height: 1.5;
   }
 
-  .commentContainer h3 {
-    color: var(--clr-secondary-3);
-    margin-bottom: 1rem;
+  .replyToggle {
+    background: none;
+    border: none;
+    color: var(--clr-primary-3);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: none;
+    transition: color 0.2s;
+
+    &:hover {
+      background: none;
+      color: var(--clr-secondary-3);
+      transform: none;
+      box-shadow: none;
+    }
   }
 
-  .comment {
-    color: #666;
-    font-size: 1rem;
-    background-color: var(--clr-primary-1); 
-    padding: 1rem;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  .comment.reply {
-    margin-left: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .createCommentContainer {
+  .replyList {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 1rem;
+    gap: 0.5rem;
+  }
+
+  .replyForm {
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   textarea {
-    background-color: var(--clr-white);
-    color: var(--clr-brown);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 1rem;
-    height: 5rem;
     width: 100%;
-    margin-bottom: 1rem;
-    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 5rem;
+    color: var(--clr-primary-4);
+    background: var(--clr-primary-1);
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--clr-primary-3);
+    }
   }
 
-  textarea:focus {
-    outline: none;
-    border-color: #ff4b5c;
-    box-shadow: 0 0 0 2px rgba(255, 75, 92, 0.3);
+  .addComment {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
   }
 
-  .replyBtn,
-  .commentSubmit {
-    background: #ff4b5c;
-    color: white;
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .replyBtn:hover,
-  .commentSubmit:hover {
-    background: #e03a4a; /* Darker shade for hover effect */
-  }
-
-  .commentAskLogin p {
-    font-size: 1.2rem;
-    color: #333;
-    text-align: center;
-  }
-
-  .commentAskLogin span {
+  .addCommentLabel {
+    display: block;
+    font-size: 0.85rem;
     font-weight: 700;
-    color: #ff4b5c;
+    color: var(--clr-primary-4);
+    text-transform: uppercase;
+    letter-spacing: 0.04rem;
+    margin-bottom: 0.5rem;
   }
 
-  .commentAskLogin span:hover {
-    color: #e03a4a;
-  }
+  .submitBtn {
+    margin-top: 0.25rem;
+    padding: 0.6rem 1.5rem;
+    background: linear-gradient(135deg, var(--clr-secondary-2), var(--clr-secondary-3));
+    color: var(--clr-white);
+    border: none;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
 
-  @media (max-width: 768px) {
-    padding: 1rem;
-    .singlePost,
-    .commentContainer {
-      padding: 1rem;
-    }
-
-    .title h3 {
-      font-size: 2rem;
-    }
-
-    .desc {
-      font-size: 0.9rem;
-    }
-
-    .infoContainer {
-      font-size: 0.9rem;
-    }
-
-    .commentInput {
-      font-size: 0.9rem;
+    &:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, var(--clr-secondary-2), var(--clr-secondary-3));
     }
   }
 
-  @media (max-width: 480px) {
-    .title h3 {
+  .loginPrompt {
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.95rem;
+    padding: 1rem 0;
+
+    a {
+      color: var(--clr-secondary-3);
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .postTitle {
       font-size: 1.5rem;
     }
 
-    .image {
-      max-width: 20rem;
+    .postCard, .commentsCard {
+      padding: 1.25rem;
     }
 
-    .desc {
-      font-size: 0.9rem;
-    }
-
-    .info p {
-      font-size: 0.9rem;
-    }
-
-    .commentInput {
-      font-size: 0.8rem;
-    }
-
-    .commentSubmit {
-      font-size: 0.8rem;
+    .commentBubble.reply, .replyForm {
+      margin-left: 0.75rem;
     }
   }
 `;

@@ -23,159 +23,229 @@ const Profile = () => {
   }, [userInfo.userName, userInfo.email]);
 
   const dispatch = useDispatch();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       toast.error("Passwords do not match");
     } else {
       try {
-        const res = await updateProfile({
-          userName,
-          email,
-          password,
-        }).unwrap();
-        dispatch(setCredentials({...res }));
+        const res = await updateProfile({ userName, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
         toast.success("Profile updated successfully");
       } catch (err) {
         toast.error(err?.data?.message || err.error);
       }
     }
   };
+
+  const initials = userName
+    ? userName.slice(0, 2).toUpperCase()
+    : "??";
+
   return (
     <Wrapper>
-      <div className="profilContainer">
-        <div className="profileImg">
-          <img src="https://images.unsplash.com/photo-1561211974-8a2737b4dcac?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjg2fHxhYnN0cmFjdHxlbnwwfHwwfHx8MA%3D%3D" alt="abstruct" />
+      <div className="card">
+        <div className="avatarSection">
+          <div className="avatar">{initials}</div>
+          <h2 className="displayName">{userName}</h2>
+          <p className="displayEmail">{email}</p>
         </div>
-        <div className="profile">
-          <h2 className="profileTitle">User Profile</h2>
-          <form className="Form" onSubmit={submitHandler}>
-            <div className="formItem">
-              <label>userName</label>
-              <input
-                type="text"
-                placeholder="Enter your name..."
-                id="userName"
-                name="userName"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-              />
-            </div>
-            <div className="formItem">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="Enter your email..."
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="formItem">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Enter your password..."
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="formItem">
-              <label>Password Confirm</label>
-              <input
-                type="password"
-                placeholder="Confirm your password..."
-                id="confirmPassword"
-                name="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
 
-            <div className="profileBtnContainer">
-              <button type="submit">Update</button>
-            </div>
-            {loadingUpdateProfile && <Spinner />}
-          </form>
-        </div>
+        <div className="divider" />
+
+        <form onSubmit={submitHandler}>
+          <h3 className="sectionTitle">Edit Profile</h3>
+
+          <div className="fieldGroup">
+            <label htmlFor="userName">Username</label>
+            <input
+              type="text"
+              id="userName"
+              placeholder="Enter your username"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+            />
+          </div>
+
+          <div className="fieldGroup">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="divider" />
+
+          <h3 className="sectionTitle">Change Password</h3>
+          <p className="sectionHint">Leave blank to keep your current password</p>
+
+          <div className="fieldGroup">
+            <label htmlFor="password">New Password</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter new password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="fieldGroup">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {confirmPassword && password !== confirmPassword && (
+              <span className="mismatch">Passwords do not match</span>
+            )}
+          </div>
+
+          <button type="submit" disabled={loadingUpdateProfile}>
+            {loadingUpdateProfile ? <Spinner /> : "Save Changes"}
+          </button>
+        </form>
       </div>
     </Wrapper>
   );
 };
+
 const Wrapper = styled.section`
-  /* main */
-  .profileContainer {
+  min-height: calc(100vh - 7rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+
+  .card {
+    background: var(--clr-white);
+    border-radius: 1.25rem;
+    box-shadow: var(--dark-shadow);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .avatarSection {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-items: center;
-    margin: 3rem;
+    gap: 0.4rem;
+    margin-bottom: 1.5rem;
   }
 
-  .profileImg {
+  .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
+    color: var(--clr-white);
+    font-size: 1.8rem;
+    font-weight: 700;
     display: flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    min-width: 20rem;
+    margin-bottom: 0.5rem;
   }
 
-  .profileImg img {
-    width: 80%;
-    height: 20rem;
-    border-radius: 1rem;
-    padding: 2rem;
+  .displayName {
+    color: var(--clr-primary-4);
+    font-size: 1.3rem;
+    margin: 0;
   }
 
-  /* profile */
-  .profile {
-    padding: 2rem;
+  .displayEmail {
+    color: var(--clr-primary-3);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .divider {
+    height: 1px;
+    background: #e5e7eb;
+    margin: 1.5rem 0;
+  }
+
+  .sectionTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--clr-primary-4);
+    margin-bottom: 0.25rem;
+  }
+
+  .sectionHint {
+    font-size: 0.82rem;
+    color: #9ca3af;
+    margin-bottom: 1rem;
+  }
+
+  .fieldGroup {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-items: center;
+    gap: 0.35rem;
+    margin-bottom: 1.1rem;
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--clr-primary-4);
+      text-transform: uppercase;
+      letter-spacing: 0.04rem;
+    }
+
+    input {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--clr-primary-4);
+      background: var(--clr-primary-1);
+      transition: border-color 0.2s;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-color: var(--clr-primary-3);
+      }
+    }
   }
 
-  .profileTitle {
-    color: var(--clr-primary-4);
-    margin: 2rem;
-    font-size: 2.5rem;
+  .mismatch {
+    font-size: 0.8rem;
+    color: var(--clr-red);
   }
 
-  .profileBtnContainer {
-    padding-top: 2rem;
-  }
+  button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
+    color: var(--clr-white);
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
 
-  .formItem {
-    margin-bottom: 2rem;
-  }
+    &:hover:not(:disabled) {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
 
-  .formItem label {
-    font-size: 1.2rem;
-    color: var(--clr-primary-4);
-  }
-
-  input::placeholder {
-    color: var(--clr-primary-4);
-    opacity: 1;
-  }
-
-  input {
-    color: var(--clr-primary-4);
-  }
-
-  input:focus {
-    outline: 2px solid var(--clr-brown);
-  }
-
-  @media (max-width: 1200px) {
-    .profile-container {
-      width: 90%;
-      height: auto;
-      flex-direction: column;
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 `;
+
 export default Profile;

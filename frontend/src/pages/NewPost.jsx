@@ -85,95 +85,61 @@ const NewPost = () => {
       case "book":
         return (
           <>
-            <label htmlFor="author">Author</label>
-            <input
-              className="selection"
-              type="text"
-              name="author"
-              value={extraFields.author || ""}
-              onChange={handleFieldChange}
-            />
-            <label htmlFor="genre">Genre</label>
-            <input
-              type="text"
-              name="genre"
-              value={extraFields.genre || ""}
-              onChange={handleFieldChange}
-            />
+            <div className="fieldGroup">
+              <label htmlFor="author">Author</label>
+              <input type="text" name="author" id="author" value={extraFields.author || ""} onChange={handleFieldChange} placeholder="Author name" />
+            </div>
+            <div className="fieldGroup">
+              <label htmlFor="genre">Genre</label>
+              <input type="text" name="genre" id="genre" value={extraFields.genre || ""} onChange={handleFieldChange} placeholder="e.g. Fiction, Mystery" />
+            </div>
           </>
         );
       case "movie":
         return (
           <>
-            <label htmlFor="director">Director</label>
-            <input
-              className="selection"
-              type="text"
-              name="director"
-              value={extraFields.director || ""}
-              onChange={handleFieldChange}
-            />
-            <label htmlFor="genre">Genre</label>
-            <input
-              type="text"
-              name="genre"
-              value={extraFields.genre || ""}
-              onChange={handleFieldChange}
-            />
+            <div className="fieldGroup">
+              <label htmlFor="director">Director</label>
+              <input type="text" name="director" id="director" value={extraFields.director || ""} onChange={handleFieldChange} placeholder="Director name" />
+            </div>
+            <div className="fieldGroup">
+              <label htmlFor="genre">Genre</label>
+              <input type="text" name="genre" id="genre" value={extraFields.genre || ""} onChange={handleFieldChange} placeholder="e.g. Drama, Thriller" />
+            </div>
           </>
         );
       case "tv_show":
         return (
           <>
-            <label htmlFor="network">Network</label>
-            <input
-              className="selection"
-              type="text"
-              name="network"
-              value={extraFields.network || ""}
-              onChange={handleFieldChange}
-            />
-            <label htmlFor="genre">Genre</label>
-            <input
-              type="text"
-              name="genre"
-              value={extraFields.genre || ""}
-              onChange={handleFieldChange}
-            />
+            <div className="fieldGroup">
+              <label htmlFor="network">Network</label>
+              <input type="text" name="network" id="network" value={extraFields.network || ""} onChange={handleFieldChange} placeholder="e.g. Netflix, HBO" />
+            </div>
+            <div className="fieldGroup">
+              <label htmlFor="genre">Genre</label>
+              <input type="text" name="genre" id="genre" value={extraFields.genre || ""} onChange={handleFieldChange} placeholder="e.g. Comedy, Drama" />
+            </div>
           </>
         );
       case "restaurant":
         return (
           <>
-            <label htmlFor="address">Address</label>
-            <input
-              className="selection"
-              type="text"
-              name="address"
-              value={extraFields.address || ""}
-              onChange={handleFieldChange}
-            />
-            <label htmlFor="cuisine">Cuisine</label>
-            <input
-              type="text"
-              name="cuisine"
-              value={extraFields.cuisine || ""}
-              onChange={handleFieldChange}
-            />
+            <div className="fieldGroup">
+              <label htmlFor="address">Address</label>
+              <input type="text" name="address" id="address" value={extraFields.address || ""} onChange={handleFieldChange} placeholder="Restaurant address" />
+            </div>
+            <div className="fieldGroup">
+              <label htmlFor="cuisine">Cuisine</label>
+              <input type="text" name="cuisine" id="cuisine" value={extraFields.cuisine || ""} onChange={handleFieldChange} placeholder="e.g. Italian, Japanese" />
+            </div>
           </>
         );
       case "place":
         return (
-          <>
+          <div className="fieldGroup">
             <label htmlFor="location">Location</label>
-            <input
-              className="selection"
-              type="text"
-              name="location"
-              value={extraFields.location || ""}
-              onChange={handleFieldChange}
-            />
-          </>
+            <input type="text" name="location" id="location" value={extraFields.location || ""} onChange={handleFieldChange} placeholder="City, Country" />
+          </div>
         );
       default:
         return null;
@@ -186,84 +152,85 @@ const NewPost = () => {
 
   return (
     <Wrapper>
-      <div className="titleContainer">
-        <div className="mainTitle">
-          <h2>Share your favorite!</h2>
-        </div>
+      <div className="pageHeader">
+        <h2>Share Your Favorite</h2>
+        <p>Tell the world about something you love</p>
       </div>
-      <form
-        className="writeForm"
-        encType="multipart/form-data"
-        onSubmit={handlePublish}
-      >
-        <div className="topContainer">
-          <label htmlFor="title">Title</label>
-          <input
-            className="writeTitle"
-            type="text"
-            name="title"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <label htmlFor="desc">Description</label>
-          <textarea
-            className="writeDesc"
-            type="text"
-            name="desc"
-            id="desc"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
 
-          <label htmlFor="category">Category</label>
-          <select
-            className="category"
-            id="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">Select a category</option>
-            <option value="book">Book</option>
-            <option value="movie">Movie</option>
-            <option value="tv_show">TV Show</option>
-            <option value="restaurant">Restaurant</option>
-            <option value="place">Place</option>
-          </select>
-          {renderCategoryFields()}
-        </div>
-        <div className="imageContainer">
-          <div className="imageUpload">
-            {!image && (
-              <div className="imageText">
-                <p>Please upload an image before submitting your post!</p>
-              </div>
-            )}
-            <input
-              className="chooseBtn"
-              type="file"
-              name="image"
-              accept=".jpeg, .png, .jpg"
-              onChange={handleImage}
-            />
-          </div>
-          <div className="image">
-            <div className="no_image">
-              {!image && (
-                <img src="https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjk0fHxpbWFnZSUyMHBsYWNlaG9sZGVyfGVufDB8fDB8fHww" />
-              )}
-              {image && <img src={image} className="uploaded_image" />}
+      <form className="card" encType="multipart/form-data" onSubmit={handlePublish}>
+        <div className="formGrid">
+          <div className="formLeft">
+            <div className="fieldGroup">
+              <label htmlFor="title">Title</label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Give your post a title"
+              />
+            </div>
+
+            <div className="fieldGroup">
+              <label htmlFor="category">Category</label>
+              <select
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="">Select a category</option>
+                <option value="book">📚 Book</option>
+                <option value="movie">🎬 Movie</option>
+                <option value="tv_show">📺 TV Show</option>
+                <option value="restaurant">🍽️ Restaurant</option>
+                <option value="place">📍 Place</option>
+              </select>
+            </div>
+
+            {renderCategoryFields()}
+
+            <div className="fieldGroup">
+              <label htmlFor="desc">Description</label>
+              <textarea
+                id="desc"
+                value={desc}
+                onChange={(e) => setDesc(e.target.value)}
+                placeholder="Why do you love it? Share your thoughts..."
+              />
             </div>
           </div>
+
+          <div className="formRight">
+            <div className="uploadLabel">Photo</div>
+            <div className="imagePreview">
+              <img
+                src={image || "https://images.unsplash.com/photo-1569690681342-d74eb25436fd?w=800&auto=format&fit=crop&q=60"}
+                alt="preview"
+                className={image ? "uploaded" : "placeholder"}
+              />
+            </div>
+            <label className="uploadBtn" htmlFor="imageInput">
+              {image ? "Change Photo" : "Upload Photo"}
+              <input
+                id="imageInput"
+                type="file"
+                accept=".jpeg,.png,.jpg"
+                onChange={handleImage}
+              />
+            </label>
+            {!image && (
+              <p className="uploadHint">JPEG or PNG recommended</p>
+            )}
+          </div>
         </div>
-        <div className="buttonContainer">
+
+        <div className="formActions">
           <button
-            className="submitButton"
             type="submit"
+            className="submitBtn"
             disabled={!title || !desc || !image || !category}
-            onSubmit={handlePublish}
           >
-            Submit
+            Publish Post
           </button>
         </div>
       </form>
@@ -272,317 +239,216 @@ const NewPost = () => {
 };
 
 const Wrapper = styled.section`
+  min-height: calc(100vh - 7rem);
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 7rem);
-  overflow: auto;
 
-  .titleContainer {
-    color: var(--clr-primary-4);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem;
-  }
-
-  .writeImg {
-    width: 30vw;
-    height: 25vh;
-    border-radius: 0.3rem;
-    object-fit: cover;
-    margin: 2rem;
-    box-shadow: var(--light-shadow);
-    margin: 0 auto;
-  }
-
-  .writeForm {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0 auto;
-    background-image: linear-gradient(
-        rgba(255, 255, 255, 0.2),
-        rgba(255, 255, 255, 0.2)
-      ),
-      url(https://images.unsplash.com/photo-1607457597191-8ed4e870ceca?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjc1fHxhYnN0cmFjdHxlbnwwfHwwfHx8MA%3D%3D);
-    padding: 2rem;
-    border-radius: var(--radius);
-  }
-
-  .topContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 2rem;
-  }
-
-  .topContainer label {
-    font-size: 1.5rem;
-    color: var(--clr-white);
-  }
-
-  .writeTitle {
-    width: 15rem;
-    height: 3rem;
-    margin-bottom: 2rem;
-    border: 2px solid var(--clr-primary-4);
-  }
-
-  .writeDesc {
-    border: 2px solid var(--clr-primary-4);
-    border-radius: 1rem;
-    width: 22rem;
-    height: 10rem;
-    margin-bottom: 2rem;
-    resize: none;
-    padding: 0.5rem;
-    font-size: 1rem;
-    background-color: var(--clr-primary-1);
-    color: var(--clr-primary-4);
-  }
-  .writeDesc:focus {
-    outline: 2px solid var(--clr-brown);
-  }
-
-  input {
-    background-color: var(--clr-primary-1);
-    color: var(--clr-primary-4);
-    font-size: 1.2rem;
-  }
-
-  input:focus {
-    outline: 2px solid var(--clr-brown);
-  }
-
-  // category
-
-  .category {
-    padding: 0.5rem;
-    background-color: var(--clr-primary-1);
-    border: 2px solid var(--clr-primary-4);
-    border-radius: 1rem;
-    color: var(--clr-);
-    font-size: 1.2rem;
-    height: 3rem;
-    margin-bottom: 1rem;
-  }
-
-
-
-  .category:focus {
-    outline: 2px solid var(--clr-primary-3);
-  }
-
-
-  .selection {
-    margin-bottom: 1rem;
-  }
-
-  //image
-
-  .imageContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    margin: 2rem auto;
-  }
-
-  .imageUpload {
-  border: 2px dashed var(--clr-white);
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  text-align: center;
-  background-color: var(--clr-primary-3);
-  transition: border-color 0.3s;  
-  }
-
-  .imageUpload:hover {
-  border-color: var(--clr-primary-4);
-}
-
-  .imageText p {
-    color: var(--clr-white);
-    font-size: 1rem;
-    margin-bottom: 1rem;
+  .pageHeader {
     text-align: center;
+    margin-bottom: 2rem;
+
+    h2 {
+      color: var(--clr-primary-4);
+      font-size: 2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      color: var(--clr-primary-3);
+      font-size: 1rem;
+      margin: 0;
+    }
   }
 
-  .image {
-    margin: 2rem;
+  .card {
+    background: var(--clr-white);
+    border-radius: 1rem;
+    box-shadow: var(--dark-shadow);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 900px;
   }
 
-  .no_image {
-    width: 9rem;
-    height: 9rem;
-    margin: 1rem;
-    background-color: var(--clr-white);
-    padding: 1rem;
+  .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .formLeft {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.3rem;
-    box-shadow: var(--light-shadow);
-  }
-
-  img {
-    width: 8rem;
-    height: 8rem;
-    object-fit: cover;
-    border-radius: 0.2rem;
-  }
-
-  .chooseBtn {
-    background: var(--clr-brown);
-    color: var(--clr-white);
-    width: 16rem;
-    display: inline-block;
-    padding: 1.2rem, 1.2rem;
-    border: 1px solid var(--clr-primary-brown);
-    text-align: center;
-    font-size: 1rem;
-  }
-
-  .buttonContainer {
-    padding-bottom: 2rem;
-  }
-
-  // selection
-  .selection:focus {
-    outline: 2px solid var(--clr-brown);
-  }
-
-
-  @media screen and (max-width: 800px) {
     flex-direction: column;
+    gap: 1.25rem;
+  }
 
-    .writeImg {
-      width: 50vw;
-      height: 25vh;
+  .fieldGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--clr-primary-4);
+      text-transform: uppercase;
+      letter-spacing: 0.05rem;
     }
 
-    .mainTitle {
-      font-size: 1.5rem;
+    input, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--clr-primary-4);
+      background: var(--clr-primary-1);
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: var(--clr-primary-3);
+      }
     }
 
-    .titleContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin: 2rem 0;
+    select {
+      cursor: pointer;
     }
 
-    .topContainer {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      padding: 2rem;
-    }
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--clr-primary-4);
+      background: var(--clr-primary-1);
+      resize: vertical;
+      min-height: 8rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
 
-    .topContainer label {
-      font-size: 1rem;
+      &:focus {
+        outline: none;
+        border-color: var(--clr-primary-3);
+      }
     }
+  }
 
-    .writeTitle {
-      width: 20rem;
-    }
+  .formRight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 
-    .writeDesc {
-      width: 25rem;
-    }
+  .uploadLabel {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--clr-primary-4);
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    align-self: flex-start;
+  }
 
-    .category {
-      font-size: 1.2rem;
-    }
-
-    .submitButton {
-      padding: 0.5rem;
-      border-radius: 0.3rem;
-      font-size: 0.8rem;
-      width: 5rem;
-      margin-botton: 2rem;
-    }
-
-    .imageContainer {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      margin-buttom: 3rem;
-      margin-right: 2rem;
-    }
-
-    .imageText {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      text-align: start;
-    }
-
-    .image {
-      margin-bottom: 2rem;
-      margin-left: 2rem;
-    }
-
-    .chooseBtn {
-      width: 14rem;
-      font-size: 0.8rem;
-    }
+  .imagePreview {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 2px solid #e5e7eb;
+    background: #f9fafb;
 
     img {
-      width: 8rem;
-      height: 8rem;
-      object-fit: cover;
-    }
-
-    .buttonContainer {
-      padding: 2rem;
-    }
-  }
-
-    @media screen and (max-width: 800px) {
-    .writeForm {
-      padding: 1rem;
-    }
-
-    .writeTitle, .writeDesc, .category {
       width: 100%;
-    }
+      height: 100%;
+      object-fit: cover;
 
-    .imageUpload {
-      max-width: 100%; 
-    }
-
-    .no_image {
-      max-width: 100%; 
-      height: auto; 
-    }
-
-    .imageContainer { 
-      flex-direction: column;
-
-    .chooseBtn {
-      max-width: 100%;
-    }
-
-    .submitButton {
-      width: 100%; 
+      &.placeholder {
+        opacity: 0.5;
+        filter: grayscale(1);
+      }
     }
   }
 
-   @media screen and (max-width: 480px) {
+  .uploadBtn {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: var(--clr-primary-4);
+    color: var(--clr-white);
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
 
-    .writeTitle, .writeDesc {
-      font-size: 1rem; /* Smaller font size */
+    &:hover {
+      background: var(--clr-primary-3);
+      transform: translateY(-1px);
     }
 
-    .category, .chooseBtn, .submitButton {
-      font-size: 0.9rem; /* Smaller font size */
+    input {
+      display: none;
+    }
+  }
+
+  .uploadHint {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+
+  .formActions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .submitBtn {
+    padding: 0.85rem 2.5rem;
+    background: linear-gradient(135deg, var(--clr-secondary-2), var(--clr-secondary-3));
+    color: var(--clr-white);
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .card {
+      padding: 1.5rem;
+    }
+
+    .formGrid {
+      grid-template-columns: 1fr;
+    }
+
+    .imagePreview {
+      aspect-ratio: 16 / 9;
+    }
+
+    .formActions {
+      justify-content: stretch;
+
+      .submitBtn {
+        width: 100%;
+      }
     }
   }
 `;
+
 export default NewPost;

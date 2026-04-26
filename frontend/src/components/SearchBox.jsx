@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { FiSearch, FiX } from "react-icons/fi";
 
 const SearchBox = ({ currentPage }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -12,11 +13,8 @@ const SearchBox = ({ currentPage }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword) {
-      navigate(
-        `/posts/userPosts/${userId}/search/${keyword.trim()}/page/${currentPage}`
-      );
-      setKeyword("");
+    if (keyword.trim()) {
+      navigate(`/posts/userPosts/${userId}/search/${keyword.trim()}/page/${currentPage}`);
     } else {
       navigate(`/posts/userPosts/${userId}/page/${currentPage}`);
     }
@@ -29,81 +27,110 @@ const SearchBox = ({ currentPage }) => {
 
   return (
     <Wrapper>
-      <form onSubmit={submitHandler}>
+      <form className="searchForm" onSubmit={submitHandler}>
+        <FiSearch className="searchIcon" />
         <input
-          className="searchInput"
           type="text"
           name="q"
           value={keyword}
-          placeholder="SEARCH"
+          placeholder="Search posts..."
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <button type="button" onClick={clearSearch} className="clearBtn">
-          Clear
-        </button>
+        {keyword && (
+          <button type="button" className="clearBtn" onClick={clearSearch} aria-label="Clear">
+            <FiX />
+          </button>
+        )}
+        <button type="submit" className="searchBtn">Search</button>
       </form>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
-  form {
+  width: 100%;
+
+  .searchForm {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 1rem; 
+    background: var(--clr-white);
+    border: 2px solid #e5e7eb;
+    border-radius: 2rem;
+    padding: 0.35rem 0.35rem 0.35rem 1rem;
+    gap: 0.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus-within {
+      border-color: var(--clr-primary-3);
+      box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.15);
+    }
   }
 
-  .searchInput::placeholder {
-    color: var(--clr-white);
-    opacity: 1;
+  .searchIcon {
+    color: #9ca3af;
+    font-size: 1.1rem;
+    flex-shrink: 0;
   }
 
-  .searchInput:focus {
-    outline: 3px solid var(--clr-brown);
-    background-color: var(--clr-primary-2);
-    color: var(--clr-brown);
-  }
-
-  .searchInput {
-    width: 9rem;
-    height: 3.2rem;
-    box-sizing: border-box;
+  input {
+    flex: 1;
     border: none;
-    border-radius: 3rem;
-    font-size: 1.2rem;
-    color: var(--clr-white);
-    background-color: var(--clr-brown);
-    transition: width 0.4s ease-in-out;
-    text-align: center;
-    font-weight: 500;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--clr-primary-4);
+    padding: 0.4rem 0;
+    min-width: 0;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: transparent;
+    }
   }
 
   .clearBtn {
-  background: linear-gradient(135deg, var(--clr-red), var(--clr-red2));
+    background: none;
+    border: none;
+    color: #9ca3af;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    transition: color 0.2s, background 0.2s;
+
+    &:hover {
+      color: var(--clr-red);
+      background: #fee2e2;
+      transform: none;
+      box-shadow: none;
+    }
   }
 
-}
+  .searchBtn {
+    padding: 0.5rem 1.25rem;
+    background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
+    color: var(--clr-white);
+    border: none;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity 0.2s;
 
-  @media (max-width: 800px) {
-    .searchInput {
-      max-width: 8rem;
-    }
-
-    .clearButton {
-      max-width: 8rem; 
-      margin-left: 0.2rem; 
-    }
-  }
-
-  @media (max-width: 500px) {
-    .searchInput {
-      font-size: 0.9rem; 
-    }
-
-    .clearBtn {
-      font-size: 0.9rem; 
+    &:hover {
+      opacity: 0.88;
+      transform: none;
+      box-shadow: none;
+      background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
     }
   }
 `;

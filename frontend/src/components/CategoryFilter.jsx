@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { FiChevronDown } from "react-icons/fi";
 
 const CategoryFilter = ({ onChange }) => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -16,8 +17,7 @@ const CategoryFilter = ({ onChange }) => {
     onChange(newCategory);
   };
 
-  const clearCategory = (e) => {
-    e.preventDefault();
+  const clearCategory = () => {
     setCategory("");
     navigate(`/posts/userPosts/${userId}/page/1`);
     onChange("");
@@ -25,83 +25,82 @@ const CategoryFilter = ({ onChange }) => {
 
   return (
     <Wrapper>
-      <form>
-        <select
-          className="categorySelect"
-          name="category"
-          value={category}
-          onChange={handleCategoryChange}
-        >
-          <option value="">Select a Category</option>
-          <option value="book">Books</option>
-          <option value="movie">Movies</option>
-          <option value="tv_show">TV Shows</option>
-          <option value="restaurant">Restaurants</option>
-          <option value="place">Places</option>
+      <div className="selectWrapper">
+        <FiChevronDown className="chevron" />
+        <select value={category} onChange={handleCategoryChange}>
+          <option value="">All Categories</option>
+          <option value="book">📚 Books</option>
+          <option value="movie">🎬 Movies</option>
+          <option value="tv_show">📺 TV Shows</option>
+          <option value="restaurant">🍽️ Restaurants</option>
+          <option value="place">📍 Places</option>
         </select>
-        <button className="clearBtn" onClick={clearCategory}>
-          Clear
+      </div>
+      {category && (
+        <button className="clearBtn" onClick={clearCategory} type="button">
+          Clear filter
         </button>
-      </form>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
+  gap: 0.75rem;
 
-  form {
+  .selectWrapper {
+    position: relative;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
 
-  .categorySelect {
-    padding: 0.5rem;
-    background-color: var(--clr-primary-4);
-    border: none;
-    border-radius: 3rem;
-    color: var(--clr-white);
-    font-size: 1.2rem;
-    height: 3.2rem;
-    width: 100%;
-    min-width: 12rem;
-    max-width: 22rem;
-    outline: none;
-  }
+    select {
+      appearance: none;
+      background: var(--clr-white);
+      border: 2px solid #e5e7eb;
+      border-radius: 2rem;
+      padding: 0.55rem 2.5rem 0.55rem 1rem;
+      font-size: 0.9rem;
+      color: var(--clr-primary-4);
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
 
-  .categorySelect:hover {
-    transform: scale(1.05);
+      &:focus {
+        outline: none;
+        border-color: var(--clr-primary-3);
+        box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.15);
+      }
+    }
+
+    .chevron {
+      position: absolute;
+      right: 0.85rem;
+      color: #9ca3af;
+      font-size: 1rem;
+      pointer-events: none;
+    }
   }
 
   .clearBtn {
-    background: linear-gradient(135deg, var(--clr-red), var(--clr-red2));
-  }
+    background: none;
+    border: 2px solid #e5e7eb;
+    color: var(--clr-red);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.45rem 0.9rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: none;
+    transition: background 0.2s, border-color 0.2s;
 
-  @media (max-width: 800px) {
-    flex-direction: column;
-
-    gap: 1rem;
-
-    form {
-      flex-direction: row;
-      gap: 1rem;
-    }
-
-    .categorySelect {
-      max-width: 100%;
-      margin-top: 1rem;
-    }
-
-    .clearButton {
-      max-width: 100%;
-      margin-left: 0;
-      margin-top: 1rem;
+    &:hover {
+      background: #fee2e2;
+      border-color: var(--clr-red);
+      transform: none;
+      box-shadow: none;
     }
   }
 `;
