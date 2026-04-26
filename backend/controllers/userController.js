@@ -208,7 +208,7 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       debug: true,
     });
 
-    const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+    const clientUrl = process.env.CLIENT_URL || "https://favoritefaves.onrender.com";
 
     // Email configuration
     const mailOptions = {
