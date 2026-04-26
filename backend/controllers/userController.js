@@ -3,8 +3,6 @@ import generateToken from "../utils/generateToken.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import bcrypt from "bcryptjs";
-
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
@@ -111,8 +109,7 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
 
     if (req.body.password) {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(req.body.password, salt);
+      user.password = req.body.password;
     }
 
     const updatedUser = await user.save();
