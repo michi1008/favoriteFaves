@@ -3,7 +3,6 @@ import generateToken from "../utils/generateToken.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
-import bcrypt from "bcryptjs";
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
@@ -246,19 +245,9 @@ export const resetPassword = asyncHandler(async (req, res) => {
       return res.status(401).send({ message: "No user found" });
     }
 
-    // Hash the new password
-    const salt = await bcrypt.genSalt(10);
-    req.body.newPassword = await bcrypt.hash(req.body.newPassword, salt);
+    user.password = req.body.newPassword;
+    await user.save();
 
-    const updatedUser = await User.findByIdAndUpdate(
-      decodedToken.userId,
-      { password: req.body.newPassword },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(401).send({ message: "Failed to update password" });
-    }
 
     // Send success response
     res.status(200).send({ message: "Password updated" });
