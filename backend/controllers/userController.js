@@ -3,6 +3,7 @@ import generateToken from "../utils/generateToken.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
+import bcrypt from "bcryptjs";
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
