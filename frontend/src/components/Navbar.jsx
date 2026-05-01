@@ -6,7 +6,6 @@ import { useLogoutMutation } from "../slices/usersApiSlice";
 import { logout } from "../slices/authSlice";
 import { LuMenuSquare } from "react-icons/lu";
 import cancel from "../assets/cancel.png";
-import { IoMdLogOut } from "react-icons/io";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -207,17 +206,16 @@ const Wrapper = styled.section`
 
   .logout {
     cursor: pointer;
-    font-size: 1.8rem;
-    color: var(--clr-primary-3);
-    display: flex;
-    align-items: center;
-    padding: 0.4rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--clr-primary-4);
+    padding: 0.4rem 0.6rem;
     border-radius: 0.5rem;
     transition: color 0.2s ease;
   }
 
   .logout:hover {
-    color: var(--clr-red);
+    color: var(--clr-secondary-3);
   }
 
   @media screen and (max-width: 1120px) {
