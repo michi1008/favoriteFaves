@@ -4,18 +4,15 @@ import { logout } from './authSlice'; // Import the logout action
 
 const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
+const PUBLIC_ROUTES = ["/api/users/auth", "/api/users/forget-password", "/api/users/reset-password"];
+
 async function baseQueryWithAuth(args, api, extra) {
-  const state = api.getState();
-  const token = state.auth.token;
+  const result = await baseQuery(args, api, extra);
 
-  const result = await baseQuery(args, api, extra, {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : undefined,
-    },
-  });
+  const url = typeof args === "string" ? args : args?.url || "";
+  const isPublic = PUBLIC_ROUTES.some((route) => url.startsWith(route));
 
-  // Dispatch the logout action on 401.
-  if (result.error && result.error.status === 401) {
+  if (result.error && result.error.status === 401 && !isPublic) {
     api.dispatch(logout());
   }
   return result;
