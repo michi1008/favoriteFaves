@@ -190,25 +190,24 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       expiresIn: "10m",
     });
 
-    // Send the token to the user's email
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false,
       auth: {
         user: process.env.EMAIL,
         pass: process.env.PASSWORD_APP_EMAIL,
       },
-      secure: true, // Use TLS
+      connectionTimeout: 10000,
+      socketTimeout: 10000,
       tls: {
         rejectUnauthorized: false,
       },
-      logger: true,
-      debug: true,
     });
 
     const clientUrl = process.env.CLIENT_URL || "https://favoritefaves.onrender.com";
 
-    // Email configuration
-    const mailOptions = {
+    await transporter.sendMail({
       from: process.env.EMAIL,
       to: req.body.email,
       subject: "Reset Password",
@@ -217,16 +216,9 @@ export const forgetPassword = asyncHandler(async (req, res) => {
         <a href="${clientUrl}/reset-password/${token}">${clientUrl}/reset-password/${token}</a>
         <p>The link will expire in 10 minutes.</p>
         <p>If you didn't request a password reset, please ignore this email.</p>`,
-    };
-
-    // Send the email
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error("Error sending email:", err);
-        return res.status(500).send({ message: err.message });
-      }
-      res.status(200).send({ message: "Email sent" });
     });
+
+    res.status(200).send({ message: "Email sent" });
   } catch (err) {
     console.error("Error in forgetPassword:", err);
     res.status(500).send({ message: err.message });
