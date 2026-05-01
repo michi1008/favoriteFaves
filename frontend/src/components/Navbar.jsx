@@ -78,7 +78,7 @@ const Navbar = () => {
           )}
           {userInfo && (
             <li onClick={handleLogout}>
-              <div className="logout"><IoMdLogOut /></div>
+              <div className="logout">Logout</div>
             </li>
           )}
         </ul>
