@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useLoginMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import Spinner from "../components/Spinner";
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,9 +13,7 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [login, { isLoading }] = useLoginMutation();
-
   const { userInfo } = useSelector((state) => state.auth);
 
   const { search } = useLocation();
@@ -24,9 +21,7 @@ const Login = () => {
   const redirect = sp.get("redirect") || "/";
 
   useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
+    if (userInfo) navigate(redirect);
   }, [navigate, redirect, userInfo]);
 
   const submitHandler = async (e) => {
@@ -40,190 +35,232 @@ const Login = () => {
     }
   };
 
-  if (isLoading) {
-    return <Spinner />;
-  }
+  if (isLoading) return <Spinner />;
 
   return (
     <Wrapper>
-        <div className="loginImg">
-          <img src="https://images.unsplash.com/photo-1513909894411-7d7e04c28ecd?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjcyfHxhYnN0cmFjdHxlbnwwfHwwfHx8MA%3D%3D" />
+      <div className="panel imageSide">
+        <img
+          src="https://images.unsplash.com/photo-1513909894411-7d7e04c28ecd?w=800&auto=format&fit=crop&q=60"
+          alt=""
+        />
+        <div className="imageOverlay">
+          <h2>Welcome back</h2>
+          <p>Log in to see what your friends are loving.</p>
         </div>
-       
-        <form className="loginForm" onSubmit={submitHandler}>
-          <h2 className="loginTitle">Login</h2>
-          <label>Email</label>
-          <input
-            type="email"
-            className="loginInput"
-            placeholder="Enter your email..."
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            className="loginInput"
-            placeholder="Enter your password..."
-            id="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div className="btnContainer">
-            <button className="btn loginBtn" type="submit" disabled={isLoading}>
-              Login
+      </div>
+
+      <div className="panel formSide">
+        <div className="card">
+          <h2 className="cardTitle">Log in</h2>
+          <p className="cardSub">
+            Don't have an account?{" "}
+            <Link to={redirect ? `/signup?redirect=${redirect}` : "/signup"}>
+              Sign up
+            </Link>
+          </p>
+
+          <form onSubmit={submitHandler}>
+            <div className="fieldGroup">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="fieldGroup">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className="forgotRow">
+              <Link to="/forget-password">Forgot password?</Link>
+            </div>
+
+            <button type="submit" disabled={isLoading} className="submitBtn">
+              Log in
             </button>
-            <button className="btn loginSignupBtn">
-              <Link to={redirect ? `/signup?redirect=${redirect}`:"/signup"}>
-                Signup
-              </Link>
-            </button>
-          </div>
-          <div className="forgetPassword">
-            <Link to="/forget-password" className="forgotPasswordLink">
-            Forgot Password?
-          </Link>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
-display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  padding: 2rem;
-  background: linear-gradient(135deg, var(--clr-primary-1), var(--clr-primary-1));
+  display: flex;
   min-height: 100vh;
-  box-sizing: border-box;
 
-  .loginImg {
+  .panel {
     flex: 1;
+  }
+
+  .imageSide {
+    position: relative;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .imageOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(29, 53, 87, 0.85) 40%, transparent);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+
+    h2 {
+      color: var(--clr-white);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+
+  .formSide {
+    display: flex;
     align-items: center;
-    margin-right: 2rem;
-    min-width: 300px;
-  }
-
-  .loginImg img {
-    width: 100%;
-    height: auto;
-    max-height: 35rem;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-  .loginForm {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     padding: 2rem;
-    max-width: 600px;
+    background: var(--clr-primary-1);
+  }
+
+  .card {
     width: 100%;
-    box-sizing: border-box;
-  }
-
-  .loginTitle {
-    font-size: 2.5rem;
-    color: var(--clr-primary-4);
-    margin-bottom: 1rem;
-  }
-
-  label {
-    margin: 1rem 0 0.5rem;
-    color: var(--clr-primary-4);
-    font-size: 1.1rem;
-    align-self: flex-start;
-  }
-
-  .loginInput {
-    width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    background-color: var(--clr-primary-1);
-    border-radius: 5px;
-    font-size: 1rem;
+    max-width: 420px;
+    background: var(--clr-white);
+    border-radius: 1.25rem;
     box-shadow: var(--dark-shadow);
+    padding: 2.5rem;
   }
 
-  .loginInput::placeholder {
+  .cardTitle {
     color: var(--clr-primary-4);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
   }
 
-  .loginInput:focus {
-    outline: none;
-    border-color: var(--clr-brown);
-    box-shadow: var(--dark-shadow);
+  .cardSub {
+    font-size: 0.9rem;
+    color: #6b7280;
+    margin-bottom: 1.75rem;
+
+    a {
+      color: var(--clr-secondary-3);
+      font-weight: 600;
+    }
   }
 
-  .btnContainer {
+  .fieldGroup {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1.1rem;
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--clr-primary-4);
+      text-transform: uppercase;
+      letter-spacing: 0.04rem;
+    }
+
+    input {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--clr-primary-4);
+      background: var(--clr-primary-1);
+      width: 100%;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: var(--clr-primary-3);
+        box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.15);
+      }
+    }
   }
 
-    .loginSignupBtn {
-    background: linear-gradient(
-      135deg,
-      var(--clr-secondary-4),
-      var(--clr-secondary-3)
-    );
+  .forgotRow {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.25rem;
+
+    a {
+      font-size: 0.82rem;
+      color: var(--clr-primary-3);
+      font-weight: 600;
+
+      &:hover {
+        color: var(--clr-secondary-3);
+      }
+    }
   }
 
-  .loginSignupBtn:hover {
-    background: linear-gradient(
-      135deg,
-      var(--clr-primary-4),
-      var(--clr-primary-3)
-    );
+  .submitBtn {
+    width: 100%;
+    padding: 0.85rem;
+    background: linear-gradient(135deg, var(--clr-primary-4), var(--clr-primary-3));
     color: var(--clr-white);
+    border: none;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+
+    &:hover:not(:disabled) {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
   }
 
-  .forgetPassword {
-    margin: 2rem 0;
-  }
-
-  .forgotPasswordLink {
-    color: var(--clr-primary-4);
-    font-size: 1.2rem;
-  }
-
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 768px) {
     flex-direction: column;
 
-    .loginImg {
-      width: 100%;
-      margin-bottom: 1rem;
-      height: 10rem;
+    .imageSide {
+      height: 220px;
+      flex: none;
     }
 
-    .loginImg img {
-    width: 100%;
-    max-height: 15rem;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-
-    .loginForm {
-      width: 100%;
-      padding: 1.5rem;
+    .formSide {
+      flex: 1;
     }
 
-    .btnContainer {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .loginBtn,
-    .loginSignupBtn {
-      width: 100%;
-      margin-bottom: 1rem;
+    .card {
+      box-shadow: none;
+      padding: 2rem 1.25rem;
     }
   }
 `;
