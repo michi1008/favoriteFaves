@@ -16,7 +16,9 @@ const ForgetPasswordForm = () => {
       setIsSuccess(true);
       setMessage(response.message);
     } catch (err) {
-      setMessage(err?.data?.message || 'Something went wrong');
+      setMessage(
+        err?.data?.message || err?.message || 'Something went wrong. Please try again.'
+      );
     }
   };
 
