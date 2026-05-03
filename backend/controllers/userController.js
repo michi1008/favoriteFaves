@@ -2,7 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
 // @access  Public
@@ -167,16 +167,8 @@ export const getUserById = asyncHandler(async (req, res) => {
   }
 });
 
-// Function to log environment variables for debugging
-const logEnvVariables = () => {
-  console.log("Email:", process.env.EMAIL);
-  console.log("App Password:", process.env.PASSWORD_APP_EMAIL);
-  console.log("JWT Secret:", process.env.JWT_SECRET);
-};
-
 export const forgetPassword = asyncHandler(async (req, res) => {
   try {
-    logEnvVariables();
     // Find the user by email
     const user = await User.findOne({ email: req.body.email });
 
@@ -190,25 +182,13 @@ export const forgetPassword = asyncHandler(async (req, res) => {
       expiresIn: "10m",
     });
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD_APP_EMAIL,
-      },
-      connectionTimeout: 10000,
-      socketTimeout: 10000,
-      tls: {
-        rejectUnauthorized: false,
-      },
-    });
-
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const clientUrl = process.env.CLIENT_URL || "https://favoritefaves.onrender.com";
 
-    await transporter.sendMail({
-      from: process.env.EMAIL,
+    await resend.emails.send({
+      from: "FavoriteFaves <onboarding@resend.dev>",
       to: req.body.email,
-      subject: "Reset Password",
+      subject: "Reset Your Password",
       html: `<h1>Reset Your Password</h1>
         <p>Click on the following link to reset your password:</p>
         <a href="${clientUrl}/reset-password/${token}">${clientUrl}/reset-password/${token}</a>
